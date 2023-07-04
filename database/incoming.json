@@ -1,0 +1,46 @@
+{
+    
+    "posts": [
+                {
+                    "id": 1,
+                    "price": 1424,
+                    "payBy": "Transferencia Bancaria",   
+                    "dateValue": "13-03-2021",
+                    "category": "Salario cat"
+                },
+                {
+                    "id": 3,
+                    "price": 113,
+                    "payBy": "Cash",
+                    "dateValue": "23-10-2022",
+                    "category": "Tips"
+                } ,
+                {
+                    "id": 3,
+                    "price": 2563,
+                    "payBy": "Transferencia Bancaria",
+                    "dateValue": "23-10-2022",
+                    "category": "Salario Pedro"
+                } ,
+                {
+                    "id": 3,
+                    "price": 563,
+                    "payBy": "Twint",
+                    "dateValue": "23-5-2023",
+                    "category": "Tips"
+                } ,
+                {
+                    "id": 4,
+                    "price": 463,
+                    "payBy": "Twint",
+                    "dateValue": "23-5-2023",
+                    "category": "Tips"
+                } 
+    
+    ]
+    
+    }
+
+
+
+      

@@ -1,0 +1,87 @@
+  {
+    "posts": [
+      {
+        "id": 1,
+        "price": 1524,
+        "adresse": "Rue du Lac 123",
+        "item": "Trela freddy",
+        "payBy": "Twint",   
+        "dateValue": "10-03-2020",
+        "category": "Food"
+      },
+      {
+        "id": 3,
+        "price": 563,
+        "adresse": "Chemin du Jura 789",
+        "item": "Paddle",
+        "payBy": "Cash",
+        "dateValue": "23-11-2013", 
+        "category": "Health"
+      },
+    {
+      "id": 4,
+      "price": 18,
+      "item": "Casa",
+      "payBy": "Cash",    
+      "dateValue": "20-12-2020",
+      "category": "Casa"
+    },
+    {
+      "id": 5,
+      "price": 15,
+      "item": "Tabaco",
+      "payBy": "Credit Card",   
+      "category": "Food",
+      "dateValue": "23-02-2020"
+    },
+    {
+      "id": 6,
+      "price": 35,
+      "item": "Pneus Carro",
+      "payBy": "Credit Card",   
+      "dateValue": "15-09-2018",
+      "category": "Car"
+    },
+    {
+      "id": 8,
+      "price": 1904,
+      "item": "Sofa",
+      "payBy": "Credit Card",   
+      "dateValue": "05-07-2019",
+      "category": "House"
+    },
+    {
+      "id": 10,
+      "price": 343,
+      "item": "Other",
+      "payBy": "Twint",    
+      "dateValue": "12-04-2021",
+      "category": "Other"
+    },
+    {
+      "id": 11,
+      "price": 21,
+      "item": "Sushi",
+      "payBy": "Credit Card",     
+      "dateValue": "07-09-2022",
+      "category": "Food"
+    },
+    {
+      "id": 12,
+      "price": 34,
+      "item": "Ticket Train",
+      "payBy": "Twint",     
+      "dateValue": "25-11-2020",
+      "category": "Transport"
+    },
+    {
+      "id": 13,
+      "price": 123,
+      "item": "Lidl",
+      "payBy": "Credit Card",   
+      "dateValue": "25-11-2020",
+      "category": "Food"
+    }
+  
+  ]
+}
