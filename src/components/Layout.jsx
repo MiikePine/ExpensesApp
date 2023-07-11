@@ -4,7 +4,7 @@ import Menu from "./Menu";
 import MenuMobile from "./MenuMobile";
 import Header1 from "./Header1";
 
-const Layout = ({ children, users, totalPrice, item, pathName }) => {
+const Layout = ({ children, users, totalPrice, item, pathName, getMonthFromDate, selectedMonth }) => {
   return (
      <main className="relative block md:flex md:h-full bg-neutral-100">
             <Menu className="shadow-lg"/> 
@@ -19,7 +19,7 @@ const Layout = ({ children, users, totalPrice, item, pathName }) => {
                     </div>
 
                     <div className="mx-10">
-                        <Header users={users} totalPrice={totalPrice} item={item} pathName={pathName}/>
+                        <Header users={users} totalPrice={totalPrice} item={item} pathName={pathName} getMonthFromDate={getMonthFromDate}/>
                     {children} 
                     </div>
                 </div>

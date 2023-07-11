@@ -35,7 +35,7 @@ function Search({ users }) {
 
 {/* filter search bar  */}
 {searchFilteredData.length !== 0 && (
-  <div className="mt-16 h-52 w-100 absolute bg-white border-2 border-zinc-300 rounded-lg overflow-hidden overflow-y-auto">
+  <div className="mt-16 w-100 absolute bg-white border-2 border-zinc-300 rounded-lg overflow-hidden overflow-y-auto">
     {searchFilteredData.map((user) => {
       const { id, name, lastName, city, company } = user;
       let renderedProperty = "";
@@ -59,7 +59,7 @@ function Search({ users }) {
           target="_blank"
           key={id}>
 
-          <p className="py-3 w-full pl-4 pr-24 pt-4 hover:bg-neutral-200 cursor-pointer">{renderedProperty}</p>
+          <p className="py-2 w-full pl-4 pr-24 pt-4 hover:bg-neutral-200 cursor-pointer">{renderedProperty}</p>
         </a>
       );
     })}
@@ -68,10 +68,10 @@ function Search({ users }) {
 
 {/* filter search bar ends */}
       <input
-        className="flex-1 h-12 p-6 z-1 border-b relative bg-white rounded-lg shadow-md border-gray md:w-full text-md focus:border-green-500 focus:ring-green-500 focus:outline--600 focus:ring-opacity-40"
+        className="flex-1 h-12 py-0 px-10 z-1 border-b relative bg-white rounded-lg shadow-md border-gray md:w-full text-md focus:border-green-500 focus:ring-green-500 focus:outline--600 focus:ring-opacity-40"
         type="search"
         name="search"
-        placeholder="Search"
+        placeholder="Search.."
         
         onChange={handleSearchFilter}
       />

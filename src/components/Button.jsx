@@ -15,9 +15,9 @@ const Button = ({trimestre, active, ...props}) => {
           {props.Paye}
         </button>
       )}
-      {props.bill && (
+      {props.bills && (
         <button onClick={props.open} className="px-24 py-3 md:px-10 md:py-2 md:ml-2 md:mr-4 text-center text-white rounded-md shadow-lg bg-red hover:bg-black">
-          {props.bill}
+          {props.bills}
         </button>
       )}
     

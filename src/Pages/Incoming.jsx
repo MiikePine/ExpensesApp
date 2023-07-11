@@ -1,66 +1,78 @@
 
-import React, { useState, useEffect } from "react";
-import Layout from "../components/Layout";
+
 import axios from "axios";
-import InfoFilter2 from "../components/InfoFilter2";
+import { Card, Title, Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell } from "@tremor/react";
+import Layout from "../components/Layout";
+import { Fragment, useState, useEffect } from 'react'
+import Register from "../components/Register";
 
-function Incoming({ item, totalSpent, users, totalPrice }) {
-  const [incomingData, setIncomingData] = useState([]);
-  const pathName = location.pathname.slice(1);
-
+const Incoming = ({ item, selectedMonth,  handleAddExpense }) => {
+  const [showRegister, setShowRegister] = useState(false);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetchIncomingData();
-  }, []);
+    fetchExpenses();
+  }, [selectedMonth]);
 
-  const fetchIncomingData = async () => {
+  const fetchExpenses = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/posts");
-      setIncomingData(response.data);
+      const response = await axios.get(`http://localhost:5000/posts?month=${selectedMonth}`);
+      setData(response.data);
     } catch (error) {
-      console.error("Error retrieving incoming data:", error);
+      console.error('Erro ao obter os dados:', error);
     }
   };
 
 
-  console.log(incomingData);
-
   return (
-
-      <Layout user={users} totalSpent={totalSpent} item={item} pathName={pathName}>
-
-
-
-<div className="flex md:grid md:text-left mt-4 flex-row w-full  text-zinc-600 font-bold">
-     <div className="flex justify-between gap-52">
-                <p className="text-xl md:text-sm md:block py-0 md:py-0">Categoria</p>
-                <p className="text-xl md:text-sm md:block py-0 md:py-0">Método Pagamento</p>
-                <div className="flex md:text-sm md:block py-4 md:py-0">
-                  <p className="text-sm">Quantia</p>
-                </div>
-                <p className="text-xl md:text-sm md:block py-4 md:py-0">Data</p>
-          </div>
-    </div>
-<div className="border-b-4 border-neutral-300 pb-8 md:pb-6 md:mx-12"></div>
-
-
-
-        <div>
-          {incomingData.map((item) => (
-            <InfoFilter2
-              key={item.id}
-              item={item}
-              totalPrice={totalPrice}
-              fetchIncomingData={fetchIncomingData}
-              // onDeletingUser={handleDeleteUser}
-            />
-          ))}
+    <Layout items={item}>
+      {showRegister && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <Register />
         </div>
-      </Layout>
-   
+      )}
+
+      <div className="flex justify-end">é
+        <button
+          className="py-3 px-8 mb-4 flex items-center bg-cyan-600 text-white font-bold hover:bg-blue-500 rounded-lg"
+          onClick={handleAddExpense}
+        >
+          Add +
+        </button>
+      </div>
+
+      <div className="bg-white">
+        <Card className="bg-white">
+          <Title className="bg-white text-zinc-400">Lista de Despesas</Title>
+          <Table className="mt-10 bg-white text-green-100">
+            <TableHead className="bg-white">
+              <TableRow className="bg-white">
+                <TableHeaderCell>Category</TableHeaderCell>
+                <TableHeaderCell>Item</TableHeaderCell>
+                <TableHeaderCell>Price</TableHeaderCell>
+                <TableHeaderCell>Date</TableHeaderCell>
+                <TableHeaderCell>Pay By</TableHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.category}</TableCell>
+                  <TableCell>{item.item}</TableCell>
+                  <TableCell>{item.price}</TableCell>
+                  <TableCell>{item.dateValue}</TableCell>
+                  <TableCell>{item.payBy}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Card>
+      </div>
+    </Layout>
   );
-}
+};
 
 export default Incoming;
+
 
 

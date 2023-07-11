@@ -5,11 +5,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const InfoFilter2 = ({item, }) => {
+const InfoFilter2 = ({item}) => {
 
 
-
-
+  
   return (
   <div > 
 <div className="grid mt-2 md:mt-2 py-1 md:pl-32 w-full ">

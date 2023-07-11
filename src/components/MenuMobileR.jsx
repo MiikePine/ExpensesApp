@@ -1,6 +1,6 @@
 
 import { NavLink } from "react-router-dom";
-import { AiFillSetting } from "react-icons/ai";
+import { AiFillSetting } from "react-icons/Ai";
 import { MdLogout } from "react-icons/Md";
 import { RiBillLine } from "react-icons/Ri";
 import { TbUsers } from "react-icons/Tb";
@@ -35,7 +35,7 @@ import React, { useState, useRef, useEffect } from "react";
                 <div className="block md:hidden  mt-5">
                 <div className="mb-4">
                 <NavLink
-                    to="/Members"
+                    to="/Expenses"
                     className={({ isActive, isPending }) =>
                     isPending
                         ? ""
@@ -45,13 +45,13 @@ import React, { useState, useRef, useEffect } from "react";
                     }
                 >
                     <TbUsers size={20} className="mr-4"/>
-                    Members
+                    Expenses
                 </NavLink>
                 </div>
 
                     <div>
                     <NavLink  
-                    to="/Bill"
+                    to="/Dashboard"
                     className={({ isActive, isPending }) =>
                     isPending
                         ? ""
@@ -61,7 +61,7 @@ import React, { useState, useRef, useEffect } from "react";
                     }>
                     
                     <RiBillLine size={20} className="mr-4" />
-                    Bill
+                    Dashboard
                 </NavLink>
                 </div>
                 </div>

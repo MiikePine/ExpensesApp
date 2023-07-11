@@ -24,7 +24,7 @@ const InfoFilter = ({user, onDeletingUser}) => {
       headers: { "Content-Type": "application/json" },
     };
 
-    const response = await fetch(`http://localhost:3000/posts/${user.id}`, requestOptions);
+    const response = await fetch(`http://localhost:3000/posts/`, requestOptions);
     if (response.ok) {  
       console.log("Delete was successful");
       onDeletingUser(user);

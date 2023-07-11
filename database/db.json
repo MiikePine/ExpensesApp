@@ -6,7 +6,7 @@
         "adresse": "Rue du Lac 123",
         "item": "Trela freddy",
         "payBy": "Twint",   
-        "dateValue": "10-03-2020",
+        "dateValue": "2023-06-04",
         "category": "Food"
       },
       {
@@ -15,7 +15,7 @@
         "adresse": "Chemin du Jura 789",
         "item": "Paddle",
         "payBy": "Cash",
-        "dateValue": "23-11-2013", 
+        "dateValue": "2023-06-04", 
         "category": "Health"
       },
     {
@@ -23,7 +23,7 @@
       "price": 18,
       "item": "Casa",
       "payBy": "Cash",    
-      "dateValue": "20-12-2020",
+      "dateValue": "2023-06-04",
       "category": "Casa"
     },
     {
@@ -32,14 +32,14 @@
       "item": "Tabaco",
       "payBy": "Credit Card",   
       "category": "Food",
-      "dateValue": "23-02-2020"
+      "dateValue": "2023-06-04"
     },
     {
       "id": 6,
       "price": 35,
       "item": "Pneus Carro",
       "payBy": "Credit Card",   
-      "dateValue": "15-09-2018",
+      "dateValue": "2023-06-04",
       "category": "Car"
     },
     {
@@ -47,7 +47,7 @@
       "price": 1904,
       "item": "Sofa",
       "payBy": "Credit Card",   
-      "dateValue": "05-07-2019",
+      "dateValue": "2023-06-04",
       "category": "House"
     },
     {
@@ -55,7 +55,7 @@
       "price": 343,
       "item": "Other",
       "payBy": "Twint",    
-      "dateValue": "12-04-2021",
+      "dateValue": "2023-06-04",
       "category": "Other"
     },
     {
@@ -63,7 +63,7 @@
       "price": 21,
       "item": "Sushi",
       "payBy": "Credit Card",     
-      "dateValue": "07-09-2022",
+      "dateValue": "2023-06-04",
       "category": "Food"
     },
     {
@@ -71,7 +71,7 @@
       "price": 34,
       "item": "Ticket Train",
       "payBy": "Twint",     
-      "dateValue": "25-11-2020",
+      "dateValue": "2023-06-04",
       "category": "Transport"
     },
     {
@@ -79,9 +79,160 @@
       "price": 123,
       "item": "Lidl",
       "payBy": "Credit Card",   
-      "dateValue": "25-11-2020",
+      "dateValue": "2023-01-04",
       "category": "Food"
-    }
-  
+    },
+        {
+          "id": 14,
+          "price": 1524,
+          "adresse": "Rue du Lac 123",
+          "item": "Trela freddy",
+          "payBy": "Twint",
+          "dateValue": "2023-06-04",
+          "category": "Food"
+        },
+        {
+          "id": 15,
+          "price": 563,
+          "adresse": "Chemin du Jura 789",
+          "item": "Paddle",
+          "payBy": "Cash",
+          "dateValue": "2023-06-04",
+          "category": "Health"
+        },
+        {
+          "id": 16,
+          "price": 982,
+          "adresse": "Avenue de la Plage 456",
+          "item": "Sunglasses",
+          "payBy": "Cash",
+          "dateValue": "2023-07-15",
+          "category": "Fashion"
+        },
+        {
+          "id": 17,
+          "price": 735,
+          "adresse": "Rue de la Montagne 789",
+          "item": "Hiking Boots",
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-08-22",
+          "category": "Outdoor"
+        },
+        {
+          "id": 18,
+          "price": 419,
+          "adresse": "Avenue des Fleurs 321",
+          "item": "Flower Bouquet",
+          "payBy": "Twint",
+          "dateValue": "2023-09-10",
+          "category": "Gifts"
+        },
+        {
+          "id": 19,
+          "price": 278,
+          "adresse": "Rue du Soleil 567",
+          "item": "Sunscreen",
+          "payBy": "Cash",
+          "dateValue": "2023-10-05",
+          "category": "Health"
+        },
+        {
+          "id": 20,
+          "price": 635,
+          "adresse": "Chemin de la Forêt 890",
+          "item": "Camping Tent",
+          "payBy": "Twint",
+          "dateValue": "2023-11-18",
+          "category": "Outdoor"
+        },
+        {
+          "id": 21,
+          "price": 527,
+          "adresse": "Rue de l'Étoile 123",
+          "item": "Star Pendant",
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-12-02",
+          "category": "Fashion"
+        },
+        {
+          "id": 22,
+          "price": 395,
+          "adresse": "Avenue du Bonheur 456",
+          "item": "Joyful Book",
+          "payBy": "Cash",
+          "dateValue": "2024-01-09",
+          "category": "Books"
+        },
+        {
+          "id": 23,
+          "price": 819,
+          "adresse": "Rue de la Musique 789",
+          "item": "Music Instrument",
+          "payBy": "Twint",
+          "dateValue": "2024-02-14",
+          "category": "Music"
+        },
+        {
+          "id": 24,
+          "price": 672,
+          "adresse": "Chemin du Bonheur 321",
+          "item": "Happiness Jar",
+          "payBy": "Cash",
+          "dateValue": "2024-03-22",
+          "category": "Gifts"
+        },
+        {
+          "id": 25,
+          "price": 479,
+          "adresse": "Avenue du Sport 567",
+          "item": "Sports Shoes",
+          "payBy": "Twint",
+          "dateValue": "2024-04-16",
+          "category": "Sports"
+        },
+        {
+          "id": 26,
+          "price": 592,
+          "adresse": "Rue du Théâtre 890",
+          "item": "Theater Tickets",
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2024-05-08",
+          "category": "Entertainment"
+        },
+        {
+          "id": 27,
+          "price": 378,
+          "adresse": "Chemin de la Plume 123",
+          "item": "Notebook",
+          "payBy": "Cash",
+          "dateValue": "2024-06-14",
+          "category": "Stationery"
+        },
+        {
+          "id": 28,
+          "price": 553,
+          "adresse": "Avenue des Étoiles 456",
+          "item": "Telescope",
+          "payBy": "Twint",
+          "dateValue": "2024-07-25",
+          "category": "Science"
+        },
+        {
+          "id": 29,
+          "price": 914,
+          "adresse": "Rue de la Gourmandise 789",
+          "item": "Gourmet Food Basket",
+          "payBy": "Cash",
+          "dateValue": "2024-08-19",
+          "category": "Food"
+        }
+    
+    
+
+
+
+
+
+
   ]
 }

@@ -1,46 +1,198 @@
 {
+  "posts": [
+    {
+      "id": 1,
+      "price": 1424,
+      "payBy": "Transferencia Bancaria",
+      "dateValue": "2023-06-04",
+      "category": "Salario cat"
+    },
+    {
+      "id": 3,
+      "price": 421,
+      "payBy": "Cash",
+      "dateValue": "2023-10-04",
+      "category": "Tips"
+    },
+    {
+      "id": 2,
+      "price": 563,
+      "payBy": "Transferencia Bancaria",
+      "dateValue": "2023-10-04",
+      "category": "Salario Pedro"
+    },
+    {
+      "id": 4,
+      "price": 2000,
+      "payBy": "Transferencia Bancaria",
+      "dateValue": "2023-07-15",
+      "category": "Renda"
+    },
+    {
+      "id": 5,
+      "price": 50,
+      "payBy": "Cash",
+      "dateValue": "2023-08-20",
+      "category": "Tips"
+    }, 
     
-    "posts": [
-                {
-                    "id": 1,
-                    "price": 1424,
-                    "payBy": "Transferencia Bancaria",   
-                    "dateValue": "13-03-2021",
-                    "category": "Salario cat"
-                },
-                {
-                    "id": 3,
-                    "price": 113,
-                    "payBy": "Cash",
-                    "dateValue": "23-10-2022",
-                    "category": "Tips"
-                } ,
-                {
-                    "id": 3,
-                    "price": 2563,
-                    "payBy": "Transferencia Bancaria",
-                    "dateValue": "23-10-2022",
-                    "category": "Salario Pedro"
-                } ,
-                {
-                    "id": 3,
-                    "price": 563,
-                    "payBy": "Twint",
-                    "dateValue": "23-5-2023",
-                    "category": "Tips"
-                } ,
-                {
-                    "id": 4,
-                    "price": 463,
-                    "payBy": "Twint",
-                    "dateValue": "23-5-2023",
-                    "category": "Tips"
-                } 
-    
-    ]
-    
+        {
+          "id": 1,
+          "price": 1424,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-06-04",
+          "category": "Salario cat"
+        },
+        {
+          "id": 3,
+          "price": 113,
+          "payBy": "Cash",
+          "dateValue": "2023-10-04",
+          "category": "Tips"
+        },
+        {
+          "id": 2,
+          "price": 563,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-10-04",
+          "category": "Salario Pedro"
+        },
+        {
+          "id": 4,
+          "price": 2000,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-07-15",
+          "category": "Renda"
+        },
+        {
+          "id": 5,
+          "price": 50,
+          "payBy": "Cash",
+          "dateValue": "2023-08-20",
+          "category": "Tips"
+        },
+        {
+          "id": 6,
+          "price": 750,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-09-01",
+          "category": "Salario João"
+        },
+        {
+          "id": 7,
+          "price": 100,
+          "payBy": "Cash",
+          "dateValue": "2023-11-10",
+          "category": "Tips"
+        },
+        {
+          "id": 8,
+          "price": 900,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-08-03",
+          "category": "Renda"
+        },
+        {
+          "id": 9,
+          "price": 250,
+          "payBy": "Cash",
+          "dateValue": "2023-09-25",
+          "category": "Tips"
+        },
+        {
+          "id": 10,
+          "price": 1200,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-07-10",
+          "category": "Salario Maria"
+        },
+        {
+          "id": 11,
+          "price": 75,
+          "payBy": "Cash",
+          "dateValue": "2023-08-18",
+          "category": "Tips"
+        },
+        {
+          "id": 12,
+          "price": 1800,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-09-05",
+          "category": "Renda"
+        },
+        {
+          "id": 13,
+          "price": 90,
+          "payBy": "Cash",
+          "dateValue": "2023-11-15",
+          "category": "Tips"
+        },
+        {
+          "id": 14,
+          "price": 950,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-08-07",
+          "category": "Renda"
+        },
+        {
+          "id": 15,
+          "price": 150,
+          "payBy": "Cash",
+          "dateValue": "2023-09-20",
+          "category": "Tips"
+        },
+        {
+          "id": 16,
+          "price": 800,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-07-12",
+          "category": "Salario Pedro"
+        },
+        {
+          "id": 17,
+          "price": 65,
+          "payBy": "Cash",
+          "dateValue": "2023-08-25",
+          "category": "Tips"
+        },
+        {
+          "id": 18,
+          "price": 950,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-09-08",
+          "category": "Renda"
+        },
+        {
+          "id": 19,
+          "price": 80,
+          "payBy": "Cash",
+          "dateValue": "2023-11-20",
+          "category": "Tips"
+        },
+        {
+          "id": 20,
+          "price": 700,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-08-10",
+          "category": "Salario cat"
+        },
+
+        {
+          "id": 20,
+          "price": 7033,
+          "payBy": "Transferencia Bancaria",
+          "dateValue": "2023-08-10",
+          "category": "Salario cat"
+        }
+      ]
     }
+    
+
+
+
+
 
 
 
       
+

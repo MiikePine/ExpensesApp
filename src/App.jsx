@@ -8,8 +8,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Error from "./Pages/Error";
 import Settings from "./Pages/Settings";
 import Logout from "./Pages/Logout";
-import Bill from "./Pages/Bill";
-import Members from "./Pages/Members";
+import Dashboard from "./Pages/Dashboard";
+import Expenses from "./Pages/Expenses";
 import Menu from "./components/Menu";
 import Header from "./components/Header"
 import Layout from "./components/Layout";
@@ -30,8 +30,8 @@ function App() {
         <Route path="*" element={< Error />} /> 
         <Route path="/Settings" element={<Settings />} />
         <Route path="/Logout" element={<Logout/>} />
-        <Route path="/Bill" element={<Bill />} />
-        <Route path="/Members" element={<Members/>} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/Expenses" element={<Expenses/>} />
         <Route path="/Menu" element={<Menu />} />
         <Route path="/Header" element={<Header />} />
         <Route path="/Layout" element={<Layout />} />
