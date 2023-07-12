@@ -57,6 +57,7 @@ const Expenses = ({ user, item, handleRegisterSuccess, selectedMonth }) => {
   };
 
   return (
+    
     <Layout items={item} users={user}>
     
 
