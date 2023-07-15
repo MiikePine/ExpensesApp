@@ -1,8 +1,10 @@
 import React from "react";
 import { Listbox } from "@headlessui/react";
 import { ChevronUpDownIcon, CheckIcon } from "@heroicons/react/20/solid";
+import { useDispatch } from 'react-redux';
+import { setSelectedMonth } from '../store/slices/monthSlice';
 
-function Months({ handleSelectMonth, selectedMonth }) {
+function Months({  selectedMonth, handleMonthSelect }) {
   const months = [
     "Janeiro",
     "Fevereiro",
@@ -18,7 +20,11 @@ function Months({ handleSelectMonth, selectedMonth }) {
     "Dezembro"
   ];
 
-  
+  const dispatch = useDispatch();
+
+  const handleSelectMonth = (newMonth) => {
+    dispatch(setSelectedMonth(newMonth));
+  };
 
   return (
     <div className="w-40">

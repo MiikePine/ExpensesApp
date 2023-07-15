@@ -37,140 +37,140 @@
     }, 
     
         {
-          "id": 1,
+          "id": 12,
           "price": 1424,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-06-04",
           "category": "Salario cat"
         },
         {
-          "id": 3,
+          "id": 13,
           "price": 113,
           "payBy": "Cash",
           "dateValue": "2023-10-04",
           "category": "Tips"
         },
         {
-          "id": 2,
+          "id": 14,
           "price": 563,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-10-04",
           "category": "Salario Pedro"
         },
         {
-          "id": 4,
+          "id": 15,
           "price": 2000,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-07-15",
           "category": "Renda"
         },
         {
-          "id": 5,
+          "id": 16,
           "price": 50,
           "payBy": "Cash",
           "dateValue": "2023-08-20",
           "category": "Tips"
         },
         {
-          "id": 6,
+          "id": 17,
           "price": 750,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-09-01",
           "category": "Salario João"
         },
         {
-          "id": 7,
+          "id": 18,
           "price": 100,
           "payBy": "Cash",
           "dateValue": "2023-11-10",
           "category": "Tips"
         },
         {
-          "id": 8,
+          "id": 19,
           "price": 900,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-08-03",
           "category": "Renda"
         },
         {
-          "id": 9,
+          "id": 20,
           "price": 250,
           "payBy": "Cash",
           "dateValue": "2023-09-25",
           "category": "Tips"
         },
         {
-          "id": 10,
+          "id": 21,
           "price": 1200,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-07-10",
           "category": "Salario Maria"
         },
         {
-          "id": 11,
+          "id": 22,
           "price": 75,
           "payBy": "Cash",
           "dateValue": "2023-08-18",
           "category": "Tips"
         },
         {
-          "id": 12,
+          "id": 23,
           "price": 1800,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-09-05",
           "category": "Renda"
         },
         {
-          "id": 13,
+          "id": 24,
           "price": 90,
           "payBy": "Cash",
           "dateValue": "2023-11-15",
           "category": "Tips"
         },
         {
-          "id": 14,
+          "id": 25,
           "price": 950,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-08-07",
           "category": "Renda"
         },
         {
-          "id": 15,
+          "id": 26,
           "price": 150,
           "payBy": "Cash",
           "dateValue": "2023-09-20",
           "category": "Tips"
         },
         {
-          "id": 16,
+          "id": 27,
           "price": 800,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-07-12",
           "category": "Salario Pedro"
         },
         {
-          "id": 17,
+          "id": 28,
           "price": 65,
           "payBy": "Cash",
           "dateValue": "2023-08-25",
           "category": "Tips"
         },
         {
-          "id": 18,
+          "id": 29,
           "price": 950,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-09-08",
           "category": "Renda"
         },
         {
-          "id": 19,
+          "id": 30,
           "price": 80,
           "payBy": "Cash",
           "dateValue": "2023-11-20",
           "category": "Tips"
         },
         {
-          "id": 20,
+          "id": 31,
           "price": 700,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-08-10",
@@ -178,7 +178,7 @@
         },
 
         {
-          "id": 20,
+          "id": 32,
           "price": 7033,
           "payBy": "Transferencia Bancaria",
           "dateValue": "2023-08-10",

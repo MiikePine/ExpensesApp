@@ -9,55 +9,54 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Months from "./Months";
 import { IoIosArrowDown } from 'react-icons/Io';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedMonth } from '../store/slices/monthSlice';
 
+const getMonthFromDate = (dateString) => {
+  const [year, month, day] = dateString.split("-");
+  const d = new Date(year, month - 1, day);
+  return d.getMonth();
+};
 
-
-  const Header = ({ pathName } ) => {
-    const [totalIncome, setTotalIncome] = useState(0);
-    const [totalExpense, setTotalExpense] = useState(0)
-    const [incomingData, setIncomingData] = useState([]);
-    const [expenseData, setExpenseData] = useState([]);
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(null);
-    const [showMonth, setShowMonth] = useState(false); 
-    const [selectedMonth, setSelectedMonth] = useState("Julho");
-    const [isMonthVisible, setIsMonthVisible] = useState(true);
-
-    
-   
-
-
-    const handleShowMonth = () => {
-      setShowMonth(prevShowMonth => !prevShowMonth); // Toggle the showMonth state
-    }
+const Header = ({ pathName, onMonthChange }) => {
+  const [totalIncome, setTotalIncome] = useState(0);
+  const [totalExpense, setTotalExpense] = useState(0);
+  const [incomingData, setIncomingData] = useState([]);
+  const [expenseData, setExpenseData] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const [showMonth, setShowMonth] = useState(false);
+  const [isMonthVisible, setIsMonthVisible] = useState(true);
   
-
-
-    // expense start  
+  const dispatch = useDispatch();
+  const selectedMonth = useSelector((state) => state.month.value);
+  
+  const handleMonthChange = (newMonth) => {
+    dispatch(setSelectedMonth(newMonth));
+  };
+  
+  // expense start
   useEffect(() => {
     fetchExpenseData();
   }, []);
-
-
+  
   const fetchExpenseData = async () => {
     try {
       const response = await axios.get("http://localhost:3000/posts");
       console.log("Expense Data:", response.data); // Log the fetched data
-
+      
       setExpenseData(response.data);
     } catch (error) {
       console.error("erro de ligacao Expense:", error);
     }
   };
-
-
+  
   useEffect(() => {
     calculateTotalExpense();
   }, [expenseData, selectedMonth]);
-
-
+  
   const calculateTotalExpense = () => {
-    const monthMapping = { 
+    const monthMapping = {
       'Janeiro': 0,
       'Fevereiro': 1,
       'Março': 2,
@@ -70,43 +69,23 @@ import { IoIosArrowDown } from 'react-icons/Io';
       'Outubro': 9,
       'Novembro': 10,
       'Dezembro': 11,
-    }
-   
-
-    const expenseOfMonth = expenseData.filter(item => getMonthFromDate(item.dateValue) === monthMapping[selectedMonth]);
-  
+    };
+    
+    const expenseOfMonth = expenseData.filter(
+      (item) => getMonthFromDate(item.dateValue) === monthMapping[selectedMonth]
+    );
+    
     const sum = expenseOfMonth.reduce((total, item) => {
       console.log('Item month:', getMonthFromDate(item.dateValue));
       console.log('Selected month:', monthMapping[selectedMonth]);
       console.log("Price:", item.price); // Log the price values
       return total + item.price;
     }, 0);
+    
     console.log("Intermediate Sum:", sum); // Log the intermediate sum
     setTotalExpense(sum);
   };
-
-  useEffect(() => {
-    calculateTotalExpense();
-  }, [expenseData, selectedMonth]);
-// expense ends
-
-
-
-
-
-
-const getMonthFromDate = (dateString) => {
-  const [year, month, day] = dateString.split("-");
-  const d = new Date(year, month - 1, day);  // month - 1 porque os meses em JavaScript começam do 0
   
-  
-  
-  
-  
-  return d.getMonth();
-}
-
-
 
 
   // incoming start 
@@ -166,20 +145,12 @@ useEffect(() => {
   }, [incomingData, selectedMonth]);
   // incoming ends
 
-
-
-
-
+ 
 
   const handleSelectMonth = (month) => {
     setSelectedMonth(month);
     setShowMonth(false); // Oculta o componente Months quando um mês é selecionado
   };
-
-
-
-
-
 
   const handleDateChange = (dates) => {
     const [start, end] = dates;
@@ -189,18 +160,15 @@ useEffect(() => {
 
 
   return (
+
+    
    
     <div className="grid">
-
-            
-
-
           <div className="border-b border-zinc-300 mt-2"></div>
  
-<div className="mt-10 justify-end flex">
-          <Months  handleSelectMonth={handleSelectMonth} getMonthFromDate={getMonthFromDate} selectedMonth={selectedMonth} />
+          <div className="mt-10 justify-end flex">
+          <Months onMonthChange={handleSelectMonth} selectedMonth={selectedMonth} />
           </div>
-
 
 
     <div className="flex  justify-between w-full py-6 gap-14 border-neutral-300 rounded-xl mt-4 ">
@@ -272,4 +240,4 @@ useEffect(() => {
 };
 
 export default Header;
-
+export { getMonthFromDate };

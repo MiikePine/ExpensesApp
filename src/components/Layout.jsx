@@ -6,7 +6,7 @@ import Header1 from "./Header1";
 
 const Layout = ({ children, users, totalPrice, item, pathName, getMonthFromDate, selectedMonth }) => {
   return (
-     <main className="relative block md:flex md:h-full bg-neutral-100">
+     <main className="relative block md:flex md:h-full bg-zinc-100">
             <Menu className="shadow-lg"/> 
             <div>   
                 <MenuMobile  />
@@ -19,7 +19,7 @@ const Layout = ({ children, users, totalPrice, item, pathName, getMonthFromDate,
                     </div>
 
                     <div className="mx-10">
-                        <Header users={users} totalPrice={totalPrice} item={item} pathName={pathName} getMonthFromDate={getMonthFromDate}/>
+                        <Header users={users} totalPrice={totalPrice} item={item} pathName={pathName} getMonthFromDate={getMonthFromDate} selectedMonth={selectedMonth}/>
                     {children} 
                     </div>
                 </div>
