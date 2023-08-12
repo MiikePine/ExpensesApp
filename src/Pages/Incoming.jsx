@@ -5,9 +5,30 @@ import Layout from "../components/Layout";
 import { useSelector } from 'react-redux';
 import Register from '../components/Register';
 
-const Expenses = ({ item , showRegister, handleAddExpense}) => {
+const Expenses = ({ item}) => {
   const selectedMonth = useSelector((state) => state.month.value);
+  const [showRegister, setShowRegister] = useState(false);
+
   const [filteredData, setFilteredData] = useState([]);
+
+  const handleAddExpense = () => {
+    setShowRegister(true);
+  };
+
+  const handleOverlayClick = () => {
+    console.log('handleOverlayClick called');
+  };
+
+  const handleRegisterSuccess = () => {
+    console.log('handleRegisterSuccess called');
+  };
+
+  const handleCloseRegister = () => {
+    console.log('handleCloseRegister called');
+  };
+
+
+ 
 
   useEffect(() => {
     fetchExpenses();
@@ -51,13 +72,13 @@ const Expenses = ({ item , showRegister, handleAddExpense}) => {
     <Layout items={item}>
       {showRegister && (
   <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay" onClick={handleOverlayClick}>
-    <Register onRegisterSuccess={handleRegisterSuccess} onClose={handleCloseRegister} />
+<Register onRegisterSuccess={handleRegisterSuccess} onClose={handleClose} />
   </div>
 )}
 
       <div className="flex justify-end">
         <button
-          className="py-2 px-8 mb-4 flex items-center text-sm bg-cyan-600 text-white font-bold hover:bg-blue-500 rounded-lg"
+          className="py-2 px-8 mb-4 flex items-center text-sm bg-teal-700 text-bg-white text-zinc-200 font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700"
           onClick={handleAddExpense}
         >
           Add +
@@ -66,13 +87,12 @@ const Expenses = ({ item , showRegister, handleAddExpense}) => {
 
       <div className="bg-white !shadow-lg">
         <Card className="!bg-white !border-none shadow-lg  grid">
-          <Title className="bg-white !text-zinc-400 text-center">Lista de Despesas</Title>
+          <Title className="bg-white !text-gray-600 text-center">Lista de Despesas</Title>
           <Table className="mt-10 bg-white text-green-100">
             <TableHead className="bg-white">
               <TableRow className="bg-white">
-                <TableHeaderCell>Category</TableHeaderCell>
-                <TableHeaderCell>Item</TableHeaderCell>
-                <TableHeaderCell>Price</TableHeaderCell>
+                <TableHeaderCell>Category</TableHeaderCell>             
+                <TableHeaderCell>Price (CHF)</TableHeaderCell>
                 <TableHeaderCell>Date</TableHeaderCell>
                 <TableHeaderCell>Pay By</TableHeaderCell>
               </TableRow>
@@ -80,8 +100,7 @@ const Expenses = ({ item , showRegister, handleAddExpense}) => {
             <TableBody>
               {filteredData.map((item) => (
                 <TableRow key={item.id}>
-                  <TableCell>{item.category}</TableCell>
-                  <TableCell>{item.item}</TableCell>
+                  <TableCell>{item.category}</TableCell>          
                   <TableCell>{item.price}</TableCell>
                   <TableCell>{item.dateValue}</TableCell>
                   <TableCell>{item.payBy}</TableCell>

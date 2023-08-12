@@ -164,29 +164,17 @@ useEffect(() => {
     
    
     <div className="grid">
-          <div className="border-b border-zinc-300 mt-2"></div>
+          <div className="border-b border-zinc-300 mt-1"></div>
  
-          <div className="mt-10 justify-end flex">
-          <Months onMonthChange={handleSelectMonth} selectedMonth={selectedMonth} />
-          </div>
+      
 
+<div className="mt-10  mb-4 h-1 justify-end flex w-500">
+  <Months onMonthChange={handleSelectMonth} selectedMonth={selectedMonth} />
+</div>
 
     <div className="flex  justify-between w-full py-6 gap-14 border-neutral-300 rounded-xl mt-4 ">
   
 
-     <div className="grid bg-white text-zinc-700 w-1/4 h-32  shadow-lg  rounded-lg">
-        <div className="flex justify-between">
-          <p className="text-sm p-4 text-zinc-400">Gasto</p>
-          <BiSolidDownArrow className="text-red-400  mr-8 mt-4" size={32}  />
-        </div>
-        <div className="flex justify-between">
-
-        <div className="flex">
-          <p className="text-4xl ml-6 text-zinc-500">{totalExpense}</p>
-          <p className="text-xs ml-1">CHF</p>
-        </div>
-          </div>
-      </div>
 
       <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg rounded-lg">
         <div className="flex justify-between">
@@ -195,25 +183,40 @@ useEffect(() => {
         </div>
         <div className="flex justify-between">
 
-        <div className="flex">
+        <div className="flex items-baseline">
           <p className="text-4xl ml-6 text-zinc-500">{totalIncome}</p>
-          <p className="text-xs ml-1">CHF</p>
+          <p className="text-sm text-zinc-500  ml-1">CHF</p>
+        </div>
+          </div>
+      </div>
+
+      <div className="grid bg-white text-zinc-700 w-1/4 h-32  shadow-lg  rounded-lg">
+        <div className="flex justify-between">
+          <p className="text-sm p-4 text-zinc-400">Gasto</p>
+          <BiSolidDownArrow className="text-red-400  mr-8 mt-4" size={32}  />
+        </div>
+        <div className="flex justify-between">
+
+        <div className="flex items-baseline">
+          <p className="text-4xl ml-6 text-zinc-500">{totalExpense}</p>
+          <p className="text-sm text-zinc-500  ml-1">CHF</p>
         </div>
           </div>
       </div>
 
       <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg rounded-lg">
-        <div className="flex justify-between">
+        <div className="flex justify-between ">
           <p className="text-sm p-4 text-zinc-400">Saldo</p>
           <FaWallet className="text-zinc-500  mr-8 mt-4" size={26}  />
         </div>
-        <div className="flex justify-between">
 
-        <div className="flex">
-          <p className="text-4xl ml-6 text-zinc-500">{totalIncome - totalExpense}</p>
-          <p className="text-xs ml-1">CHF</p>
-        </div>
+
+        <div className="flex justify-between" >
+          <div className="flex items-baseline">
+            <p className="text-4xl ml-6 text-zinc-500">{totalIncome - totalExpense}</p>
+            <p className="text-sm text-zinc-500  ml-1">CHF</p>
           </div>
+        </div>
       </div>
 
       <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg rounded-lg">
@@ -223,18 +226,15 @@ useEffect(() => {
         </div>
         <div className="flex justify-between">
 
-        <div className="flex">
+        <div className="flex items-baseline">
           <p className="text-4xl ml-6 text-zinc-500">{(totalExpense / 31).toFixed(1)}</p>
-          <p className="text-xs ml-1">CHF</p>
+          <p className="text-sm text-zinc-500  ml-1">CHF/dia</p>
         </div>
           </div>
       </div>
     
 
     </div>
-    {/* <div className="mt-10 justify-end flex">
-          <Months  handleSelectMonth={handleSelectMonth} selectedMonth={selectedMonth} />
-          </div> */}
     </div>
   );
 };

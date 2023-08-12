@@ -95,6 +95,13 @@ module.exports = {
       },
     },
   },
+
+  extend: {
+    colors: {
+      'custom-border-color': '#FF5733', // Substitua pelo código de cor desejado
+    },
+  },
+
   safelist: [
     {
       pattern:
@@ -125,4 +132,7 @@ module.exports = {
     },
   ],
   plugins: [require("@headlessui/tailwindcss")],
+
+
+
 };

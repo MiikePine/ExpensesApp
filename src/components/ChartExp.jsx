@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
 
-function ChartExp(user) {
+function ChartInc(user) {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
@@ -73,11 +73,6 @@ function ChartExp(user) {
                 // ...
               },
             },
-            layout: {
-              padding: {
-                bottom: 10, // Increase the value to add more space
-              },
-            },
           };
 
         setChartData({ data: chartData, options: chartOptions });
@@ -92,13 +87,11 @@ function ChartExp(user) {
   if (!chartData) {
     return null; // Aguardando os dados serem carregados
   }
-  const chartContainerStyle = {
-    marginBottom: '20px', // Add the desired spacing here
-  };
-  
+
+ 
   return (
     
-    <Doughnut 
+    <Doughnut
     data={chartData.data}
     options={{
       ...chartData.options,
@@ -106,7 +99,6 @@ function ChartExp(user) {
         ...chartData.options.plugins,
         legend: {
           position: 'bottom', // Set 'bottom' for below or 'right' for the side
-          spacing: 10,
         },
       },
     }}
@@ -115,7 +107,7 @@ function ChartExp(user) {
   );
 }
 
-export default ChartExp;
+export default ChartInc;
 
 
 

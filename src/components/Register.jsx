@@ -1,6 +1,3 @@
-
-
-
 import React from "react";
 import Button from "./Button";
 import { TfiClose } from "react-icons/Tfi";
@@ -34,10 +31,7 @@ const Register = ({ onRegisterSuccess , onClose}) => {
   });
 
 
-  const handleClose = () => {
-    setIsOpen(false);
-    onClose(); // Chama a função onClose fornecida como prop
-  };
+
 
   const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [isOpen, setIsOpen] = useState(true);
@@ -45,46 +39,43 @@ const Register = ({ onRegisterSuccess , onClose}) => {
 
 
   const onSubmit = async (data) => {
-    if (acceptedFiles.length > 0) {
-      const postData = {
-        id: data.item,
-        price: data.price,
-        payBy: data.payBy,
-        category: data.category,
-        dateValue: data.dateValue,
-      };
-
-      try {
-        const response = await axios.post("http://localhost:5000/inco", postData);
-        console.log(response.data);
-        onRegisterSuccess(response.data);
-        toast.success("Nova despesa adicionada com sucesso");
-        reset();
-      } catch (error) {
-        console.error("Failed to submit form:", error);
-        toast.error("Erro ao adicionar nova despesa");
-      }
+    try {
+      const response = await axios.post("http://localhost:3000/posts", data);
+      console.log(response.data);
+      onRegisterSuccess(response.data);
+      toast.success("Nova despesa adicionada com sucesso");
+      reset();
+      onClose(); // Fechar o componente Register
+    } catch (error) {
+      console.error("Failed to submit form:", error);
+      console.error("Error name:", error.name);
+      console.error("Error message:", error.message);
+      toast.error("Erro ao adicionar nova despesa");
     }
+  };
+
+  const handleClose = () => {
+    onClose(); // Chama a função onClose fornecida como prop
   };
 
   return (
     isOpen && (
-      <div className="w-screen md:w-2/6 h-96 top-48 ml-10 fixed rounded-md z-50 flex items-center overflow-y-auto mb-10 shadow-xxl" >
+      <div className="w-screen md:w-2/6 h-96 top-48 ml-10 fixed rounded-md z-50 flex items-center overflow-y-auto mb-10 shadow-xxl">
         <div className="flex-1 h-full border-2 border-neutral-200 overflow-y-auto bg-white p-4 relative">
           <div className="flex px-0">
             <div className="ml-auto mr-3 mt-4 pb-0 mb-0">
-            <button onClick={handleClose}>
+              <button onClick={handleClose}>
                 <TfiClose size={30} className="text-red"></TfiClose>
               </button>
             </div>
           </div>
-          <div className="">
+          <div className="flex align-middle justify-center">
             <h1 className="text-sm mb-8 mt-2">Adiciona nova Despesa</h1>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex justify-around mx-0 md:ml-0 md:mr-0 md:flex-row my-2">
-              <div className="mb-4 w-full">
+            <div className="flex flex-col md:flex-row gap-4 mx-8 my-2">
+              <div className="mb-4 flex-1">
                 <Input
                   id="item"
                   register={register("item")}
@@ -96,7 +87,7 @@ const Register = ({ onRegisterSuccess , onClose}) => {
                   <span className="text-xs text-red mt-2">{errors.item.message}</span>
                 )}
               </div>
-              <div className="mb-4 w-full">
+              <div className="mb-4  flex-1">
                 <Input
                   id="category"
                   register={register("category")}
@@ -110,52 +101,58 @@ const Register = ({ onRegisterSuccess , onClose}) => {
               </div>
             </div>
 
-            <div className="flex justify-around mx-0 md:ml-0 md:mr-0 md:flex-row my-4">
-              <div className="mb-4">
-                <Input
-                  id="price"
-                  register={register("price")}
-                  type="number"
-                  placeholder="price"
-                  error={errors.price}
-                />
-                {errors.price && (
-                  <span className="text-xs text-red mt-2">{errors.price.message}</span>
-                )}
-              </div>
-              <div className="mb-4">
-                <Input
-                  id="payBy"
-                  register={register("payBy")}
-                  type="text"
-                  placeholder="Choose a Payment method.."
-                  error={errors.payBy}
-                />
-                {errors.payBy && (
-                  <span className="text-xs text-red mt-2">{errors.payBy.message}</span>
-                )}
-              </div>
+            
+            <div className="flex flex-col md:flex-row gap-4 mx-8 my-2">
+  <div className="mb-4 flex-1">
+    <Input
+      id="category"
+      register={register("category")}
+      type="text"
+      placeholder="Categoria"
+      error={errors.category}
+    />
+  </div>
+  <div className="mb-4 flex-1">
+    <Input
+      id="price"
+      register={register("price")}
+      type="number"
+      placeholder="Preço"
+      error={errors.price}
+    />
+  </div>
+</div>
+
+<div className="flex flex-col md:flex-row gap-4 mx-8 my-2">
+  <div className="mb-4 flex-1">
+    <Input
+      id="payBy"
+      register={register("payBy")}
+      type="text"
+      placeholder="Método de pagamento"
+      error={errors.payBy}
+    />
+  </div>
+  <div className="mb-4 flex-1">
+    <Input
+      id="dateValue"
+      register={register("dateValue")}
+      type="date"
+      placeholder="Data"
+      error={errors.dateValue}
+    />
+  </div>
+ 
+</div>
+
+
+
+<div className="flex justify-end mt-4 mr-8">
+              <Button AddNew="Add" type="submit" />
             </div>
 
-            <div className="flex flex-col ml-8 mr-8 md:ml-0 md:mr-0 md:mb-12 md:flex-row gap-2 my-4">
-              <div className="w-full md:w-1/2">
-                <Input
-                  id="dateValue"
-                  register={register("dateValue")}
-                  type="date"
-                  placeholder="Data"
-                  error={errors.dateValue}
-                />
-                {errors.dateValue && (
-                  <span className="text-xs text-red mt-2">{errors.dateValue.message}</span>
-                )}
-              </div>
-            </div>
-
-            <div className="mt-8 ml-8 mr-8 md:ml-0 md:mr-0 my-8">
-              <Button AddNew="AddNew" className="text-lg " type="submit" onClick={{handleSubmit}} />
-            </div>
           </form>
+          
         </div>
       </div>
     )
@@ -163,5 +160,6 @@ const Register = ({ onRegisterSuccess , onClose}) => {
 };
 
 export default Register;
+
 
 

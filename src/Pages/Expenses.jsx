@@ -4,10 +4,40 @@ import { Card, Title, Table, TableHead, TableHeaderCell, TableBody, TableRow, Ta
 import Layout from "../components/Layout";
 import { useSelector } from 'react-redux';
 import Register from '../components/Register';
+import { compareAsc } from 'date-fns';
 
-const Expenses = ({ showRegister, item, handleAddExpense }) => {
+
+const Expenses = ({ item, handleOverlayClick }) => {
   const selectedMonth = useSelector((state) => state.month.value);
   const [filteredData, setFilteredData] = useState([]);
+  const [showRegister, setShowRegister] = useState(false);
+  const [initialRender, setInitialRender] = useState(true);
+
+  const handleAddExpense = () => {
+    setShowRegister(true);
+  };
+
+  const sortedData = [...filteredData].sort((a, b) =>
+  compareAsc(new Date(a.dateValue), new Date(b.dateValue))
+);
+
+
+  useEffect(() => {
+    if (initialRender) {
+      fetchExpenses(); 
+      setInitialRender(false);
+    } else {
+      fetchExpenses(); 
+    }
+  }, [selectedMonth, initialRender]);
+
+  const handleRegisterSuccess = (data) => {
+   
+  };
+
+  const handleCloseRegister = () => {
+    setShowRegister(false);
+  };
 
   useEffect(() => {
     fetchExpenses();
@@ -18,7 +48,7 @@ const Expenses = ({ showRegister, item, handleAddExpense }) => {
       const response = await axios.get("http://localhost:3000/posts");
       console.log("Response data:", response.data);
 
-      const monthMapping = { 
+      const monthMapping = {
         'Janeiro': 1,
         'Fevereiro': 2,
         'Março': 3,
@@ -50,14 +80,14 @@ const Expenses = ({ showRegister, item, handleAddExpense }) => {
   return (
     <Layout items={item}>
       {showRegister && (
-  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay" onClick={handleOverlayClick}>
-    <Register onRegisterSuccess={handleRegisterSuccess} onClose={handleCloseRegister} />
-  </div>
-)}
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay" onClick={handleOverlayClick}>
+          <Register onRegisterSuccess={handleRegisterSuccess} onClose={handleCloseRegister} />
+        </div>
+      )}
 
       <div className="flex justify-end">
         <button
-          className="py-2 px-8 mb-4 flex items-center text-sm bg-cyan-600 text-white font-bold hover:bg-blue-500 rounded-lg"
+          className="py-2 px-8 mb-4 flex items-center text-sm bg-teal-700 text-bg-white text-zinc-200 font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700"
           onClick={handleAddExpense}
         >
           Add +
@@ -65,14 +95,14 @@ const Expenses = ({ showRegister, item, handleAddExpense }) => {
       </div>
 
       <div className="bg-white !shadow-lg">
-        <Card className="!bg-white !border-none shadow-lg  grid">
-          <Title className="bg-white !text-zinc-400 text-center">Lista de Despesas</Title>
+      <Card className="!bg-white border-red-300 shadow-lg grid">
+          <Title className="bg-white !text-gray-600 text-center">Lista de Despesas</Title>
           <Table className="mt-10 bg-white text-green-100">
             <TableHead className="bg-white">
               <TableRow className="bg-white">
                 <TableHeaderCell>Category</TableHeaderCell>
                 <TableHeaderCell>Item</TableHeaderCell>
-                <TableHeaderCell>Price</TableHeaderCell>
+                <TableHeaderCell>Price (CHF)</TableHeaderCell>
                 <TableHeaderCell>Date</TableHeaderCell>
                 <TableHeaderCell>Pay By</TableHeaderCell>
               </TableRow>
@@ -82,7 +112,7 @@ const Expenses = ({ showRegister, item, handleAddExpense }) => {
                 <TableRow key={user.id}>
                   <TableCell>{user.category}</TableCell>
                   <TableCell>{user.item}</TableCell>
-                  <TableCell>{user.price}</TableCell>
+                  <TableCell>{user.price} CHF</TableCell>
                   <TableCell>{user.dateValue}</TableCell>
                   <TableCell>{user.payBy}</TableCell>
                 </TableRow>

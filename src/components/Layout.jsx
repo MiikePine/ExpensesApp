@@ -6,7 +6,7 @@ import Header1 from "./Header1";
 
 const Layout = ({ children, users, totalPrice, item, pathName, getMonthFromDate, selectedMonth }) => {
   return (
-     <main className="relative block md:flex md:h-full bg-zinc-100">
+     <main className="relative block md:flex md:h-full bg-gray-100">
             <Menu className="shadow-lg"/> 
             <div>   
                 <MenuMobile  />

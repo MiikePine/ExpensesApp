@@ -35,9 +35,9 @@ const Menu = (props) => {
                                       isPending
                                         ? ""
                                         : isActive
-                                        ? "py-3 px-4 px-full flex text-sm bg-cyan-700 text-zinc-200 md:max-w-sm  items-center "
-                                        : "p-5 flex text-sm bg-white text-cyan-700 md:max-w-sm items-center rounded-md"
-                                        }>
+                                        ? "py-3 px-4 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center"
+                                        : "p-5 flex text-sm bg-white text-teal-700 md:max-w-sm items-center rounded-md"
+                                      }>
                                     <RxDashboard size={20} className="mr-4"/>
                                     Dashboard
                               </NavLink>
@@ -51,9 +51,9 @@ const Menu = (props) => {
                                         isPending
                                           ? ""
                                           : isActive
-                                          ? "py-3 px-4 px-full flex text-sm bg-cyan-700 text-zinc-200 md:max-w-sm  items-center "
-                                          : "p-5 flex text-sm bg-white text-cyan-700 items-center rounded-md "    
-                                          }>
+                                          ? "py-3 px-4 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center"
+                                          : "p-5 flex text-sm bg-white text-teal-700 md:max-w-sm items-center rounded-md"
+                                        }>
                                       <RiBillLine size={20} className="mr-4" />
                                       Expenses
                                   </NavLink>
@@ -68,8 +68,8 @@ const Menu = (props) => {
                                       isPending
                                         ? ""
                                         : isActive
-                                        ? "py-3 px-4 px-full flex text-sm bg-cyan-700 text-zinc-200 md:max-w-sm  items-center "
-                                        : "p-5 flex text-sm bg-white text-cyan-700  items-center rounded-md "     
+                                        ? "py-3 px-4 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center"
+                                        : "p-5 flex text-sm bg-white text-teal-700 md:max-w-sm items-center rounded-md"
                                         }>
                                     <AiOutlineFileAdd size={20} className="mr-4" />
                                     Incomings
@@ -86,9 +86,9 @@ const Menu = (props) => {
                                         isPending
                                           ? ""
                                           : isActive
-                                          ? "py-3 px-4 px-full flex text-sm bg-cyan-700 text-zinc-200 md:max-w-sm  items-center "
-                                          : "p-5 flex text-sm bg-white text-cyan-700  items-center rounded-md "     
-                                      }>
+                                          ? "py-3 px-4 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center"
+                                          : "p-5 flex text-sm bg-white text-teal-700 md:max-w-sm items-center rounded-md"
+                                        }>
                                       <MdOutlineSavings size={20} className="mr-4" />
                                       Savings
                                  </NavLink>
@@ -106,8 +106,8 @@ const Menu = (props) => {
                                       isPending
                                         ? ""
                                         : isActive
-                                        ? "py-3 px-4 px-full flex text-sm bg-cyan-700 text-zinc-200 md:max-w-sm  items-center "
-                                        : "p-5 flex text-sm bg-white text-cyan-700 md:max-w-sm items-center rounded-md"    
+                                        ? "py-3 px-4 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center"
+                                        : "p-5 flex text-sm bg-white text-teal-700 md:max-w-sm items-center rounded-md"
                                     }>
                                     <AiFillSetting size={20} className="mr-4"/>
                                     Settings
@@ -121,9 +121,9 @@ const Menu = (props) => {
                               isPending
                                 ? ""
                                 : isActive
-                                ? "py-3 px-4 px-full flex text-sm bg-cyan-700 text-zinc-200 md:max-w-sm  items-center "
-                                : "p-5 flex text-sm bg-white text-cyan-700 md:max-w-sm items-center rounded-md "              
-                            }
+                                ? "py-3 px-4 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center"
+                                : "p-5 flex text-sm bg-white text-teal-700 md:max-w-sm items-center rounded-md"
+                              }
                           >
                             <MdLogout size={20} className="mr-4"/> Logout
                       </NavLink>
