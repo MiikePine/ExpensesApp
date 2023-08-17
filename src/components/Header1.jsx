@@ -23,7 +23,7 @@ function Header1 () {
 
             <div className="flex justify-between items-center w-full">
                     <div className="flex gap-2">
-                        <BiHomeAlt  size={20} className=""/>/
+                        <BiHomeAlt  size={20}/>/
                         <h1>{pathName}</h1> 
                     </div>
                     <div className="">
