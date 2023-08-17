@@ -19,7 +19,7 @@ function Header1 () {
   }, [location]);
 
     return (
-        <div className=" text-zinc-500 pt-2 pb-4 w-full px-4 mt-4 ">
+        <div className=" text-zinc-600 pt-2 pb-4 w-full px-4 mt-4 ">
 
             <div className="flex justify-between items-center w-full">
                     <div className="flex gap-2">
