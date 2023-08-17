@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.15",
+    "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "2.6",
     "@react-icons/all-files": "^4.1.0",
