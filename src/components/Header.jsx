@@ -3,12 +3,12 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaWallet } from 'react-icons/fa';
-import { AiOutlineArrowDown } from 'react-icons/Ai';
-import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/Bi';
+import { AiOutlineArrowDown } from 'react-icons/ai';
+import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Months from "./Months";
-import { IoIosArrowDown } from 'react-icons/Io';
+import { IoIosArrowDown } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedMonth } from '../store/slices/monthSlice';
 
