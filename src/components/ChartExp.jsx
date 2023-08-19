@@ -2,15 +2,41 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
 
-function ChartInc(user) {
+
+function ChartExp() {
+  const selectedMonth = useSelector((state) => state.month.value);
   const [chartData, setChartData] = useState(null);
+
+
+  const monthMappings = {
+    'January': '01',
+    'February': '02',
+    'March': '03',
+    'April': '04',
+    'May': '05',
+    'June': '06',
+    'July': '07',
+    'August': '08',
+    'September': '09',
+    'October': '10',
+    'November': '11',
+    'December': '12',
+  };
+
+
+  const selectedMonthFormatted = monthMappings[selectedMonth]; // Convert to the format expected by the API
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/posts');
+        const response = await axios.get(`http://localhost:3000/posts?month=${selectedMonth}`);
         const data = response.data;
+
+        console.log('API Response:', data);
+
 
         // Agrupar os dados por categoria e calcular a soma dos preços
         const groupedData = data.reduce((result, item) => {
@@ -75,40 +101,44 @@ function ChartInc(user) {
             },
           };
 
-        setChartData({ data: chartData, options: chartOptions });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (!chartData) {
-    return null; // Aguardando os dados serem carregados
+          setChartData({ data: chartData, options: chartOptions });
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+  
+    if (!chartData) {
+      return null; 
+    }
+  
+    console.log('chartData:', chartData);
+  
+    return (
+      <Doughnut
+        data={chartData.data}
+        options={{
+          ...chartData.options,
+          plugins: {
+            ...chartData.options.plugins,
+            legend: {
+              position: 'bottom', 
+            },
+          },
+        }}
+        key={Math.random()}
+      />
+    );
   }
-
- 
-  return (
-    
-    <Doughnut
-    data={chartData.data}
-    options={{
-      ...chartData.options,
-      plugins: {
-        ...chartData.options.plugins,
-        legend: {
-          position: 'bottom', // Set 'bottom' for below or 'right' for the side
-        },
-      },
-    }}
-    key={Math.random()}
-  />
-  );
-}
-
-export default ChartInc;
-
-
-
+  
+  export default ChartExp;
+  
+  
+  
+  
+  
+  
+  
 

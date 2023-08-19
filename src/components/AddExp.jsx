@@ -1,3 +1,4 @@
+
 import React from "react";
 import Button from "./Button";
 import { TfiClose } from "react-icons/Tfi";
@@ -45,7 +46,7 @@ const methodPayment = [
   { id: 4, name: 'Credit Card', unavailable: true },
 ]
 
-const Register = ({ onRegisterSuccess , onClose}) => {
+const AddExp = ({ onRegisterSuccess , onClose}) => {
   const [selectedCategory, setSelectedCategory] = useState(Category[0]);
   const [selectedMethodPayment, setSelectedMethodPayment] = useState(methodPayment[0]);
   
@@ -54,6 +55,7 @@ const Register = ({ onRegisterSuccess , onClose}) => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     reset,
   } = useForm({
@@ -67,25 +69,24 @@ const Register = ({ onRegisterSuccess , onClose}) => {
   const [isOpen, setIsOpen] = useState(true);
 
 
-
   const onSubmit = async (data) => {
     try {
       const response = await axios.post("http://localhost:3000/posts", data);
       console.log(response.data);
       onRegisterSuccess(response.data);
-      toast.success("Nova despesa adicionada com sucesso");
+      toast.success("New Expense add succefully");
       reset();
       onClose(); // Fechar o componente Register
     } catch (error) {
       console.error("Failed to submit form:", error);
       console.error("Error name:", error.name);
       console.error("Error message:", error.message);
-      toast.error("Erro ao adicionar nova despesa");
+      toast.error("Error adding new Expense");
     }
   };
 
   const handleClose = () => {
-    onClose(); // Chama a função onClose fornecida como prop
+    onClose(); 
   };
 
   return (
@@ -100,7 +101,7 @@ const Register = ({ onRegisterSuccess , onClose}) => {
             </div>
           </div>
           <div className="flex align-middle justify-center">
-            <h1 className="text-sm mb-8 mt-2">Adiciona nova Despesa</h1>
+            <h1 className="text-sm mb-8 mt-2">Add new Expense</h1>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -121,34 +122,42 @@ const Register = ({ onRegisterSuccess , onClose}) => {
 
 
         {/* category start */}
-     
+  
               <div className="mb-4 flex-1">
-              <Listbox value={selectedCategory} onChange={setSelectedCategory} 
-                id="Catergory"
-                register={register("Category")}
-                type="text"
-                placeholder="Category"
-                error={errors.Category}
-              >
+              
+              
+  <Listbox
+    value={selectedCategory}
+    onChange={(selectedOption) => {
+      setSelectedCategory(selectedOption);
+      setValue("category", selectedOption.name);
+    }}
+    id="category"
+    name="category"
+  >
+    {({ open }) => (
+      <>
         <div className="relative mt-1">
-        <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-        <span className="block truncate">
-          {selectedCategory ? selectedCategory.name : "Categoria"}
-        </span>
-        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-          <ChevronUpDownIcon
-            className="h-5 w-5 text-gray-400"
-            aria-hidden="true"
-          />
-        </span>
-      </Listbox.Button>
+          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <span className="block truncate">
+              {selectedCategory ? selectedCategory.name : "Categoria"}
+            </span>
+            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+              <ChevronUpDownIcon
+                className="h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
+            </span>
+          </Listbox.Button>
           <Transition
             as={Fragment}
             leave="transition ease-in duration-100"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options
+              className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            >
               {Category.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}
@@ -179,62 +188,57 @@ const Register = ({ onRegisterSuccess , onClose}) => {
               ))}
             </Listbox.Options>
           </Transition>
-          
         </div>
-      </Listbox>
-      <input
-  id="category"
-  type="hidden"
-  {...register("category")} // Certifique-se de que o campo category seja registrado
-/>
-      </div> 
-            </div>
-            <div className="flex flex-col md:flex-row gap-4 mx-8 my-2">
+      </>
+    )}
+  </Listbox>
+  {errors.category && (
+    <span className="text-xs text-red mt-2">Categoria é obrigatória.</span>
+  )}
+</div>
 
 {/* category end */}
-{/* <Input
-      id="category"
-      register={register("category")}
-      type="text"
-      placeholder="Categoria"
-      error={errors.category}
-    /> */}
-
 
 
 
 {/* PAID BY start */}
 
-{/* <div className="mb-4 flex-1">
-<Listbox value={selectedMethodPayment} onChange={setSelectedMethodPayment} > 
+<div className="mb-4 flex-1">
+  <Listbox value={selectedMethodPayment}   onChange={(selectedOption) => {
+      setSelectedMethodPayment(selectedOption);  
+      setValue("payBy", selectedOption.name);    
+    }} id="payBy" name="payBy" >
+    {({ open }) => (
+      <>
         <div className="relative mt-1">
-        <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-        <span className="block truncate">
-          {selectedMethodPayment ? selectedMethodPayment.name : "Método de pagamento..."}
-        </span>
-        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-          <ChevronUpDownIcon
-            className="h-5 w-5 text-gray-400"
-            aria-hidden="true"
-          />
-        </span>
-      </Listbox.Button>
+          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <span className="block truncate">
+              {selectedMethodPayment ? selectedMethodPayment.name : "Método de pagamento..."}
+            </span>
+            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+              <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+            </span>
+          </Listbox.Button>
           <Transition
+            show={open}
             as={Fragment}
             leave="transition ease-in duration-100"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {methodPayment.map((person, personIdx) => (
+            <Listbox.Options
+              static
+              className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            >
+              {methodPayment.map((method, methodIdx) => (
                 <Listbox.Option
-                  key={personIdx}
+                  key={methodIdx}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
                       active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
                     }`
                   }
-                  value={person}
+                  value={method}
                 >
                   {({ selected }) => (
                     <>
@@ -243,13 +247,13 @@ const Register = ({ onRegisterSuccess , onClose}) => {
                           selected ? 'font-medium' : 'font-normal'
                         }`}
                       >
-                        {person.name}
+                        {method.name}
                       </span>
-                      {selected ? (
+                      {selected && (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
                           <CheckIcon className="h-5 w-5" aria-hidden="true" />
                         </span>
-                      ) : null}
+                      )}
                     </>
                   )}
                 </Listbox.Option>
@@ -257,8 +261,19 @@ const Register = ({ onRegisterSuccess , onClose}) => {
             </Listbox.Options>
           </Transition>
         </div>
-      </Listbox>
-      </div>  */}
+      </>
+    )}
+  </Listbox>
+  {errors.payBy && (
+    <span className="text-xs text-red mt-2">Payment Method is mandatory</span>
+  )}
+</div>
+
+
+
+
+
+
 
 {/* PAID BY end */}
 
@@ -277,7 +292,7 @@ const Register = ({ onRegisterSuccess , onClose}) => {
 </div>
 
 <div className="flex flex-col md:flex-row gap-4 mx-8 my-2">
-  <div className="mb-4 flex-1">
+  {/* <div className="mb-4 flex-1">
     <Input
       id="payBy"
       register={register("payBy")}
@@ -285,7 +300,9 @@ const Register = ({ onRegisterSuccess , onClose}) => {
       placeholder="Método de pagamento"
       error={errors.payBy}
     />
-  </div>
+
+
+  </div> */}
   <div className="mb-4 flex-1">
     <Input
       id="dateValue"
@@ -300,7 +317,7 @@ const Register = ({ onRegisterSuccess , onClose}) => {
 
 
 
-<         div className="flex justify-end mt-4 mr-8">
+<div className="flex justify-end mt-4 mr-8">
               <Button AddNew="Add" type="submit" />
             </div>
 
@@ -312,7 +329,10 @@ const Register = ({ onRegisterSuccess , onClose}) => {
   );
 };
 
-export default Register;
+export default AddExp;
+
+
+
 
 
 

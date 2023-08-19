@@ -3,13 +3,13 @@ import axios from 'axios';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
 
-function ChartInc(user) {
+function ChartInc({ selectedMonth }) {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/posts');
+        const response = await axios.get(`http://localhost:5000/posts?month=${selectedMonth}`);
         const data = response.data;
 
         // Agrupar os dados por categoria e calcular a soma dos preços
@@ -75,40 +75,37 @@ function ChartInc(user) {
             },
           };
 
-        setChartData({ data: chartData, options: chartOptions });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (!chartData) {
-    return null; // Aguardando os dados serem carregados
-  }
-
+          setChartData({ data: chartData, options: chartOptions });
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, [selectedMonth]); // Add selectedMonth to the dependency array
+  
+    if (!chartData) {
+      return null; // Aguardando os dados serem carregados
+    }
  
-  return (
-    
-    <Doughnut
-    data={chartData.data}
-    options={{
-      ...chartData.options,
-      plugins: {
-        ...chartData.options.plugins,
-        legend: {
-          position: 'bottom', // Set 'bottom' for below or 'right' for the side
-        },
-      },
-    }}
-    key={Math.random()}
-  />
-  );
-}
-
-export default ChartInc;
-
+    return (
+      <Doughnut
+        data={chartData.data}
+        options={{
+          ...chartData.options,
+          plugins: {
+            ...chartData.options.plugins,
+            legend: {
+              position: 'bottom', // Set 'bottom' for below or 'right' for the side
+            },
+          },
+        }}
+        key={Math.random()}
+      />
+    );
+  }
+  
+  export default ChartInc;
 
 
 

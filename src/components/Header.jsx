@@ -57,18 +57,18 @@ const Header = ({ pathName, onMonthChange }) => {
   
   const calculateTotalExpense = () => {
     const monthMapping = {
-      'Janeiro': 0,
-      'Fevereiro': 1,
-      'Março': 2,
-      'Abril': 3,
-      'Maio': 4,
-      'Junho': 5,
-      'Julho': 6,
-      'Agosto': 7,
-      'Setembro': 8,
-      'Outubro': 9,
-      'Novembro': 10,
-      'Dezembro': 11,
+      'January': 0,
+      'February': 1,
+      'March': 2,
+      'April': 3,
+      'May': 4,
+      'June': 5,
+      'July': 6,
+      'August': 7,
+      'September': 8,
+      'October': 9,
+      'November': 10,
+      'December': 11,
     };
     
     const expenseOfMonth = expenseData.filter(
@@ -113,18 +113,18 @@ useEffect(() => {
 
   const calculateTotalIncome = () => {
     const monthMapping = { 
-      'Janeiro': 0,
-      'Fevereiro': 1,
-      'Março': 2,
-      'Abril': 3,
-      'Maio': 4,
-      'Junho': 5,
-      'Julho': 6,
-      'Agosto': 7,
-      'Setembro': 8,
-      'Outubro': 9,
-      'Novembro': 10,
-      'Dezembro': 11,
+      'January': 0,
+      'February': 1,
+      'March': 2,
+      'April': 3,
+      'May': 4,
+      'June': 5,
+      'July': 6,
+      'August': 7,
+      'September': 8,
+      'October': 9,
+      'November': 10,
+      'December': 11,
     }
    
 
@@ -168,17 +168,15 @@ useEffect(() => {
  
       
 
-<div className="mt-10  mb-4 h-1 justify-end flex w-500">
-  <Months onMonthChange={handleSelectMonth} selectedMonth={selectedMonth} />
-</div>
+      {/* <div className="mt-10 mb-4 h-1 justify-end flex w-500">
+        <Months className="cursor-pointer" onMonthChange={handleSelectMonth} selectedMonth={selectedMonth} />
+      </div> */}
 
-    <div className="flex  justify-between w-full py-6 gap-14 border-neutral-300 rounded-xl mt-4 ">
-  
-
+    <div className="flex justify-between w-full pt-4 py-2 gap-6 border-neutral-300 rounded-xl mt-4 ">
 
       <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg rounded-lg">
         <div className="flex justify-between">
-          <p className="text-sm p-4 text-zinc-400">Ganho</p>
+          <p className="text-sm p-4 text-zinc-400">Incoming</p>
           <BiSolidUpArrow className="text-green-400  mr-8 mt-4" size={32}  />
         </div>
         <div className="flex justify-between">
@@ -192,7 +190,7 @@ useEffect(() => {
 
       <div className="grid bg-white text-zinc-700 w-1/4 h-32  shadow-lg  rounded-lg">
         <div className="flex justify-between">
-          <p className="text-sm p-4 text-zinc-400">Gasto</p>
+          <p className="text-sm p-4 text-zinc-400">Expense</p>
           <BiSolidDownArrow className="text-red-400  mr-8 mt-4" size={32}  />
         </div>
         <div className="flex justify-between">
@@ -206,7 +204,7 @@ useEffect(() => {
 
       <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg rounded-lg">
         <div className="flex justify-between ">
-          <p className="text-sm p-4 text-zinc-400">Saldo</p>
+          <p className="text-sm p-4 text-zinc-400">Balance</p>
           <FaWallet className="text-zinc-500  mr-8 mt-4" size={26}  />
         </div>
 
@@ -221,14 +219,14 @@ useEffect(() => {
 
       <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg rounded-lg">
         <div className="flex justify-between">
-          <p className="text-sm p-4 text-zinc-400">Average</p>
+          <p className="text-sm p-4 text-zinc-400">Average Expense</p>
           <FaWallet className="text-zinc-500  mr-8 mt-4" size={26}  />
         </div>
         <div className="flex justify-between">
 
         <div className="flex items-baseline">
           <p className="text-4xl ml-6 text-zinc-500">{(totalExpense / 31).toFixed(1)}</p>
-          <p className="text-sm text-zinc-500  ml-1">CHF/dia</p>
+          <p className="text-sm text-zinc-500  ml-1">CHF/day</p>
         </div>
           </div>
       </div>

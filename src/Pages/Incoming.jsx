@@ -3,9 +3,9 @@ import axios from "axios";
 import { Card, Title, Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell } from "@tremor/react";
 import Layout from "../components/Layout";
 import { useSelector } from 'react-redux';
-import Register from '../components/Register';
+import AddInc from '../components/AddInc';
 
-const Expenses = ({ item}) => {
+const Incoming = ({ item}) => {
   const selectedMonth = useSelector((state) => state.month.value);
   const [showRegister, setShowRegister] = useState(false);
 
@@ -40,18 +40,18 @@ const Expenses = ({ item}) => {
       console.log("Response data:", response.data);
 
       const monthMapping = { 
-        'Janeiro': 1,
-        'Fevereiro': 2,
-        'Março': 3,
-        'Abril': 4,
-        'Maio': 5,
-        'Junho': 6,
-        'Julho': 7,
-        'Agosto': 8,
-        'Setembro': 9,
-        'Outubro': 10,
-        'Novembro': 11,
-        'Dezembro': 12,
+        'January': 1,
+        'February': 2,
+        'March': 3,
+        'April': 4,
+        'May': 5,
+        'June': 6,
+        'July': 7,
+        'August': 8,
+        'September': 9,
+        'October': 10,
+        'November': 11,
+        'December': 12,
       };
 
       const selectedMonthNumber = monthMapping[selectedMonth];
@@ -72,22 +72,31 @@ const Expenses = ({ item}) => {
     <Layout items={item}>
       {showRegister && (
   <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay" onClick={handleOverlayClick}>
-<Register onRegisterSuccess={handleRegisterSuccess} onClose={handleClose} />
+<AddInc            item={item}
+            handleOverlayClick={handleOverlayClick}
+            onRegisterSuccess={handleRegisterSuccess}
+            onClose={handleCloseRegister}
+            handleAddExpense={handleAddExpense}
+           />
   </div>
 )}
 
-      <div className="flex justify-end">
-        <button
-          className="py-2 px-8 mb-4 flex items-center text-sm bg-teal-700 text-bg-white text-zinc-200 font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700"
-          onClick={handleAddExpense}
-        >
-          Add +
-        </button>
-      </div>
+    
 
-      <div className="bg-white !shadow-lg">
+      <div className="bg-white !shadow-lg mt-10">
         <Card className="!bg-white !border-none shadow-lg  grid">
-          <Title className="bg-white !text-gray-600 text-center">Lista de Despesas</Title>
+        <Title className="bg-white !text-gray-600 flex items-center">
+
+<span className="text-center flex-grow">Expenses List</span>
+          <button
+                className="py-2 px-8 flex items-center text-sm bg-teal-700 text-bg-white text-white font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
+                onClick={handleAddExpense}
+              >
+                Add +
+          </button>
+          
+          </Title>
+
           <Table className="mt-10 bg-white text-green-100">
             <TableHead className="bg-white">
               <TableRow className="bg-white">
@@ -114,4 +123,4 @@ const Expenses = ({ item}) => {
   );
 };
 
-export default Expenses;
+export default Incoming;

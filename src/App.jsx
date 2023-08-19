@@ -15,7 +15,7 @@ import Header from "./components/Header"
 import Layout from "./components/Layout";
 import Filter from "./components/Filter";
 import MenuMobile from "./components/MenuMobile";
-import Register from  "./components/Register";
+import AddExp from  "./components/AddExp";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Incoming from "./Pages/Incoming";
@@ -46,7 +46,7 @@ function App() {
         <Route path="/Layout" element={<Layout />} />
         <Route path="/Filter" element={<Filter />} />
         <Route path="/MenuMobile" element={<MenuMobile />} />
-        <Route path="/Register" element={<Register />} />
+        <Route path="/AddExp" element={<AddExp />} />
         <Route path="/Incoming" element={<Incoming />} />
         <Route path="/Savings" element={<Savings />} />
 

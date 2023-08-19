@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Register from "./Register"
+import AddExp from "./AddExp"
 import Button from "./Button";
 
 
@@ -63,7 +63,7 @@ const Filter = ({ onFilterActif, onSortByDate, onRegisterSuccess }) => {
               </div>
         <div className="border-t-2 border-neutral-300 mt-4 md:border-t-0"></div>
      
-{showRegister && <Register onRegisterSuccess={onRegisterSuccess} />}
+{showRegister && <AddExp onRegisterSuccess={onRegisterSuccess} />}
     </div>
   );
 };
