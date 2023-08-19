@@ -82,12 +82,13 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
   };
 
   const handleClose = () => {
+    console.log("handleClose is called")
     onClose(); 
   };
 
   return (
     isOpen && (
-      <div className="w-screen md:w-2/6 h-96 top-48 ml-10 fixed rounded-md z-50 flex items-center overflow-y-auto mb-10 shadow-xxl">
+      <div className="w-screen md:w-2/6 h-96 top-48 ml-10 fixed z-50 flex items-center overflow-y-auto mb-10 shadow-xxl">
         <div className="flex-1 h-full border-2 border-neutral-200 overflow-y-auto bg-white p-4 relative">
           <div className="flex px-0">
             <div className="ml-auto mr-3 mt-4 pb-0 mb-0">
@@ -103,6 +104,9 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col md:flex-row gap-4 mx-8 my-2">
               <div className="mb-4 flex-1">
+
+
+
                 <Input
                   id="item"
                   register={register("item")}
@@ -133,7 +137,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
     {({ open }) => (
       <>
         <div className="relative mt-1">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+          <Listbox.Button className="relative w-full cursor-default bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span className="block truncate">
               {selectedCategory ? selectedCategory.name : "Categoria"}
             </span>
@@ -151,7 +155,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
             leaveTo="opacity-0"
           >
             <Listbox.Options
-              className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+              className="absolute mt-1 max-h-60 w-full overflow-auto  bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
             >
               {Category.map((person, personIdx) => (
                 <Listbox.Option
@@ -206,7 +210,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
     {({ open }) => (
       <>
         <div className="relative mt-1">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+          <Listbox.Button className="relative w-full cursor-default bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span className="block truncate">
               {selectedMethodPayment ? selectedMethodPayment.name : "Método de pagamento..."}
             </span>
@@ -223,7 +227,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
           >
             <Listbox.Options
               static
-              className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+              className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
             >
               {methodPayment.map((method, methodIdx) => (
                 <Listbox.Option
@@ -268,7 +272,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
 
 
 
-  <div className="mb-4 flex-1">
+  <div className="mb-4">
     <Input
       id="price"
       register={register("price")}
@@ -282,7 +286,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
 <div className="flex flex-col md:flex-row gap-4 mx-8 my-2">
 
 
-  <div className="mb-4 flex-1">
+  <div className="mb-4 bg-red-200">
     <Input
       id="dateValue"
       register={register("dateValue")}

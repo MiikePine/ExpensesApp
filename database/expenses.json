@@ -1679,6 +1679,22 @@
       "price": 331,
       "item": "we",
       "id": 210
+    },
+    {
+      "dateValue": "2023-08-01",
+      "category": "Food",
+      "payBy": "Twint",
+      "price": 21,
+      "item": "Bakery",
+      "id": 211
+    },
+    {
+      "dateValue": "2023-08-03",
+      "category": "Food",
+      "payBy": "Cash",
+      "price": 21,
+      "item": "bakery",
+      "id": 212
     }
   ]
 }

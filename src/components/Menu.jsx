@@ -79,7 +79,7 @@ const Menu = (props) => {
 
 
 
-                            <div className="w-full">
+                            {/* <div className="w-full">
                                   <NavLink  
                                       to="/Savings"
                                       className={({ isActive, isPending }) =>
@@ -92,7 +92,7 @@ const Menu = (props) => {
                                       <MdOutlineSavings size={20} className="mr-4" />
                                       Savings
                                  </NavLink>
-                            </div>
+                            </div> */}
                  </div>
 
 

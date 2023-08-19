@@ -4,42 +4,52 @@ import { Card, Title, Table, TableHead, TableHeaderCell, TableBody, TableRow, Ta
 import Layout from "../components/Layout";
 import { useSelector } from 'react-redux';
 import AddInc from '../components/AddInc';
+import { compareAsc } from 'date-fns';
+import { format } from 'date-fns';
 
-const Incoming = ({ item}) => {
+
+
+const Incoming = ({ item, handleOverlayClick }) => {
   const selectedMonth = useSelector((state) => state.month.value);
-  const [showRegister, setShowRegister] = useState(false);
-
   const [filteredData, setFilteredData] = useState([]);
+  const [showRegister, setShowRegister] = useState(false);
+  const [initialRender, setInitialRender] = useState(true);
 
-  const handleAddExpense = () => {
+  const handleAddIncoming = () => {
     setShowRegister(true);
   };
 
-  const handleOverlayClick = () => {
-    console.log('handleOverlayClick called');
-  };
+  const sortedData = [...filteredData].sort((a, b) =>
+  compareAsc(new Date(a.dateValue), new Date(b.dateValue))
+);
 
-  const handleRegisterSuccess = () => {
-    console.log('handleRegisterSuccess called');
+  useEffect(() => {
+    if (initialRender) {
+      fetchIncoming(); 
+      setInitialRender(false);
+    } else {
+      fetchIncoming(); 
+    }
+  }, [selectedMonth, initialRender]);
+
+  const handleRegisterSuccess = (data) => {
+   
   };
 
   const handleCloseRegister = () => {
-    console.log('handleCloseRegister called');
+    setShowRegister(false);
   };
 
-
- 
-
   useEffect(() => {
-    fetchExpenses();
+    fetchIncoming();
   }, [selectedMonth]);
 
-  const fetchExpenses = async () => {
+  const fetchIncoming = async () => {
     try {
       const response = await axios.get("http://localhost:5000/posts");
       console.log("Response data:", response.data);
 
-      const monthMapping = { 
+      const monthMapping = {
         'January': 1,
         'February': 2,
         'March': 3,
@@ -56,10 +66,13 @@ const Incoming = ({ item}) => {
 
       const selectedMonthNumber = monthMapping[selectedMonth];
 
-      const filteredData = response.data.filter(expense => {
-        const expenseMonth = new Date(expense.dateValue).getMonth() + 1;
-        return expenseMonth === selectedMonthNumber;
-      });
+      const filteredData = response.data.filter(incoming => {
+        const incomingMonth = new Date(incoming.dateValue).getMonth() + 1;
+        return incomingMonth === selectedMonthNumber;
+      }).map(incoming => ({
+        ...incoming,
+        formattedDate: format(new Date(incoming.dateValue), 'dd-MM-yyyy')
+      }));
 
       console.log("Filtered data:", filteredData);
       setFilteredData(filteredData);
@@ -71,51 +84,55 @@ const Incoming = ({ item}) => {
   return (
     <Layout items={item}>
       {showRegister && (
-  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay" onClick={handleOverlayClick}>
-<AddInc            item={item}
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay backdrop-blur-sm" onClick={handleOverlayClick}>
+ <AddInc
+            item={item}
             handleOverlayClick={handleOverlayClick}
             onRegisterSuccess={handleRegisterSuccess}
             onClose={handleCloseRegister}
-            handleAddExpense={handleAddExpense}
-           />
-  </div>
-)}
+            handleAddIncoming={handleAddIncoming}
+          />  
 
-    
+  </div>
+      )}
+
 
       <div className="bg-white !shadow-lg mt-10">
-        <Card className="!bg-white !border-none shadow-lg  grid">
-        <Title className="bg-white !text-gray-600 flex items-center">
+      <Card className="!bg-white border-red-300 shadow-lg">
+      <Title className="bg-white !text-gray-600 flex items-center">
 
-<span className="text-center flex-grow">Expenses List</span>
+          <span className="text-center flex-grow">Incoming List</span>
           <button
-                className="py-2 px-8 flex items-center text-sm bg-teal-700 text-bg-white text-white font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
-                onClick={handleAddExpense}
-              >
-                Add +
+            className="py-2 px-8 flex items-center text-sm bg-teal-700 text-bg-white text-white font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
+            onClick={handleAddIncoming}
+          >
+            Add +
           </button>
-          
-          </Title>
 
-          <Table className="mt-10 bg-white text-green-100">
-            <TableHead className="bg-white">
-              <TableRow className="bg-white">
-                <TableHeaderCell>Category</TableHeaderCell>             
+
+</Title>
+
+
+          <Table className="mt-10 bg-white text-green-100 flex justify-around">
+            <TableHead className="bg-white  justify-between">
+              <TableRow className="bg-white justify-between">
+               
+                <TableHeaderCell>Category</TableHeaderCell>
                 <TableHeaderCell>Price (CHF)</TableHeaderCell>
                 <TableHeaderCell>Date</TableHeaderCell>
                 <TableHeaderCell>Pay By</TableHeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredData.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell>{item.category}</TableCell>          
-                  <TableCell>{item.price}</TableCell>
-                  <TableCell>{item.dateValue}</TableCell>
-                  <TableCell>{item.payBy}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+                {filteredData.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>{user.category}</TableCell>
+                    <TableCell>{user.price} CHF</TableCell>
+                    <TableCell>{user.formattedDate}</TableCell>
+                    <TableCell>{user.payBy}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
           </Table>
         </Card>
       </div>

@@ -357,6 +357,14 @@
       "price": 500,
       "item": "Salary",
       "id": 61
+    },
+    {
+      "dateValue": "2023-02-01",
+      "category": "Tips",
+      "payBy": "Twint",
+      "price": 322,
+      "item": "qwq",
+      "id": 62
     }
   ]
 }
