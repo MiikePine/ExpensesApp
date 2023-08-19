@@ -381,6 +381,22 @@
       "price": 130,
       "item": "Tips Julho",
       "id": 64
+    },
+    {
+      "dateValue": "2023-11-09",
+      "category": "Tips",
+      "payBy": "Twint",
+      "price": 20,
+      "item": "tips",
+      "id": 65
+    },
+    {
+      "dateValue": "2023-09-28",
+      "category": "Salary",
+      "payBy": "Bank Transfer",
+      "price": 2300,
+      "item": "ordenado julho",
+      "id": 66
     }
   ]
 }

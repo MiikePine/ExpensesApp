@@ -2,7 +2,7 @@ import Search from "./Search";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FaWallet } from 'react-icons/Fa';
+import { FaWallet } from 'react-icons/fa';
 import { AiOutlineArrowDown } from 'react-icons/Ai';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/Bi';
 import DatePicker from "react-datepicker";
