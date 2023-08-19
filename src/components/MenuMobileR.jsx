@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { AiFillSetting } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { RiBillLine } from "react-icons/ri";
-import { TbUsers } from "react-icons/Tb";
+import { TbUsers } from "react-icons/tb";
 import React, { useState, useRef, useEffect } from "react";
 
     const MenuMobileR = (props) => {
