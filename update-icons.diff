@@ -1,0 +1,132 @@
+diff --git a/src/components/AddExp.jsx b/src/components/AddExp.jsx
+index 6d61db5..ef31131 100644
+--- a/src/components/AddExp.jsx
++++ b/src/components/AddExp.jsx
+@@ -1,7 +1,7 @@
+ 
+ import React from "react";
+ import Button from "./Button";
+-import { TfiClose } from "react-icons/Tfi";
++import { TfiClose } from "react-icons/tfi";
+ import { useForm } from "react-hook-form";
+ import Input from "./Input";
+ import { useState, Fragment } from "react";
+diff --git a/src/components/AddInc.jsx b/src/components/AddInc.jsx
+index c0d3fdd..58b9436 100644
+--- a/src/components/AddInc.jsx
++++ b/src/components/AddInc.jsx
+@@ -1,7 +1,7 @@
+ 
+ import React from "react";
+ import Button from "./Button";
+-import { TfiClose } from "react-icons/Tfi";
++import { TfiClose } from "react-icons/tfi";
+ import { useForm } from "react-hook-form";
+ import Input from "./Input";
+ import { useState, Fragment } from "react";
+diff --git a/src/components/Header.jsx b/src/components/Header.jsx
+index d6beab9..42a5e7e 100644
+--- a/src/components/Header.jsx
++++ b/src/components/Header.jsx
+@@ -2,13 +2,13 @@ import Search from "./Search";
+ import { useLocation } from "react-router-dom";
+ import { useEffect, useState } from "react";
+ import axios from "axios";
+-import { FaWallet } from 'react-icons/Fa';
+-import { AiOutlineArrowDown } from 'react-icons/Ai';
+-import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/Bi';
++import { FaWallet } from 'react-icons/fa';
++import { AiOutlineArrowDown } from 'react-icons/fi';
++import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
+ import DatePicker from "react-datepicker";
+ import "react-datepicker/dist/react-datepicker.css";
+ import Months from "./Months";
+-import { IoIosArrowDown } from 'react-icons/Io';
++import { IoIosArrowDown } from 'react-icons/io';
+ import { useDispatch, useSelector } from 'react-redux';
+ import { setSelectedMonth } from '../store/slices/monthSlice';
+ 
+diff --git a/src/components/Header1.jsx b/src/components/Header1.jsx
+index 3e3d3eb..f01cc17 100644
+--- a/src/components/Header1.jsx
++++ b/src/components/Header1.jsx
+@@ -1,9 +1,9 @@
+ 
+ import React from "react";
+-import { BiHomeAlt } from "react-icons/Bi";
+-import { AiFillSetting } from "react-icons/Ai";
++import { BiHomeAlt } from "react-icons/bi";
++import { AiFillSetting } from "react-icons/ai";
+ import  { useEffect, useState } from "react";
+-import { BiSolidUser, BiSolidBell } from "react-icons/Bi";
++import { BiSolidUser, BiSolidBell } from "react-icons/bi";
+ import Search from "./Search";
+ import { useLocation } from "react-router-dom"
+ import Months from "./Months";
+diff --git a/src/components/InfoFilter.jsx b/src/components/InfoFilter.jsx
+index 86459b3..c97b1d3 100644
+--- a/src/components/InfoFilter.jsx
++++ b/src/components/InfoFilter.jsx
+@@ -1,8 +1,8 @@
+ import React, { useEffect } from "react";
+ import InfoFilter2 from "./InfoFilter2";
+ import { useState } from "react";
+-import {BsFillArrowUpCircleFill} from "react-icons/Bs";
+-import {BsFillArrowDownCircleFill} from "react-icons/Bs";
++import {BsFillArrowUpCircleFill} from "react-icons/bs";
++import {BsFillArrowDownCircleFill} from "react-icons/bs";
+ import { toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
+ 
+diff --git a/src/components/Menu.jsx b/src/components/Menu.jsx
+index 78d2256..05548d4 100644
+--- a/src/components/Menu.jsx
++++ b/src/components/Menu.jsx
+@@ -1,8 +1,8 @@
+ import React from "react";
+ import { NavLink } from "react-router-dom";
+-import { AiFillSetting,AiOutlineFileAdd } from "react-icons/Ai";
+-import { MdLogout, MdOutlineSavings } from "react-icons/Md";
+-import { RiBillLine } from "react-icons/Ri";
++import { AiFillSetting,AiOutlineFileAdd } from "react-icons/ai";
++import { MdLogout, MdOutlineSavings } from "react-icons/md";
++import { RiBillLine } from "react-icons/ri";
+ import { RxDashboard } from "react-icons/rx";
+ import { Link } from "react-router-dom";
+ import { useNavigate } from "react-router-dom";
+diff --git a/src/components/MenuMobile.jsx b/src/components/MenuMobile.jsx
+index b679957..f879e20 100644
+--- a/src/components/MenuMobile.jsx
++++ b/src/components/MenuMobile.jsx
+@@ -2,11 +2,11 @@
+ 
+ 
+ import React from "react"; 
+-import { AiOutlineMenu } from "react-icons/Ai";
++import { AiOutlineMenu } from "react-icons/ai";
+ import { useState } from "react";
+ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+ import MenuMobileR from "./MenuMobileR";
+-import { TfiClose } from "react-icons/Tfi";
++import { TfiClose } from "react-icons/tfi";
+ 
+ function MenuMobile  () {
+ 
+diff --git a/src/components/MenuMobileR.jsx b/src/components/MenuMobileR.jsx
+index de7bc85..c296c36 100644
+--- a/src/components/MenuMobileR.jsx
++++ b/src/components/MenuMobileR.jsx
+@@ -1,9 +1,9 @@
+ 
+ import { NavLink } from "react-router-dom";
+-import { AiFillSetting } from "react-icons/Ai";
+-import { MdLogout } from "react-icons/Md";
+-import { RiBillLine } from "react-icons/Ri";
+-import { TbUsers } from "react-icons/Tb";
++import { AiFillSetting } from "react-icons/ai";
++import { MdLogout } from "react-icons/md";
++import { RiBillLine } from "react-icons/ri";
++import { TbUsers } from "react-icons/tb";
+ import React, { useState, useRef, useEffect } from "react";
+ 
+     const MenuMobileR = (props) => {
