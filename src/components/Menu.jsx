@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { AiFillSetting,AiOutlineFileAdd } from "react-icons/Ai";
-import { MdLogout, MdOutlineSavings } from "react-icons/Md";
-import { RiBillLine } from "react-icons/Ri";
+import { AiFillSetting,AiOutlineFileAdd } from "react-icons/ai";
+import { MdLogout, MdOutlineSavings } from "react-icons/md";
+import { RiBillLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

@@ -1,8 +1,8 @@
 
 import { NavLink } from "react-router-dom";
-import { AiFillSetting } from "react-icons/Ai";
-import { MdLogout } from "react-icons/Md";
-import { RiBillLine } from "react-icons/Ri";
+import { AiFillSetting } from "react-icons/ai";
+import { MdLogout } from "react-icons/md";
+import { RiBillLine } from "react-icons/ri";
 import { TbUsers } from "react-icons/Tb";
 import React, { useState, useRef, useEffect } from "react";
 
