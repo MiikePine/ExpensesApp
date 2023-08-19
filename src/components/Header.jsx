@@ -174,7 +174,7 @@ useEffect(() => {
 
     <div className="flex justify-between w-full pt-4 py-2 gap-6 border-neutral-300 rounded-xl mt-4 ">
 
-      <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg rounded-lg">
+      <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg ">
         <div className="flex justify-between">
           <p className="text-sm p-4 text-zinc-400">Incoming</p>
           <BiSolidUpArrow className="text-green-400  mr-8 mt-4" size={32}  />
@@ -188,7 +188,7 @@ useEffect(() => {
           </div>
       </div>
 
-      <div className="grid bg-white text-zinc-700 w-1/4 h-32  shadow-lg  rounded-lg">
+      <div className="grid bg-white text-zinc-700 w-1/4 h-32  shadow-lg ">
         <div className="flex justify-between">
           <p className="text-sm p-4 text-zinc-400">Expense</p>
           <BiSolidDownArrow className="text-red-400  mr-8 mt-4" size={32}  />
@@ -202,7 +202,7 @@ useEffect(() => {
           </div>
       </div>
 
-      <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg rounded-lg">
+      <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg ">
         <div className="flex justify-between ">
           <p className="text-sm p-4 text-zinc-400">Balance</p>
           <FaWallet className="text-zinc-500  mr-8 mt-4" size={26}  />
@@ -217,7 +217,7 @@ useEffect(() => {
         </div>
       </div>
 
-      <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg rounded-lg">
+      <div className="grid bg-white text-zinc-700 w-1/4 h-32 shadow-lg ">
         <div className="flex justify-between">
           <p className="text-sm p-4 text-zinc-400">Average Expense</p>
           <FaWallet className="text-zinc-500  mr-8 mt-4" size={26}  />
