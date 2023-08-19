@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import InfoFilter2 from "./InfoFilter2";
 import { useState } from "react";
-import {BsFillArrowUpCircleFill} from "react-icons/Bs";
-import {BsFillArrowDownCircleFill} from "react-icons/Bs";
+import {BsFillArrowUpCircleFill} from "react-icons/bs";
+import {BsFillArrowDownCircleFill} from "react-icons/bs";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

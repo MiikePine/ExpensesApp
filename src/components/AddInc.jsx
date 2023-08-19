@@ -1,7 +1,7 @@
 
 import React from "react";
 import Button from "./Button";
-import { TfiClose } from "react-icons/Tfi";
+import { TfiClose } from "react-icons/tfi";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
 import { useState, Fragment } from "react";

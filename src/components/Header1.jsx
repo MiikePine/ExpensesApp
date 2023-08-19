@@ -1,9 +1,9 @@
 
 import React from "react";
-import { BiHomeAlt } from "react-icons/Bi";
-import { AiFillSetting } from "react-icons/Ai";
+import { BiHomeAlt } from "react-icons/bi";
+import { AiFillSetting } from "react-icons/ai";
 import  { useEffect, useState } from "react";
-import { BiSolidUser, BiSolidBell } from "react-icons/Bi";
+import { BiSolidUser, BiSolidBell } from "react-icons/bi";
 import Search from "./Search";
 import { useLocation } from "react-router-dom"
 import Months from "./Months";
