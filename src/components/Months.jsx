@@ -22,7 +22,7 @@ function Months({ handleMonthSelect }) {
     <div className="w-32">
       <Listbox value={selectedMonth} onChange={handleSelectMonth}>
         <div className="relative">
-          <Listbox.Button className="relative w-full rounded-lg bg-white py-2 pl-3 pr-10 text-left text-xs shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+          <Listbox.Button className="relative w-full  bg-white py-3 pl-3 pr-10 text-left text-xs shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span className="block truncate">{selectedMonth}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />

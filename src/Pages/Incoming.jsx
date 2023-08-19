@@ -101,22 +101,19 @@ const Incoming = ({ item, handleOverlayClick }) => {
       <Card className="!bg-white border-red-300 shadow-lg">
       <Title className="bg-white !text-gray-600 flex items-center">
 
-          <span className="text-center flex-grow">Incoming List</span>
+          <span className="text-center flex-grow ml-10">Incoming List</span>
           <button
             className="py-2 px-8 flex items-center text-sm bg-teal-700 text-bg-white text-white font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
             onClick={handleAddIncoming}
           >
             Add +
           </button>
-
-
 </Title>
 
 
-          <Table className="mt-10 bg-white text-green-100 flex justify-around">
-            <TableHead className="bg-white  justify-between">
-              <TableRow className="bg-white justify-between">
-               
+          <Table className="mt-10 bg-white text-green-100 flex">
+            <TableHead className="bg-white  justify-around">
+              <TableRow className="bg-white  justify-around">
                 <TableHeaderCell>Category</TableHeaderCell>
                 <TableHeaderCell>Price (CHF)</TableHeaderCell>
                 <TableHeaderCell>Date</TableHeaderCell>

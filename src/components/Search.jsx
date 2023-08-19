@@ -68,7 +68,7 @@ function Search({ users }) {
 
 {/* filter search bar ends */}
       <input
-        className="flex-1 h-12 py-0 px-10 z-1 border-b relative bg-white rounded-lg shadow-md border-gray md:w-full text-md focus:border-green-500 focus:ring-green-500 focus:outline-teal-600 focus:ring-opacity-40"
+        className="flex-1 h-12 py-0 px-10 z-1 border-b relative bg-white shadow-md border-gray md:w-full text-md focus:border-green-500 focus:ring-green-500 focus:outline-teal-600 focus:ring-opacity-40"
         type="search"
         name="search"
         placeholder="Search.."

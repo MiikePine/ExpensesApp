@@ -365,6 +365,22 @@
       "price": 322,
       "item": "qwq",
       "id": 62
+    },
+    {
+      "dateValue": "2023-08-01",
+      "category": "Other",
+      "payBy": "Cash",
+      "price": 35,
+      "item": "rent",
+      "id": 63
+    },
+    {
+      "dateValue": "2023-07-06",
+      "category": "Tips",
+      "payBy": "Cash",
+      "price": 130,
+      "item": "Tips Julho",
+      "id": 64
     }
   ]
 }

@@ -20,7 +20,7 @@ function Header1 ({handleSelectMonth, selectedMonth}) {
   }, [location]);
 
     return (
-        <div className=" text-zinc-600 pt-2 pb-6 w-full px-4 mt-4 ">
+        <div className=" text-zinc-600 pt-2 pb-6 w-full  px-10 mt-4 ">
 
             <div className="flex justify-between items-center w-full">
 
@@ -36,7 +36,7 @@ function Header1 ({handleSelectMonth, selectedMonth}) {
 
                    
               
-                      <div className=" h-1 items-center justify-end flex w-500">
+                      <div className=" h-1 items-center justify-end flex w-500 z-50">
                         <Months className="cursor-pointer" onMonthChange={handleSelectMonth} selectedMonth={selectedMonth} />
                       </div>
 

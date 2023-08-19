@@ -124,7 +124,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
 
         {/* category start */}
   
-              <div className="mb-4 flex-1">
+              <div className="mb-4 grid-flow-col">
               
               
   <Listbox
@@ -164,7 +164,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
                   key={personIdx}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                      active ? 'bg-teal-50 text-teal-700' : 'text-gray-900'
                     }`
                   }
                   value={person}
@@ -179,7 +179,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
                         {person.name}
                       </span>
                       {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-teal-600">
                           <CheckIcon className="h-5 w-5" aria-hidden="true" />
                         </span>
                       ) : null}
@@ -204,7 +204,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
 
 {/* PAID BY start */}
 
-<div className="mb-4 flex-1">
+<div className="mb-4">
   <Listbox value={selectedMethodPayment}   onChange={(selectedOption) => {
       setSelectedMethodPayment(selectedOption);  
       setValue("payBy", selectedOption.name);    
@@ -236,7 +236,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
                   key={methodIdx}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                      active ? 'bg-teal-50 text-teal-700' : 'text-gray-900'
                     }`
                   }
                   value={method}
@@ -251,7 +251,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
                         {method.name}
                       </span>
                       {selected && (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3  text-teal-600">
                           <CheckIcon className="h-5 w-5" aria-hidden="true" />
                         </span>
                       )}
@@ -286,7 +286,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
       id="price"
       register={register("price")}
       type="number"
-      placeholder="Preço"
+      placeholder="Price"
       error={errors.price}
     />
   </div>
@@ -298,7 +298,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
       id="dateValue"
       register={register("dateValue")}
       type="date"
-      placeholder="Data"
+      placeholder="Date"
       error={errors.dateValue}
     />
   </div>
