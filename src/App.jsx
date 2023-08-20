@@ -32,7 +32,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Form />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/ForgotPw" element={<ForgotPw />} />
         <Route path="*" element={< Error />} /> 
         <Route path="/Settings" element={<Settings />} />
