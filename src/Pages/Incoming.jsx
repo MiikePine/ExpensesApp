@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import AddInc from '../components/AddInc';
 import { compareAsc } from 'date-fns';
 import { format } from 'date-fns';
-import jsonData from './data/incoming.json';
+import incomingData from './incoming.json';
 
 
 
@@ -68,7 +68,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
 
       const selectedMonthNumber = monthMapping[selectedMonth];
 
-      const filteredData = jsonData.filter(incoming => {
+      const filteredData = incomingData.filter(incoming => {
         const incomingMonth = new Date(incoming.dateValue).getMonth() + 1;
         return incomingMonth === selectedMonthNumber;
       }).map(incoming => ({
