@@ -22,7 +22,7 @@ import Incoming from "./Pages/Incoming";
 import Savings from "./Pages/Savings";
 
 function App() {
-  const [selectedMonth, setSelectedMonth] = useState("Julho"); 
+  const [selectedMonth, setSelectedMonth] = useState("July"); 
 
   const getMonthFromDate = (date) => {
     const monthNumber = new Date(date).getMonth() + 1; // O método getMonth() retorna um valor de 0 a 11, por isso adicionamos 1
@@ -38,8 +38,8 @@ function App() {
         <Route path="/Settings" element={<Settings />} />
         <Route path="/Logout" element={<Logout/>} />
         <Route path="/Dashboard" element={<Dashboard />} />
-        {/* <Route path="/Expenses" element={<Expenses/>} /> */}
-        <Route path="/Expenses" element={<Expenses selectedMonth={selectedMonth} getMonthFromDate={getMonthFromDate} />} />
+        <Route path="/Expenses" element={<Expenses/>} /> 
+    <Route path="/Expenses" element={<Expenses selectedMonth={selectedMonth} getMonthFromDate={getMonthFromDate} />} /> 
 
         <Route path="/Menu" element={<Menu />} />
         <Route path="/Header" element={<Header />} />

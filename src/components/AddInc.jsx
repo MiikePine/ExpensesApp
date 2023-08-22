@@ -119,8 +119,9 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
                 </div>
 
 
-                        <div className="flex gap-2">
                                 {/* category start */}
+                                <div className="flex gap-2">
+
                           
                          <div className="mb-4 grid w-full">              
                           <Listbox
@@ -265,9 +266,11 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
                             <span className="text-xs text-red mt-2">Payment Method is mandatory</span>
                           )}
                         </div>
-                        {/* PAID BY end */}
 
                         </div>
+                        {/* PAID BY end */}
+
+                      
 
                         <div className="flex gap-2">
                               <div className="mb-4">
@@ -292,7 +295,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
                                 />
                               </div>            
                             
-                          </div>
+                        </div>
 
 
                         </div>

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import axios from "axios";
 import { Card, Title, Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell } from "@tremor/react";
 import Layout from "../components/Layout";
 import { useSelector } from 'react-redux';
 import AddExp from '../components/AddExp';
 import { compareAsc } from 'date-fns';
-
+import { initializeApp } from 'firebase/app';
+import { app, } from '../../firebase/firebaseSetup.js'
+import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
+import {myFS} from '../../firebase/firebaseSetup.js'
 
 const Expenses = ({ item, handleOverlayClick }) => {
   const selectedMonth = useSelector((state) => state.month.value);
@@ -22,14 +24,31 @@ const Expenses = ({ item, handleOverlayClick }) => {
 );
 
 
-  useEffect(() => {
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+    
+      const db = getFirestore();
+      const docRef = doc(db, "items", "ksdl601DH4Fptbc9EryS");
+      const docSnap = await getDoc(docRef);
+    
+
     if (initialRender) {
       fetchExpenses(); 
       setInitialRender(false);
     } else {
       fetchExpenses(); 
     }
-  }, [selectedMonth, initialRender]);
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+  
+fetchData();
+
+}, [selectedMonth, initialRender, myFS]);
 
   const handleRegisterSuccess = (data) => {
    
@@ -39,15 +58,23 @@ const Expenses = ({ item, handleOverlayClick }) => {
     setShowRegister(false);
   };
 
+
+
   useEffect(() => {
     fetchExpenses();
   }, [selectedMonth]);
+  
 
   const fetchExpenses = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/posts");
-      console.log("Response data:", response.data);
+   
+const db = getFirestore();
+const collectionRef = collection(db, "items");
+const querySnapshot = await getDocs(collectionRef);
+const responseData = querySnapshot.docs.map((doc) => doc.data());
+console.log("Fetched Data:", responseData);
 
+        
       const monthMapping = {
         'January': 1,
         'February': 2,
@@ -62,20 +89,26 @@ const Expenses = ({ item, handleOverlayClick }) => {
         'November': 11,
         'December': 12,
       };
-
+  
       const selectedMonthNumber = monthMapping[selectedMonth];
-
-      const filteredData = response.data.filter(expense => {
+  
+      const filteredData = responseData.filter(expense => {
         const expenseMonth = new Date(expense.dateValue).getMonth() + 1;
         return expenseMonth === selectedMonthNumber;
-      });
-
+      }).map(expense => ({
+        ...expense,
+        formattedDate: format(new Date(expense.dateValue), 'dd-MM-yyyy')
+      }));
+  
       console.log("Filtered data:", filteredData);
       setFilteredData(filteredData);
     } catch (error) {
       console.error('Erro ao obter os dados:', error);
     }
   };
+
+
+
 
   return (
     <Layout items={item}>

@@ -29,7 +29,7 @@ const schema = Yup.object().shape({
 const Category = [
   { id: 1, name: 'Food', unavailable: false },
   { id: 2, name: 'Accomodation', unavailable: false },
-  { id: 3, name: 'Houve Bills', unavailable: false },
+  { id: 3, name: 'Other', unavailable: false },
   { id: 4, name: 'Transportation', unavailable: true },
   { id: 5, name: 'Sports', unavailable: false },
   { id: 6, name: 'Clothes', unavailable: false },
@@ -71,7 +71,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("http://localhost:3000/posts", data);
+      const response = await axios.post("gs://expenses-4e951.appspot.com/expenses.json", data);
       console.log(response.data);
       onRegisterSuccess(response.data);
       toast.success("New Expense add succefully");
@@ -91,12 +91,12 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
 
   return (
     isOpen && (
-      <div className="w-screen md:w-2/6 h-96 top-48 ml-10 fixed z-50 flex items-center overflow-y-auto mb-10 shadow-xxl backdrop-blur-sm">
-        <div className="flex-1 h-full border-2 border-neutral-200 overflow-y-auto bg-white p-4 relative">
+      <div className="w-screen md:w-2/6 h-110 top-24 ml-10 fixed z-50 flex items-center overflow-y-auto mb-10 shadow-xxl">
+        <div className="flex-1 h-full border-2 border-neutral-200 overflow-y-auto bg-zinc-100 p-4 relative">
           <div className="flex px-0">
             <div className="ml-auto mr-3 mt-4 pb-0 mb-0">
               <button onClick={handleClose}>
-                <TfiClose size={30} className="text-red"></TfiClose>
+              <TfiClose size={30} className="text-red hover:text-red-500 transition-transform font-bold"></TfiClose>
               </button>
             </div>
           </div>
@@ -105,9 +105,9 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col md:flex-row gap-4 mx-8 my-2">
+          <div className="grid gap-2 mx-10 my-2">                  
              
-              <div className="mb-4 flex-1">
+          <div className="mb-4">
                 <Input
                   id="item"
                   register={register("item")}
@@ -123,10 +123,12 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
 
 
         {/* category start */}
-  
-              <div className="mb-4 grid-flow-col">
-              
-              
+                
+        <div className="flex gap-2">
+
+
+
+              <div className="mb-4 grid w-full">              
   <Listbox
     value={selectedCategory}
     onChange={(selectedOption) => {
@@ -204,7 +206,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
 
 {/* PAID BY start */}
 
-<div className="mb-4">
+                        <div className="mb-4 w-full">
   <Listbox value={selectedMethodPayment}   onChange={(selectedOption) => {
       setSelectedMethodPayment(selectedOption);  
       setValue("payBy", selectedOption.name);    
@@ -273,14 +275,14 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
 
 
 
-
+</div>
 
 
 {/* PAID BY end */}
 
 
 
-
+<div className="flex gap-2">
   <div className="mb-4 ">
     <Input
       id="price"
@@ -289,10 +291,8 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
       placeholder="Price"
       error={errors.price}
     />
-  </div>
 </div>
 
-<div className="flex flex-col md:flex-row gap-4 mx-8 my-2">
   <div className="mb-4">
     <Input
       id="dateValue"
@@ -303,6 +303,12 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
     />
   </div>
  
+
+  </div>
+
+
+
+
 </div>
 
 
