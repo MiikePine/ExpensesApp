@@ -405,6 +405,46 @@
       "price": 120,
       "item": "Tips",
       "id": 67
+    },
+    {
+      "dateValue": "2023-08-09",
+      "category": "Tips",
+      "payBy": "Cash",
+      "price": 123,
+      "item": "tips",
+      "id": 68
+    },
+    {
+      "dateValue": "2023-05-17",
+      "category": "Salary",
+      "payBy": "Bank Transfer",
+      "price": 1234,
+      "item": "Salary August",
+      "id": 69
+    },
+    {
+      "dateValue": "2023-08-03",
+      "category": "Tips",
+      "payBy": "Cash",
+      "price": 124,
+      "item": "tips",
+      "id": 70
+    },
+    {
+      "dateValue": "2023-08-23",
+      "category": "Salary",
+      "payBy": "Bank Transfer",
+      "price": 1200,
+      "item": "salary August",
+      "id": 71
+    },
+    {
+      "dateValue": "2023-08-02",
+      "category": "Tips",
+      "payBy": "Cash",
+      "price": 123,
+      "item": "Tips",
+      "id": 72
     }
   ]
 }

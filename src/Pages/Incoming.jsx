@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axios from "axios";
+// import axios from "axios";
 import { Card, Title, Table, TableHead, TableHeaderCell, TableBody, TableRow, TableCell } from "@tremor/react";
 import Layout from "../components/Layout";
 import { useSelector } from 'react-redux';
 import AddInc from '../components/AddInc';
 import { compareAsc } from 'date-fns';
 import { format } from 'date-fns';
+import incomingDB from '../../database/incoming.json'
 
 
 
@@ -40,14 +41,18 @@ const Incoming = ({ item, handleOverlayClick }) => {
     setShowRegister(false);
   };
 
+
+
+
   useEffect(() => {
+    console.log('Incoming Data:', incomingDB.data);
     fetchIncoming();
   }, [selectedMonth]);
 
   const fetchIncoming = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/posts");
-      console.log("Response data:", response.data);
+      console.log("Incoming Data:", incomingDB.posts);
+      setFilteredData(incomingDB.posts);
 
       const monthMapping = {
         'January': 1,
@@ -66,7 +71,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
 
       const selectedMonthNumber = monthMapping[selectedMonth];
 
-      const filteredData = response.data.filter(incoming => {
+      const filteredData = incomingDB.posts.filter(incoming => {
         const incomingMonth = new Date(incoming.dateValue).getMonth() + 1;
         return incomingMonth === selectedMonthNumber;
       }).map(incoming => ({
@@ -77,7 +82,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
       console.log("Filtered data:", filteredData);
       setFilteredData(filteredData);
     } catch (error) {
-      console.error('Erro ao obter os dados:', error);
+      console.error('Error trying to get data:', error);
     }
   };
 
@@ -91,15 +96,14 @@ const Incoming = ({ item, handleOverlayClick }) => {
             onRegisterSuccess={handleRegisterSuccess}
             onClose={handleCloseRegister}
             handleAddIncoming={handleAddIncoming}
-          />  
-
+          /> 
   </div>
       )}
 
 
-      <div className="bg-white !shadow-lg mt-10">
-      <Card className="!bg-white border-red-300 shadow-lg">
-      <Title className="bg-white !text-gray-600 flex items-center">
+      <div className="bg-white !shadow-lg mt-10 border-none ring-0 ">
+      <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
+      <Title className="bg-white !text-gray-600 flex items-center border-none">
 
           <span className="text-center flex-grow ml-10">Incoming List</span>
           <button
@@ -109,10 +113,8 @@ const Incoming = ({ item, handleOverlayClick }) => {
             Add +
           </button>
 </Title>
-
-
-          <Table className="mt-10 bg-white text-green-100 flex">
-            <TableHead className="bg-white  justify-around">
+          <Table className="mt-10 bg-white flex border-none">
+            <TableHead className="bg-white  justify-around ">
               <TableRow className="bg-white  justify-around">
                 <TableHeaderCell>Category</TableHeaderCell>
                 <TableHeaderCell>Price (CHF)</TableHeaderCell>

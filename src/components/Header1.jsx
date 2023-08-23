@@ -12,7 +12,7 @@ const pathName = location.pathname.slice(1);
 
 
 function Header1 ({handleSelectMonth, selectedMonth}) {
-    const location = useLocation(); // usar useLocation
+    const location = useLocation(); 
   const [pathName, setPathName] = useState(location.pathname.slice(1));
 
   useEffect(() => {

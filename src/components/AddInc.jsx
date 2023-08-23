@@ -4,7 +4,7 @@ import Button from "./Button";
 import { TfiClose } from "react-icons/tfi";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import UploadComponent from "./UploadComponent";
 import axios from "axios";
 import { toast } from 'react-toastify';
@@ -43,9 +43,10 @@ const methodPayment = [
 ]
 
 const AddInc = ({ onRegisterSuccess , onClose}) => {
-  const [selectedCategory, setSelectedCategory] = useState(Category[0]);
-  const [selectedMethodPayment, setSelectedMethodPayment] = useState(methodPayment[0]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedMethodPayment, setSelectedMethodPayment] = useState(null);
   
+
 
 
   const {
@@ -98,7 +99,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
             </div>
           </div>
           <div className="flex align-middle justify-center">
-            <h1 className="text-sm mb-8 mt-2">Add new Income</h1>
+            <h1 className="text-xl mb-8 mt-2 text-teal-700 font-bold">Add new Income</h1>
           </div>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -138,7 +139,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
                                 <div className="relative mt-1 z-10 ">
                                   <Listbox.Button className="relative w-full cursor-default bg-white py-3 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-teal-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                                     <span className="block truncate">
-                                      {selectedCategory ? selectedCategory.name : "Categoria"}
+                                      {selectedCategory ? selectedCategory.name : "Income source"}
                                     </span>
                                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                       <ChevronUpDownIcon
@@ -211,7 +212,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
                                 <div className="relative mt-1">
                                   <Listbox.Button className="relative w-full cursor-default bg-white py-3 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                                     <span className="block truncate">
-                                      {selectedMethodPayment ? selectedMethodPayment.name : "Método de pagamento..."}
+                                    {selectedMethodPayment ? selectedMethodPayment.name : "Paid by"}
                                     </span>
                                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                       <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -273,7 +274,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
                       
 
                         <div className="flex gap-2">
-                              <div className="mb-4">
+                              <div className="mb-4 w-full">
                                 <Input
                                   id="price"
                                   register={register("price")}
@@ -285,7 +286,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
                           
 
                             
-                              <div className="mb-4">
+                              <div className="mb-4 w-full">
                                 <Input
                                   id="dateValue"
                                   register={register("dateValue")}
@@ -301,7 +302,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
                         </div>
 
 
-                        <div className="flex justify-end mt-4 mr-8">
+                        <div className="flex justify-end mt-4 mr-10">
                             <Button AddNew="Add" type="submit" />
                         </div>
 

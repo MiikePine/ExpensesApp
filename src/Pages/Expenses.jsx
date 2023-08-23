@@ -6,10 +6,14 @@ import AddExp from '../components/AddExp';
 import { compareAsc } from 'date-fns';
 import { initializeApp } from 'firebase/app';
 import { app, } from '../../firebase/firebaseSetup.js'
-import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import {myFS} from '../../firebase/firebaseSetup.js'
+import {initializeFB} from "../../firebase/dataLoader"
 
-const Expenses = ({ item, handleOverlayClick }) => {
+initializeFB()
+
+
+const Expenses = ({ item, handleOverlayClick, initializeFB }) => {
   const selectedMonth = useSelector((state) => state.month.value);
   const [filteredData, setFilteredData] = useState([]);
   const [showRegister, setShowRegister] = useState(false);
@@ -26,13 +30,16 @@ const Expenses = ({ item, handleOverlayClick }) => {
 
 
 useEffect(() => {
+
   const fetchData = async () => {
     try {
     
+
       const db = getFirestore();
-      const docRef = doc(db, "items", "ksdl601DH4Fptbc9EryS");
-      const docSnap = await getDoc(docRef);
-    
+      const collectionRef = collection(db, "items");
+      const querySnapshot = await getDocs(collectionRef);
+      const responseData = querySnapshot.docs.map((doc) => doc.data());
+      console.log("Fetched Data:", responseData);
 
     if (initialRender) {
       fetchExpenses(); 
@@ -48,16 +55,16 @@ useEffect(() => {
   
 fetchData();
 
-}, [selectedMonth, initialRender, myFS]);
+}, 
 
-  const handleRegisterSuccess = (data) => {
-   
+[selectedMonth, initialRender, myFS]);
+
+  const handleRegisterSuccess = (data) => { 
   };
 
   const handleCloseRegister = () => {
     setShowRegister(false);
   };
-
 
 
   useEffect(() => {
@@ -127,7 +134,7 @@ console.log("Fetched Data:", responseData);
 
 
       <div className="bg-white !shadow-lg mt-10">
-      <Card className="!bg-white border-red-300 shadow-lg">
+      <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
       <Title className="bg-white !text-gray-600 flex items-center">
 
           <span className="text-center flex-grow">Expenses List</span>
@@ -142,7 +149,7 @@ console.log("Fetched Data:", responseData);
 </Title>
 
 
-          <Table className="mt-10 bg-white text-green-100 flex justify-around">
+          <Table className="mt-10 bg-white text-green-100 flex justify-around ">
             <TableHead className="bg-white  justify-between">
               <TableRow className="bg-white justify-between">
                 <TableHeaderCell>Item</TableHeaderCell>

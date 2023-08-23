@@ -2,44 +2,42 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
-import { useSelector } from 'react-redux';
+import expenseDB from '../../database/expenses.json'
+import {months} from './Months';
 
 
-function ChartExp() {
-  const selectedMonth = useSelector((state) => state.month.value);
+const categoryColors = {
+  Car: 'rgb(54, 162, 235)',         // Blue
+  Technology: 'rgb(255, 99, 132)',  // Red
+  Food: 'rgb(255, 159, 64)',        // Orange
+  Transport: 'rgb(75, 192, 192)',   // Teal
+  Bills: 'rgb(153, 102, 255)',      // Purple
+  Accomodation: 'rgb(255, 206, 86)',// Yellow
+  Health: 'rgb(0, 128, 0)',        // Green
+  "Night Life": 'rgb(215, 99, 132)',// Pink
+  Sports: 'rgb(148, 159, 177)',     // Gray
+  Other: 'rgb(0, 210, 145', // Green palid
+};
+
+function ChartExp({ selectedMonth }) {
   const [chartData, setChartData] = useState(null);
 
-
-  const monthMappings = {
-    'January': '01',
-    'February': '02',
-    'March': '03',
-    'April': '04',
-    'May': '05',
-    'June': '06',
-    'July': '07',
-    'August': '08',
-    'September': '09',
-    'October': '10',
-    'November': '11',
-    'December': '12',
-  };
-
-
-  const selectedMonthFormatted = monthMappings[selectedMonth]; // Convert to the format expected by the API
-
-
   useEffect(() => {
+    console.log('Selected Month chart incmome:', selectedMonth);
+  
+  
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/posts?month=${selectedMonth}`);
-        const data = response.data;
+        const data = expenseDB.posts;
 
-        console.log('API Response:', data);
+        const filteredData = data.filter(item => {
+          const itemMonth = new Date(item.dateValue).getMonth();
+          return itemMonth === months.indexOf(selectedMonth);
+        });
 
 
         // Agrupar os dados por categoria e calcular a soma dos preços
-        const groupedData = data.reduce((result, item) => {
+        const groupedData = filteredData.reduce((result, item) => {
           if (result[item.category]) {
             result[item.category] += item.price;
           } else {
@@ -52,6 +50,9 @@ function ChartExp() {
         const labels = Object.keys(groupedData);
         const values = Object.values(groupedData);
 
+        const backgroundColors = labels.map((label) => categoryColors[label]);
+
+
         // Calcular as porcentagens
         const total = values.reduce((sum, value) => sum + value, 0);
         const percentages = values.map((value) => ((value / total) * 100).toFixed(2));
@@ -63,25 +64,8 @@ function ChartExp() {
               {
                 label: 'CHF',
                 data: values,
-              backgroundColor: [
-                'rgb(255, 99, 132)', // Rosa claro
-                'rgb(54, 162, 235)', // Azul claro
-                'rgb(255, 206, 86)', // Amarelo claro
-                'rgb(75, 192, 192)', // Verde azulado claro
-                'rgb(153, 102, 255)', // Roxo claro
-                'rgb(255, 159, 64)', // Laranja claro
-                'rgb(148, 159, 177)', // Cinza claro
-              ],
-              
-              borderColor: [
-                'rgba(255, 99, 132, 1)', // Rosa claro
-                'rgba(54, 162, 235, 1)', // Azul claro
-                'rgba(255, 206, 86, 1)', // Amarelo claro
-                'rgba(75, 192, 192, 1)', // Verde azulado claro
-                'rgba(153, 102, 255, 1)', // Roxo claro
-                'rgba(255, 159, 64, 1)', // Laranja claro
-                'rgba(148, 159, 177, 1)', // Cinza claro
-              ],
+                backgroundColor: backgroundColors,
+
               
               borderWidth: 1,
             },
@@ -108,23 +92,22 @@ function ChartExp() {
       };
   
       fetchData();
-    }, []);
+    }, [selectedMonth]); // Add selectedMonth to the dependency array
   
     if (!chartData) {
-      return null; 
+      return null; // Aguardando os dados serem carregados
     }
-  
-    console.log('chartData:', chartData);
-  
+ 
     return (
       <Doughnut
+      
         data={chartData.data}
         options={{
           ...chartData.options,
           plugins: {
             ...chartData.options.plugins,
             legend: {
-              position: 'bottom', 
+              position: 'bottom', // Set 'bottom' for below or 'right' for the side
             },
           },
         }}
@@ -134,11 +117,6 @@ function ChartExp() {
   }
   
   export default ChartExp;
-  
-  
-  
-  
-  
-  
-  
+
+
 

@@ -1,16 +1,18 @@
 import Search from "./Search";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { FaWallet } from 'react-icons/fa';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Months from "./Months";
 import { IoIosArrowDown } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedMonth } from '../store/slices/monthSlice';
+import incomingDB from '../../database/incoming.json'
+import expenseDB from '../../database/expenses.json'
+
 
 const getMonthFromDate = (dateString) => {
   const [year, month, day] = dateString.split("-");
@@ -34,26 +36,32 @@ const Header = ({ pathName, onMonthChange }) => {
   const handleMonthChange = (newMonth) => {
     dispatch(setSelectedMonth(newMonth));
   };
+
+
+  useEffect(() => {
+    calculateTotalIncome();
+    calculateTotalExpense();
+  }, [incomingData, expenseData, selectedMonth]);
   
   // expense start
   useEffect(() => {
     fetchExpenseData();
   }, []);
-  
+
   const fetchExpenseData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/posts");
-      console.log("Expense Data:", response.data); // Log the fetched data
-      
-      setExpenseData(response.data);
+      console.log("Expense Data:", expenseDB);
+      setExpenseData(expenseDB.posts);
     } catch (error) {
       console.error("erro de ligacao Expense:", error);
     }
   };
   
-  useEffect(() => {
+ useEffect(() => {
     calculateTotalExpense();
   }, [expenseData, selectedMonth]);
+
+
   
   const calculateTotalExpense = () => {
     const monthMapping = {
@@ -75,6 +83,12 @@ const Header = ({ pathName, onMonthChange }) => {
       (item) => getMonthFromDate(item.dateValue) === monthMapping[selectedMonth]
     );
     
+ 
+    if (expenseData) { // Ensure expenseData is not undefined
+      const expenseOfMonth = expenseData.filter(
+        (item) => getMonthFromDate(item.dateValue) === monthMapping[selectedMonth]
+      );
+
     const sum = expenseOfMonth.reduce((total, item) => {
       console.log('Item month:', getMonthFromDate(item.dateValue));
       console.log('Selected month:', monthMapping[selectedMonth]);
@@ -84,6 +98,7 @@ const Header = ({ pathName, onMonthChange }) => {
     
     console.log("Intermediate Sum:", sum); // Log the intermediate sum
     setTotalExpense(sum);
+  }
   };
   
 
@@ -94,13 +109,10 @@ useEffect(() => {
   }, []);
 
 
-  const fetchIncomingData = async () => {
+  const fetchIncomingData = () => {
     try {
-      const response = await axios.get("http://localhost:5000/posts");
-      console.log("Incoming Data:", response.data); // Log the fetched data
-      console.log(response.data.map(item => item.dateValue));
-
-      setIncomingData(response.data);
+      console.log("Incoming Data:", incomingDB); // Log the local incoming data
+      setIncomingData(incomingDB.posts);
     } catch (error) {
       console.error("erro de ligacao incoming:", error);
     }
@@ -109,7 +121,7 @@ useEffect(() => {
 
   useEffect(() => {
     calculateTotalIncome();
-  }, [incomingData, selectedMonth]);
+  }, [expenseData, selectedMonth]);
 
   const calculateTotalIncome = () => {
     const monthMapping = { 
@@ -128,8 +140,12 @@ useEffect(() => {
     }
    
 
-    const incomeOfMonth = incomingData.filter(item => getMonthFromDate(item.dateValue) === monthMapping[selectedMonth]);
-  
+    if (incomingData) { // Ensure expenseData is not undefined
+      const incomeOfMonth = incomingData.filter(
+        (item) => getMonthFromDate(item.dateValue) === monthMapping[selectedMonth]
+      );
+      
+      
     const sum = incomeOfMonth.reduce((total, item) => {
       console.log('Item month:', getMonthFromDate(item.dateValue));
       console.log('Selected month:', monthMapping[selectedMonth]);
@@ -138,11 +154,10 @@ useEffect(() => {
     }, 0);
     console.log("Intermediate Sum:", sum); // Log the intermediate sum
     setTotalIncome(sum);
+  }
   };
 
-  useEffect(() => {
-    calculateTotalIncome();
-  }, [incomingData, selectedMonth]);
+
   // incoming ends
 
  
@@ -234,6 +249,7 @@ useEffect(() => {
 
     </div>
     </div>
+
   );
 };
 

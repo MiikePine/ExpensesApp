@@ -2,18 +2,35 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
+import IncomingDB from '../../database/incoming.json'
+import {months} from './Months';
+
+const categoryColors = {
+  Tips: 'rgb(54, 162, 235)',   // blue
+  Salary: 'rgb(255, 99, 132)', // red
+  Rent: 'rgb(255, 159, 64)', // orange
+}
 
 function ChartInc({ selectedMonth }) {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
+    console.log('Selected Month chart incmome:', selectedMonth);
+  
+  
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/posts?month=${selectedMonth}`);
-        const data = response.data;
+        const data = IncomingDB.posts;
+
+        const filteredData = data.filter(item => {
+          const itemMonth = new Date(item.dateValue).getMonth();
+          return itemMonth === months.indexOf(selectedMonth);
+        });
+  
+
 
         // Agrupar os dados por categoria e calcular a soma dos preços
-        const groupedData = data.reduce((result, item) => {
+        const groupedData = filteredData.reduce((result, item) => {
           if (result[item.category]) {
             result[item.category] += item.price;
           } else {
@@ -26,6 +43,9 @@ function ChartInc({ selectedMonth }) {
         const labels = Object.keys(groupedData);
         const values = Object.values(groupedData);
 
+        const backgroundColors = labels.map((label) => categoryColors[label]);
+
+
         // Calcular as porcentagens
         const total = values.reduce((sum, value) => sum + value, 0);
         const percentages = values.map((value) => ((value / total) * 100).toFixed(2));
@@ -37,25 +57,8 @@ function ChartInc({ selectedMonth }) {
               {
                 label: 'CHF',
                 data: values,
-              backgroundColor: [
-                'rgb(255, 99, 132)', // Rosa claro
-                'rgb(54, 162, 235)', // Azul claro
-                'rgb(255, 206, 86)', // Amarelo claro
-                'rgb(75, 192, 192)', // Verde azulado claro
-                'rgb(153, 102, 255)', // Roxo claro
-                'rgb(255, 159, 64)', // Laranja claro
-                'rgb(148, 159, 177)', // Cinza claro
-              ],
-              
-              borderColor: [
-                'rgba(255, 99, 132, 1)', // Rosa claro
-                'rgba(54, 162, 235, 1)', // Azul claro
-                'rgba(255, 206, 86, 1)', // Amarelo claro
-                'rgba(75, 192, 192, 1)', // Verde azulado claro
-                'rgba(153, 102, 255, 1)', // Roxo claro
-                'rgba(255, 159, 64, 1)', // Laranja claro
-                'rgba(148, 159, 177, 1)', // Cinza claro
-              ],
+                backgroundColor: backgroundColors,
+
               
               borderWidth: 1,
             },
@@ -90,6 +93,7 @@ function ChartInc({ selectedMonth }) {
  
     return (
       <Doughnut
+      
         data={chartData.data}
         options={{
           ...chartData.options,

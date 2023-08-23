@@ -1,32 +1,27 @@
 import { useState } from "react";
+import incomingDB from "../../database/incoming.json"
 
 function Search({ users }) {
   console.log("Users data: search bar", users);
 
   const [searchFilteredData, setSearchFilteredData] = useState([]);
-  const [searchWord, setSearchWord] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
+
 
   const handleSearchFilter = (event) => {
-    const searchWord = event.target.value;
-    const newFilter = users.filter((value) => {
-      const { name, lastName, company, city } = value;
-      const lowerCaseSearchWord = searchWord.toLowerCase();
-
+    const searchValue = event.target.value;
+    setSearchTerm(searchValue);
+  
+    const filteredResults = incomingDB.posts.filter((item) => {
       return (
-        name.toLowerCase().includes(lowerCaseSearchWord) ||
-        lastName.toLowerCase().includes(lowerCaseSearchWord) ||
-        company.toLowerCase().includes(lowerCaseSearchWord) ||
-        city.toLowerCase().includes(lowerCaseSearchWord)
+        item.payBy.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.price.toString().includes(searchValue)
       );
     });
-
-    setSearchWord(searchWord);
-
-    if (searchWord === "") {
-      setSearchFilteredData([]);
-    } else {
-      setSearchFilteredData(newFilter);
-    }
+  
+ setSearchFilteredData(filteredResults);
   };
 
   return (
@@ -37,30 +32,27 @@ function Search({ users }) {
 {searchFilteredData.length !== 0 && (
   <div className="mt-16 w-100 absolute bg-white border-2 border-zinc-300 rounded-lg overflow-hidden overflow-y-auto">
     {searchFilteredData.map((user) => {
-      const { id, name, lastName, city, company } = user;
       let renderedProperty = "";
 
-      if (name.toLowerCase().includes(searchWord.toLowerCase())) {
-        renderedProperty = name;
+      if (user.payBy.toLowerCase().includes(searchTerm.toLowerCase())) {
+        renderedProperty = user.payBy;
       } else if 
-         (lastName.toLowerCase().includes(searchWord.toLowerCase())) {
-        renderedProperty = lastName;
+         (user.category.toLowerCase().includes(searchTerm.toLowerCase())) {
+        renderedProperty = user.category;
       } else if 
-        (city.toLowerCase().includes(searchWord.toLowerCase())) {
-        renderedProperty = city;
-      } else if 
-        (company.toLowerCase().includes(searchWord.toLowerCase())) {
-        renderedProperty = company;
+        (user.price.toString().includes(searchTerm)) {
+        renderedProperty = user.price.toString();
       }
+
 
       return (
         <a
-          className="w-100 h-50 align-middle py-5"
-          target="_blank"
-          key={id}>
+        className="w-100 h-50 align-middle py-5"
+        target="_blank"
+        key={user.id}>
 
-          <p className="py-2 w-full pl-4 pr-24 pt-4 hover:bg-neutral-200 cursor-pointer">{renderedProperty}</p>
-        </a>
+        <p className="py-2 w-full pl-4 pr-24 pt-4 hover:bg-neutral-200 cursor-pointer">{renderedProperty}</p>
+      </a>
       );
     })}
   </div>
