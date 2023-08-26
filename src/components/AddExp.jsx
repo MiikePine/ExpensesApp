@@ -6,15 +6,20 @@ import { useForm } from "react-hook-form";
 import Input from "./Input";
 import { useState, Fragment } from "react";
 import UploadComponent from "./UploadComponent";
-import axios from "axios";
+// import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { createClient } from '@supabase/supabase-js'; 
 
 
+
+const supabaseUrl = 'https://tubnpuzyuhjyhslwbshd.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR1Ym5wdXp5dWhqeWhzbHdic2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI4NTc1OTEsImV4cCI6MjAwODQzMzU5MX0.G-Z3MGdzPiDCEpa_vOpriMvivCrlyBInVuf8z1COOxQ';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const schema = Yup.object().shape({
   item: Yup.string().required('Item is mandatoryo'),
@@ -46,7 +51,7 @@ const methodPayment = [
   { id: 4, name: 'Credit Card', unavailable: true },
 ]
 
-const AddExp = ({ onRegisterSuccess , onClose}) => {
+const AddExp = ({ onRegisterSuccess , onClose, insertData}) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedMethodPayment, setSelectedMethodPayment] = useState(null);
   
@@ -64,15 +69,34 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
   });
 
  
-
+// upload file const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [acceptedFiles, setAcceptedFiles] = useState([]);
+  
   const [isOpen, setIsOpen] = useState(true);
 
 
   const onSubmit = async (data) => {
+    console.log('Data before upsert:', data); // Adicione esta linha
+
     try {
-      const response = await axios.post("gs://expenses-4e951.appspot.com/expenses.json", data);
-      console.log(response.data);
+      const dataToInsert = {
+        item: data.item,
+        price: parseFloat(data.price), // Make sure to convert to a number if needed
+        payBy: data.payBy,
+        category: data.category,
+        dateValue: data.dateValue,
+      };
+  
+      const { data: newExpense, error } = await supabase
+        .from('posts')
+        .upsert([dataToInsert]);
+      
+    if (error) {
+      throw error;
+
+
+      
+    }      console.log(response.data);
       onRegisterSuccess(response.data);
       toast.success("New Expense add succefully");
       reset();
@@ -321,7 +345,7 @@ const AddExp = ({ onRegisterSuccess , onClose}) => {
 
 
 <div className="flex justify-end mt-4 mr-8">
-              <Button AddNew="Add" type="submit" />
+              <Button AddNew="Add" type="submit" onChange={insertData} />
             </div>
 
           </form>

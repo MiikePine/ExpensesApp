@@ -20,9 +20,9 @@ const Incoming = ({ item, handleOverlayClick }) => {
     setShowRegister(true);
   };
 
-  const sortedData = [...filteredData].sort((a, b) =>
-  compareAsc(new Date(a.dateValue), new Date(b.dateValue))
-);
+//   const sortedData = [...filteredData].sort((a, b) =>
+//   compareAsc(new Date(a.dateValue), new Date(b.dateValue))
+// );
 
   useEffect(() => {
     if (initialRender) {
@@ -34,7 +34,6 @@ const Incoming = ({ item, handleOverlayClick }) => {
   }, [selectedMonth, initialRender]);
 
   const handleRegisterSuccess = (data) => {
-   
   };
 
   const handleCloseRegister = () => {
@@ -43,15 +42,14 @@ const Incoming = ({ item, handleOverlayClick }) => {
 
 
 
-
   useEffect(() => {
-    console.log('Incoming Data:', incomingDB.data);
+    // console.log('Incoming Data:', incomingDB.data);
     fetchIncoming();
   }, [selectedMonth]);
 
   const fetchIncoming = async () => {
     try {
-      console.log("Incoming Data:", incomingDB.posts);
+      // console.log("Incoming Data:", incomingDB.posts);
       setFilteredData(incomingDB.posts);
 
       const monthMapping = {
@@ -82,7 +80,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
       console.log("Filtered data:", filteredData);
       setFilteredData(filteredData);
     } catch (error) {
-      console.error('Error trying to get data:', error);
+      // console.error('Error trying to get data:', error);
     }
   };
 

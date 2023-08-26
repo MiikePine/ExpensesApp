@@ -50,10 +50,10 @@ const Header = ({ pathName, onMonthChange }) => {
 
   const fetchExpenseData = async () => {
     try {
-      console.log("Expense Data:", expenseDB);
+      // console.log("Expense Data:", expenseDB);
       setExpenseData(expenseDB.posts);
     } catch (error) {
-      console.error("erro de ligacao Expense:", error);
+      // console.error("erro de ligacao Expense:", error);
     }
   };
   
@@ -90,13 +90,13 @@ const Header = ({ pathName, onMonthChange }) => {
       );
 
     const sum = expenseOfMonth.reduce((total, item) => {
-      console.log('Item month:', getMonthFromDate(item.dateValue));
-      console.log('Selected month:', monthMapping[selectedMonth]);
-      console.log("Price:", item.price); // Log the price values
+      // console.log('Item month:', getMonthFromDate(item.dateValue));
+      // console.log('Selected month:', monthMapping[selectedMonth]);
+      // console.log("Price:", item.price); // Log the price values
       return total + item.price;
     }, 0);
     
-    console.log("Intermediate Sum:", sum); // Log the intermediate sum
+    // console.log("Intermediate Sum:", sum); // Log the intermediate sum
     setTotalExpense(sum);
   }
   };
@@ -111,10 +111,10 @@ useEffect(() => {
 
   const fetchIncomingData = () => {
     try {
-      console.log("Incoming Data:", incomingDB); // Log the local incoming data
+      // console.log("Incoming Data:", incomingDB); // Log the local incoming data
       setIncomingData(incomingDB.posts);
     } catch (error) {
-      console.error("erro de ligacao incoming:", error);
+      // console.error("erro de ligacao incoming:", error);
     }
   };
 
@@ -147,9 +147,9 @@ useEffect(() => {
       
       
     const sum = incomeOfMonth.reduce((total, item) => {
-      console.log('Item month:', getMonthFromDate(item.dateValue));
-      console.log('Selected month:', monthMapping[selectedMonth]);
-      console.log("Price:", item.price); // Log the price values
+      // console.log('Item month:', getMonthFromDate(item.dateValue));
+      // console.log('Selected month:', monthMapping[selectedMonth]);
+      // console.log("Price:", item.price); // Log the price values
       return total + item.price;
     }, 0);
     console.log("Intermediate Sum:", sum); // Log the intermediate sum
@@ -181,11 +181,6 @@ useEffect(() => {
     <div className="grid">
           <div className="border-b border-zinc-300 mt-1"></div>
  
-      
-
-      {/* <div className="mt-10 mb-4 h-1 justify-end flex w-500">
-        <Months className="cursor-pointer" onMonthChange={handleSelectMonth} selectedMonth={selectedMonth} />
-      </div> */}
 
     <div className="flex justify-between w-full pt-4 py-2 gap-6 border-neutral-300 rounded-xl mt-4 ">
 

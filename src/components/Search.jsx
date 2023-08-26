@@ -2,7 +2,7 @@ import { useState } from "react";
 import incomingDB from "../../database/incoming.json"
 
 function Search({ users }) {
-  console.log("Users data: search bar", users);
+  // console.log("Users data: search bar", users);
 
   const [searchFilteredData, setSearchFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
