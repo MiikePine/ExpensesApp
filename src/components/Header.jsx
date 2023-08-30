@@ -14,7 +14,7 @@ import incomingDB from '../../database/incoming.json'
 import expenseDB from '../../database/expenses.json'
 
 
-const getMonthFromDate = (dateString) => {
+const getMonthFromDate = (dateString, ) => {
   const [year, month, day] = dateString.split("-");
   const d = new Date(year, month - 1, day);
   return d.getMonth();
@@ -152,7 +152,6 @@ useEffect(() => {
       // console.log("Price:", item.price); // Log the price values
       return total + item.price;
     }, 0);
-    console.log("Intermediate Sum:", sum); // Log the intermediate sum
     setTotalIncome(sum);
   }
   };

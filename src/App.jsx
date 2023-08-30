@@ -20,6 +20,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Incoming from "./Pages/Incoming";
 import Savings from "./Pages/Savings";
+import Register from "./Pages/Register";
 
 
 function App() {
@@ -51,6 +52,8 @@ function App() {
         <Route path="/AddExp" element={<AddExp />} />
         <Route path="/Incoming" element={<Incoming />} />
         <Route path="/Savings" element={<Savings />} />
+        <Route path="/Register" element={<Register />} />
+
 
       </Routes>
       <ToastContainer autoClose={2000}/>

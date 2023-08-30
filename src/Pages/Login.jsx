@@ -6,14 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../components/Input";
 import auroras from "../../Images/lap7.jpg";
 import logo from "../../Images/logo4.png";
-import { createClient } from "@supabase/supabase-js";
-
-
-
-
-const supabaseUrl = 'https://tubnpuzyuhjyhslwbshd.supabase.co';
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR1Ym5wdXp5dWhqeWhzbHdic2hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI4NTc1OTEsImV4cCI6MjAwODQzMzU5MX0.G-Z3MGdzPiDCEpa_vOpriMvivCrlyBInVuf8z1COOxQ"; 
-const supabase = createClient(supabaseUrl, supabaseKey);
+import supabase from "../../supabase/supabase"
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store/slices/userSlice';
 
 
 const schema = Yup.object().shape({
@@ -24,10 +19,10 @@ const schema = Yup.object().shape({
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(undefined);
-  const [email, setEmail] = useState('indiabalcony@gmail.com');
-  const [password, setPassword] = useState('123456');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate()
-
+  const dispatch = useDispatch();
 
 
   const {
@@ -39,14 +34,12 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
- 
-
 const onSubmit = async (formData) => {
   try {
     setLoading(true);
     const response = await supabase.auth.signInWithPassword({
-      email: formData.email, // Use formData instead of response
-      password: formData.password, // Use formData instead of response
+      email: formData.email, 
+      password: formData.password, 
     });
 
     if (response.error) {
@@ -54,13 +47,13 @@ const onSubmit = async (formData) => {
       console.error("Supabase error:", response.error.message); 
       setError(response.error.message);
     } else if (response.data) {
+      dispatch(setUser(response.data.user)); 
       console.log('user Information:', response.data)
-      console.log("login ok")
-      navigate('/Dashboard')
+      navigate('/Dashboard', { state: { userId: response.data.user.id } });
     }
   } catch (error) {
     console.error("Login error:", error);
-    console.error("Supabase error:", error.response?.data); 
+    console.error("Supabase error:", error.response.data); 
     setError(error.message);
   } finally {
     setLoading(false);
@@ -132,9 +125,10 @@ const onSubmit = async (formData) => {
         )}
       </div>
       
-      <Link to="/ForgotPw"
-          className="float-right mt-1 mb-10 text-sm text-black focus:text-red-500 hover:text-red hover:underline"
-          >Forgot password?</Link>
+          <Link to="/ForgotPw"
+            className="float-right mt-1 mb-10 text-sm text-black focus:text-red-500 hover:text-red hover:underline"
+              >Forgot password?
+          </Link>
       <button
         type="submit"
         className="w-full px-4 py-3 mt-4 font-bold bg-teal-700 text-white border-2 bg-red border-red
@@ -143,7 +137,12 @@ const onSubmit = async (formData) => {
       >
         Login
       </button>
+       <Link to="/Register"
+            className="float-right mt-1 mb-10 text-sm text-black focus:text-red-500 hover:text-red hover:underline"
+              >Register
+          </Link>
     </form>
+   
 </div>
 </div>
 

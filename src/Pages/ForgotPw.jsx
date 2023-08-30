@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
 const schema = Yup.object().shape({
-  email: Yup.string().email('Veuillez entrer un email valide').required('Email est requis'),
+  email: Yup.string().email('Enter a valid email').required('Email is mandatory'),
 });
 
 const ForgotPw = () => {
@@ -23,26 +23,27 @@ const ForgotPw = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="h-screen bg-gray-100 flex flex-col justify-center w-[45%] sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
+    <div className="flex items-center justify-center h-screen bg-zinc-100">
+        {/* <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
           <h2 className="text-2xl md:text-3xl text-black">
-            Récupérer le mot de passe
-          </h2>
-        </div>
+          Forgot Your Password?          </h2>
+        </div> */}
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white shadow sm:rounded-lg sm:px-10">
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="bg-white rounded mb-2 p-2 pb-6 pt-6 w-[100%]"
             >
+              <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
+          <h2 className="text-2xl md:text-3xl mb-10 text-black">Forgot Your Password?</h2>
+        </div>
 
               <div>
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Votre Email
+                  Enter your email
                 </label>
                 <div className="mt-3 mb-6">
                   <Input
@@ -61,22 +62,22 @@ const ForgotPw = () => {
                 </div>
               </div>
               <span className="text-xs">
-                *Veuillez entrer votre adresse e-mail. Vous recevrez un lien à
-                travers lequel vous pourrez créer un nouveau mot de passe.
+                Enter your email
               </span>
 
               <div>
-                <button
-                  type="submit"
-                  className="w-full mt-10 bg-red text-white border-2 border-red rounded-lg py-2 px-4 hover:bg-white hover:text-red hover:border-2 hover:border-red focus:outline-none focus:ring-2 focus:ring-red focus:ring-opacity-50"
-                >
-                  Envoyer le lien de réinitialisation
-                </button>
+              <button
+        type="submit"
+        className="w-full px-4 py-3 mt-4 font-bold bg-teal-700 text-white border-2 bg-red border-red
+         hover:bg-white hover:text-teal-700 hover:border-2 hover:border-teal-700 focus:outline-none focus:ring-2
+          focus:ring-teal-700 focus:ring-opacity-50"
+      >
+        Reset your password
+      </button>
               </div>
             </form>
           </div>
         </div>
-      </div>
     </div>
   );
 };

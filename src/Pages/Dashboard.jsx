@@ -7,9 +7,6 @@ import Months from "../components/Months";
 import { setSelectedMonth } from '../store/slices/monthSlice';
 
 
-
-
-
 const Dashboard = ({ item }) => {
   const selectedMonth = useSelector((state) => state.month.value); 
 

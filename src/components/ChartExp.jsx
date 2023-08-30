@@ -23,7 +23,7 @@ function ChartExp({ selectedMonth }) {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
-    console.log('Selected Month chart incmome:', selectedMonth);
+    // console.log('Selected Month chart incmome:', selectedMonth);
   
   
     const fetchData = async () => {
@@ -87,7 +87,7 @@ function ChartExp({ selectedMonth }) {
 
           setChartData({ data: chartData, options: chartOptions });
         } catch (error) {
-          console.error('Error fetching data:', error);
+          // console.error('Error fetching data:', error);
         }
       };
   
