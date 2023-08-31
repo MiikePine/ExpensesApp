@@ -15,52 +15,42 @@ import AddExp from "../components/AddExp";
 import { format } from "date-fns";
 import { compareAsc } from "date-fns";
 import supabase from "../../supabase/supabase";
+import { useDispatch } from 'react-redux';
+import { setExp } from '../store/slices/expSlice'
+import { updateTotalExpense } from "../store/slices/sumexpSlice"
+
 
 const Expenses = ({ item, handleOverlayClick }) => {
-  const selectedMonth = useSelector((state) => state.month.value);
   const [filteredData, setFilteredData] = useState([]);
   const [showRegister, setShowRegister] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
-  const userData = useSelector((state) => state.user.id);
   const [UserUID, setUserUID] = useState(null);
   const [fetchedUserUID, setFetchedUserUID] = useState(false);
+
+  const totalExpense = useSelector(state => state.sumexp.totalExpense); 
+  const selectedMonth = useSelector((state) => state.month.value);
+  const userData = useSelector((state) => state.user.id);
+
+
+  const dispatch = useDispatch();
+
 
   const handleAddExpense = () => {
     setShowRegister(true);
   };
 
+
+  const handleRegisterSuccess = (data) => { 
+  };
+
+  const handleCloseRegister = () => {
+    setShowRegister(false);
+  };
+
+
   useEffect(() => {
     fetchUserData();
   }, []);
-
-  useEffect(() => {
-    if (fetchedUserUID) {
-      fetchExpense();
-    }
-  }, [selectedMonth, fetchedUserUID]);
-
-  useEffect(() => {
-    if (userData || fetchedUserUID) {
-      fetchExpense();
-      console.log("LOG 1 - userData user id userData:", userData);
-    } else {
-      console.log("error 1-  userData is not available");
-    }
-  }, [selectedMonth, userData, fetchedUserUID]);
-
-
-
-  useEffect(() => {
-    const authListener = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        console.log("LOG 2 - User signed in:", user.id);
-      } else if (event === "SIGNED_OUT") {
-        console.log("error 2 -  User signed out");
-      }
-    });
-    return authListener.data.subscription.unsubscribe();
-  }, []);
-
 
 
 
@@ -77,6 +67,41 @@ const Expenses = ({ item, handleOverlayClick }) => {
         console.log(" error 3 - No user session available.");
     }
   };
+
+
+
+
+
+
+
+
+
+
+  useEffect(() => {
+    if (userData || fetchedUserUID) {
+      fetchExpense();
+      console.log("LOG 1 - userData user id userData:", userData);
+    } else {
+      console.log("error 1-  userData is not available");
+    }
+  }, [selectedMonth, userData, fetchedUserUID]);
+
+  useEffect(() => {
+    if (fetchedUserUID) {
+      fetchExpense();
+    }
+  }, [selectedMonth, fetchedUserUID]);
+
+
+
+  useEffect(() => {
+    if (filteredData.length > 0) {
+      const totalExpense = filteredData.reduce((sum, item) => sum + item.price, 0);
+      dispatch(updateTotalExpense(totalExpense));
+    }
+  }, [filteredData, dispatch]);
+
+  
 
   const fetchExpense = async () => {
     if (UserUID) {
@@ -121,7 +146,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
             "dd-MM-yyyy"
           ),
           price: expense["items/price"],
-          payBy: expense["items/payBy"],
+          payBy: expense["items/pay_by"],
           category: expense["items/category"],
           item: expense["items/item"],
           // id: id['items/id'],
@@ -142,9 +167,9 @@ const Expenses = ({ item, handleOverlayClick }) => {
           <AddExp
             item={item}
             handleOverlayClick={handleOverlayClick}
-            onRegisterSuccess={handleRegisterSuccess}
             onClose={handleCloseRegister}
             handleAddExpense={handleAddExpense}
+            onRegisterSuccess={handleRegisterSuccess}
           />
         </div>
       )}
@@ -178,7 +203,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
                   {/* <TableCell>{item.id}</TableCell> */}
                   <TableCell>{item.item}</TableCell>
                   <TableCell>{item.category}</TableCell>
-                  <TableCell>{item.price}</TableCell>
+                  <TableCell>{item.price} <span className="text-xs">CHF</span></TableCell>
                   <TableCell>{item.formattedDate}</TableCell>
                   <TableCell>{item.payBy}</TableCell>
                 </TableRow>

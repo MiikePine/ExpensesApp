@@ -13,6 +13,8 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import supabase from "../../supabase/supabase";
+import { useDispatch } from 'react-redux';
 
 
 const schema = Yup.object().shape({
@@ -45,10 +47,11 @@ const methodPayment = [
   { id: 4, name: 'Credit Card', unavailable: true },
 ]
 
-const AddExp = ({ onRegisterSuccess , onClose, insertData}) => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedMethodPayment, setSelectedMethodPayment] = useState(null);
-  
+  const AddExp = ({ handleRegisterSuccess , onClose, insertData}) => {
+      const [selectedCategory, setSelectedCategory] = useState(null);
+      const [selectedMethodPayment, setSelectedMethodPayment] = useState(null);
+      const dispatch = useDispatch();
+
 
 
   const {
@@ -63,38 +66,55 @@ const AddExp = ({ onRegisterSuccess , onClose, insertData}) => {
   });
 
  
-// upload file const [acceptedFiles, setAcceptedFiles] = useState([]);
+// upload file -  const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [acceptedFiles, setAcceptedFiles] = useState([]);
   
   const [isOpen, setIsOpen] = useState(true);
 
 
   const onSubmit = async (data) => {
-    console.log('Data before upsert:', data); // Adicione esta linha
+    console.log('Data before upsert:', data); 
 
     try {
       const dataToInsert = {
-        item: data.item,
-        price: parseFloat(data.price), // Make sure to convert to a number if needed
-        payBy: data.payBy,
-        category: data.category,
-        dateValue: data.dateValue,
+        "items/item": data.item,
+        "items/price": parseFloat(data.price), // Make sure to convert to a number if needed
+        "items/pay_by": data.payBy,
+        "items/category": data.category,
+        "items/dateValue": data.dateValue,
       };
   
-      const { data: newExpense, error } = await supabase
-        .from('posts')
+      const { data: setExp, error } = await supabase
+        .from('expense')
         .upsert([dataToInsert]);
       
     if (error) {
-      throw error;
+      throw error
+    }      
 
+    if (error) {
+      console.error("Failed to submit form:", error);
+      console.error("Error name:", error.name);
+      console.error("Error message:", error.message);
+      toast.error("Error adding new Expense");
+    } else {
+      // Only call onRegisterSuccess if there was no error
+      dispatch(setExp(dataToInsert));     
+       handleRegisterSuccess(); 
+      toast.success("New Expense added successfully");
+      reset();
+      onClose();
+    }
+    
 
-      
-    }      console.log(response.data);
-      onRegisterSuccess(response.data);
+    
+
+   
       toast.success("New Expense add succefully");
       reset();
       onClose(); // Fechar o componente Register
+
+
     } catch (error) {
       console.error("Failed to submit form:", error);
       console.error("Error name:", error.name);
@@ -221,7 +241,7 @@ const AddExp = ({ onRegisterSuccess , onClose, insertData}) => {
     )}
   </Listbox>
   {errors.category && (
-    <span className="text-xs text-red mt-2">Category is mandatory.</span>
+    <span className="text-xs text-red mt-2">Category is mandatory</span>
   )}
 </div>
 
@@ -309,7 +329,7 @@ const AddExp = ({ onRegisterSuccess , onClose, insertData}) => {
 
 <div className="flex gap-2">
   <div className="mb-4 w-full">
-    <Input
+    <Input 
       id="price"
       register={register("price")}
       type="number"

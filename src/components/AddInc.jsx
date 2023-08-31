@@ -6,13 +6,15 @@ import { useForm } from "react-hook-form";
 import Input from "./Input";
 import { useState, Fragment, useEffect } from "react";
 import UploadComponent from "./UploadComponent";
-import axios from "axios";
+// import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import supabase from "../../supabase/supabase";
+
 
 
 
@@ -65,6 +67,7 @@ const AddInc = ({ onRegisterSuccess , onClose}) => {
   const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [isOpen, setIsOpen] = useState(true);
 
+  
 
   const onSubmit = async (data) => {
     try {

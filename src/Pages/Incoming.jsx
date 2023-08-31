@@ -10,53 +10,44 @@ import {
   TableCell,
 } from "@tremor/react";
 import Layout from "../components/Layout";
-import { useSelector } from "react-redux";
-import AddExp from "../components/AddExp";
+import { useSelector, useDispatch } from "react-redux";
+import AddInc from "../components/AddInc";
 import { format } from "date-fns";
 import { compareAsc } from "date-fns";
 import supabase from "../../supabase/supabase";
+import { updateTotalIncome } from "../store/slices/sumincSlice"
+
+
 
 const Incoming = ({ item, handleOverlayClick }) => {
-  const selectedMonth = useSelector((state) => state.month.value);
   const [filteredData, setFilteredData] = useState([]);
   const [showRegister, setShowRegister] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
-  const userData = useSelector((state) => state.user.id);
   const [UserUID, setUserUID] = useState(null);
   const [fetchedUserUID, setFetchedUserUID] = useState(false);
+
+  const totalIncome = useSelector(state => state.suminc.totalIncome); 
+  const selectedMonth = useSelector((state) => state.month.value);
+  const userData = useSelector((state) => state.user.id);
+
+  
+  const dispatch = useDispatch();
+
 
   const handleAddIncome = () => {
     setShowRegister(true);
   };
 
+
+  const handleRegisterSuccess = (data) => { 
+  };
+
+  const handleCloseRegister = () => {
+    setShowRegister(false);
+  };
+
   useEffect(() => {
     fetchUserData();
-  }, []);
-
- useEffect(() => {
-    if (fetchedUserUID) {
-      fetchIncoming();
-    }
-  }, [selectedMonth, fetchedUserUID]);
-
-  useEffect(() => {
-    if (userData || fetchedUserUID) {
-      fetchIncoming();
-      console.log("LOG 1 - userData user id userData:", userData);
-    } else {
-      console.log("error 1-  userData is not available");
-    }
-  }, [selectedMonth, userData, fetchedUserUID]);
-
-  useEffect(() => {
-    const authListener = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        console.log("LOG 2 - User signed in:", user.id);
-      } else if (event === "SIGNED_OUT") {
-        console.log("error 2 -  User signed out");
-      }
-    });
-    return authListener.data.subscription.unsubscribe();
   }, []);
 
   const fetchUserData = async () => {
@@ -72,6 +63,30 @@ const Incoming = ({ item, handleOverlayClick }) => {
         console.log(" error 3 - No user session available.");
     }
   };
+
+
+  useEffect(() => {
+    if (userData || fetchedUserUID) {
+      fetchIncoming();
+      console.log("LOG 1 - userData user id userData:", userData);
+    } else {
+      console.log("error 1-  userData is not available");
+    }
+  }, [selectedMonth, userData, fetchedUserUID]);
+
+  useEffect(() => {
+    if (fetchedUserUID) {
+      fetchIncoming();
+    }
+  }, [selectedMonth, fetchedUserUID]);
+  
+
+  useEffect(() => {
+    if (filteredData.length > 0) {
+      const totalIncome = filteredData.reduce((sum, item) => sum + item.price, 0);
+      dispatch(updateTotalIncome(totalIncome));
+    }
+  }, [filteredData, dispatch]);
 
   const fetchIncoming = async () => {
     if (UserUID) {
@@ -128,14 +143,16 @@ const Incoming = ({ item, handleOverlayClick }) => {
     };
   
 
+    
+
   return (
-    <Layout items={item}>
+    <Layout items={item} UserUID={UserUID}>
       {showRegister && (
         <div
           className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay backdrop-blur-sm"
           onClick={handleOverlayClick}
         >
-          <AddExp
+          <AddInc
             item={item}
             handleOverlayClick={handleOverlayClick}
             onRegisterSuccess={handleRegisterSuccess}

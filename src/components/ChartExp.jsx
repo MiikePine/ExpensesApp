@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
-import expenseDB from '../../database/expenses.json'
+// import expenseDB from '../../database/expenses.json'
 import {months} from './Months';
 
 

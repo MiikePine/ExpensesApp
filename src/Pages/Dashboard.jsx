@@ -1,21 +1,27 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Layout from "../components/Layout";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import  ChartInc  from "../components/ChartInc";
 import  ChartExp  from "../components/ChartExp";
 import Months from "../components/Months";
 import { setSelectedMonth } from '../store/slices/monthSlice';
+import { updateTotalIncome } from "../store/slices/sumincSlice"
 
 
-const Dashboard = ({ item }) => {
+const Dashboard = ({ item, UserUID }) => {
   const selectedMonth = useSelector((state) => state.month.value); 
+  // const userData = useSelector((state) => state.user.id);
+  const totalIncome = useSelector((state) => state.suminc.totalIncome); // Access total income from Redux store
 
- 
+  const dispatch = useDispatch();
+
+
+
   const pathName = location.pathname.slice(1);
-
+    console.log("useruID  - dashboard", UserUID)
 
   return (
-      <Layout  items={item} >
+      <Layout  items={item} UserUID={UserUID}>
 
 
     <div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
-import IncomingDB from '../../database/incoming.json'
+// import IncomingDB from '../../database/incoming.json'
 import {months} from './Months';
 
 const categoryColors = {
