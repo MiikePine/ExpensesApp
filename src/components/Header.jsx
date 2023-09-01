@@ -9,9 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedMonth } from '../store/slices/monthSlice';
 import supabase from "../../supabase/supabase";
-import sumincSlice from "../store/slices/sumincSlice";
-import { updateTotalIncome } from '../store/slices/sumincSlice';
-import { updateTotalExpense } from '../store/slices/sumexpSlice';
+
 
 
 
@@ -21,7 +19,7 @@ const getMonthFromDate = (dateString, ) => {
   console.log("dateString:", dateString);
   const [year, month, day] = dateString?.split("-") || [];
   const d = new Date(year, month - 1, day);
-  return d.getMonth();
+  return d.getMonth(); 
 };
 
 const Header = ({ pathName, onMonthChange, UserUID }) => {
@@ -37,8 +35,9 @@ const Header = ({ pathName, onMonthChange, UserUID }) => {
   
   const dispatch = useDispatch();
   const selectedMonth = useSelector((state) => state.month.value);
-  const totalIncome = useSelector(state => state.suminc.totalIncome); 
+  const totalIncoming = useSelector(state => state.suminc.totalIncoming); 
   const totalExpense = useSelector(state => state.sumexp.totalExpense); 
+
 
   const userData = useSelector((state) => state.user.id);
 
@@ -79,7 +78,7 @@ const Header = ({ pathName, onMonthChange, UserUID }) => {
         <div className="flex justify-between">
 
         <div className="flex items-baseline">
-          <p className="text-4xl ml-6 text-zinc-500">{totalIncome}</p>
+          <p className="text-4xl ml-6 text-zinc-500">{totalIncoming}</p>
           <p className="text-sm text-zinc-500  ml-1">CHF</p>
         </div>
           </div>
@@ -108,7 +107,7 @@ const Header = ({ pathName, onMonthChange, UserUID }) => {
 
         <div className="flex justify-between" >
           <div className="flex items-baseline">
-            <p className="text-4xl ml-6 text-zinc-500">{totalIncome - totalExpense}</p>
+            <p className="text-4xl ml-6 text-zinc-500">{totalIncoming - totalExpense}</p>
             <p className="text-sm text-zinc-500  ml-1">CHF</p>
           </div>
         </div>

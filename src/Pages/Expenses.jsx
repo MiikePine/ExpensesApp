@@ -16,24 +16,27 @@ import { format } from "date-fns";
 import { compareAsc } from "date-fns";
 import supabase from "../../supabase/supabase";
 import { useDispatch } from 'react-redux';
-import { setExp } from '../store/slices/expSlice'
 import { updateTotalExpense } from "../store/slices/sumexpSlice"
+import { updateTotalIncoming } from "../store/slices/sumincSlice"
+
 
 
 const Expenses = ({ item, handleOverlayClick }) => {
-  const [filteredData, setFilteredData] = useState([]);
   const [showRegister, setShowRegister] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
   const [UserUID, setUserUID] = useState(null);
   const [fetchedUserUID, setFetchedUserUID] = useState(false);
+  const [filteredExpenseData, setFilteredExpenseData] = useState([]);
+  const [filteredIncomingData, setFilteredIncomingData] = useState([]);
 
   const totalExpense = useSelector(state => state.sumexp.totalExpense); 
+  const totalIncoming = useSelector(state => state.suminc.totalIncoming); 
+
   const selectedMonth = useSelector((state) => state.month.value);
   const userData = useSelector((state) => state.user.id);
 
 
   const dispatch = useDispatch();
-
 
   const handleAddExpense = () => {
     setShowRegister(true);
@@ -48,34 +51,29 @@ const Expenses = ({ item, handleOverlayClick }) => {
   };
 
 
+
+
+  // Fetch Exp Start 
   useEffect(() => {
-    fetchUserData();
+    fetchUserDataExp();
   }, []);
 
 
 
-  const fetchUserData = async () => {
+  const fetchUserDataExp = async () => {
     const { data, error } = await supabase.auth.getSession();
 
     if (data.session !== null) {
         const user = data.session.user;
         setUserUID(user.id);
         setFetchedUserUID(true);
-        console.log("LOG 4 - User UID set:", user.id);
+        console.log("LOG 4 - User UID set: expense", user.id);
         fetchExpense();
+
     } else {
-        console.log(" error 3 - No user session available.");
+        console.log(" error 3 - No user session available. expense");
     }
   };
-
-
-
-
-
-
-
-
-
 
   useEffect(() => {
     if (userData || fetchedUserUID) {
@@ -86,6 +84,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
     }
   }, [selectedMonth, userData, fetchedUserUID]);
 
+
   useEffect(() => {
     if (fetchedUserUID) {
       fetchExpense();
@@ -95,13 +94,14 @@ const Expenses = ({ item, handleOverlayClick }) => {
 
 
   useEffect(() => {
-    if (filteredData.length > 0) {
-      const totalExpense = filteredData.reduce((sum, item) => sum + item.price, 0);
+    if (filteredExpenseData.length > 0) {
+      const totalExpense = filteredExpenseData.reduce((sum, item) => sum + item.price, 0);
       dispatch(updateTotalExpense(totalExpense));
-    }
-  }, [filteredData, dispatch]);
+      console.log("totalExpense:", totalExpense);
 
-  
+    }
+  }, [filteredExpenseData, dispatch]);
+
 
   const fetchExpense = async () => {
     if (UserUID) {
@@ -133,7 +133,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
   
       const selectedMonthNumber = monthMapping[selectedMonth];
   
-      const filteredData = data
+      const filteredDataExp = data
         .filter((expense) => {
           const expenseMonth =
             new Date(expense["items/dateValue"]).getMonth() + 1;
@@ -152,10 +152,137 @@ const Expenses = ({ item, handleOverlayClick }) => {
           // id: id['items/id'],
         }));
   
-      console.log("Filtered data:", filteredData);
-      setFilteredData(filteredData); // Update the state with the filtered data
+      console.log("Filtered data expense:", filteredDataExp);
+      setFilteredExpenseData(filteredDataExp);    }
+  };
+
+// fetch exp END 
+
+
+
+
+  // fetch inc start 
+
+  useEffect(() => {
+    fetchUserDataInc();
+  }, []);
+
+
+  const fetchUserDataInc = async () => {
+    const { data, error } = await supabase.auth.getSession();
+
+    if (data.session !== null) {
+        const user = data.session.user;
+        setUserUID(user.id);
+        setFetchedUserUID(true);
+        console.log("LOG 4 - User UID set: incoming", user.id);
+        fetchIncoming();
+    } else {
+        console.log(" error 3 - No user session available. incoming");
     }
   };
+
+
+  useEffect(() => {
+    if (userData || fetchedUserUID) {
+      fetchIncoming();
+      console.log("LOG 1 - userData user id userData:", userData);
+    } else {
+      console.log("error 1-  userData is not available");
+    }
+  }, [selectedMonth, userData, fetchedUserUID]);
+
+
+
+  useEffect(() => {
+    if (fetchedUserUID) {
+      fetchIncoming();
+    }
+  }, [selectedMonth, fetchedUserUID]);
+
+
+
+  useEffect(() => {
+    if (filteredIncomingData.length > 0) {
+      const totalIncoming = filteredIncomingData.reduce((sum, item) => sum + item.price, 0);
+      dispatch(updateTotalIncoming(totalIncoming));
+      console.log("totalIncoming:", totalIncoming);
+
+    }
+    console.log("filteredData:", filteredIncomingData);
+
+  }, [filteredIncomingData, dispatch]);
+
+
+  const fetchIncoming = async () => {
+    if (UserUID) {
+      console.log("LOG 5 - Fetching incoming for userUID:", UserUID); 
+      const { data, error } = await supabase
+        .from("incoming")
+        .select("*")
+        .eq("user_id", UserUID);
+  
+      if (error) {
+        console.error("Error fetching incoming:", error.message);
+        throw error;
+      }
+  
+      const monthMapping = {
+        January: 1,
+        February: 2,
+        March: 3,
+        April: 4,
+        May: 5,
+        June: 6,
+        July: 7,
+        August: 8,
+        September: 9,
+        October: 10,
+        November: 11,
+        December: 12,
+      };
+  
+      const selectedMonthNumber = monthMapping[selectedMonth];
+  
+      const filteredDataInc = data
+        .filter((incoming) => {
+          const incomingMonth =
+            new Date(incoming["posts/dateValue"]).getMonth() + 1;
+            console.log("Selected Month Number: incoming ", selectedMonthNumber);
+            console.log("Incoming Month: incoming ", incomingMonth); // This is where the error occurs
+          return incomingMonth === selectedMonthNumber;
+          
+        })
+        .map((incoming) => ({
+          ...incoming,
+          formattedDate: format(
+            new Date(incoming["posts/dateValue"]),
+            "dd-MM-yyyy"
+          ),
+          price: incoming["posts/price"],
+          payBy: incoming["posts/pay_by"],
+          category: incoming["posts/category"],
+          item: incoming["posts/item"],
+          // id: id['items/id'],
+          
+        }));
+     
+     
+        console.log("Filtered data incoming:", filteredDataInc);
+        
+
+      const totalIncoming = filteredIncomingData.reduce((sum, item) => sum + item.price, 0);
+     
+      dispatch(updateTotalIncoming(totalIncoming));
+       
+      setFilteredIncomingData(filteredDataInc); // Update the state with the filtered data
+    }
+  };
+
+  // fetchIncoming end 
+  
+
+  
 
   return (
     <Layout items={item}>
@@ -198,7 +325,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredData.map((item) => (
+              {filteredExpenseData.map((item) => (
                 <TableRow key={item.id}>
                   {/* <TableCell>{item.id}</TableCell> */}
                   <TableCell>{item.item}</TableCell>

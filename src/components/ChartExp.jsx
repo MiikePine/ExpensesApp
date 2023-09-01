@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
-// import expenseDB from '../../database/expenses.json'
 import {months} from './Months';
+import { useSelector, useDispatch } from 'react-redux'; 
+import supabase from '../../supabase/supabase';
+import { format } from 'date-fns';
+import { UNSAFE_useRouteId } from 'react-router-dom';
+import { updateTotalExpense } from "../store/slices/sumexpSlice"
 
 
 const categoryColors = {
@@ -19,22 +22,63 @@ const categoryColors = {
   Other: 'rgb(0, 210, 145', // Green palid
 };
 
-function ChartExp({ selectedMonth }) {
+function ChartExp({  }) {
   const [chartData, setChartData] = useState(null);
+  const selectedMonth = useSelector(state => state.month.value);
+  const userData = useSelector((state) => state.user.id);
+  const [UserUID, setUserUID] = useState(null);
 
-  useEffect(() => {
-    // console.log('Selected Month chart incmome:', selectedMonth);
+
+  const dispatch = useDispatch();
+
+  function calculateTotalExpense(data) {
+    // Calculate the total expense from the 'data' array
+    let totalExpense = 0;
+    for (const expense of data) {
+      totalExpense += expense.price;
+    }
+    return totalExpense;
+  }
+
+    console.log('Selected Month chart incmome:', selectedMonth);
   
-  
+
+    useEffect(() => {
+
     const fetchData = async () => {
       try {
-        const data = expenseDB.posts;
+        console.log('Fetching data for UserUID:', userData);
 
-        const filteredData = data.filter(item => {
-          const itemMonth = new Date(item.dateValue).getMonth();
-          return itemMonth === months.indexOf(selectedMonth);
-        });
+        const { data, error } = await supabase
+        .from('expense')
+          .select('*')
+          .eq("user_id", userData);
+          console.log("UserUID from chart", userData)
 
+
+          const newTotalExpenseValue = calculateTotalExpense(data);
+
+        if (error) {
+          console.error('Error fetching data:', error);
+          return;
+        }
+
+
+    
+        const filteredData = data
+        .filter((expense) => {
+          const expenseMonth = new Date(expense.dateValue).getMonth() + 1;
+          return expenseMonth === selectedMonth;
+        })
+        .map((expense) => ({
+          ...expense,
+          formattedDate: format(new Date(expense.dateValue), "dd-MM-yyyy"),
+          // Use direct property names like expense.dateValue, expense.price, etc.
+          price: expense.price,
+          payBy: expense.payBy,
+          category: expense.category,
+          item: expense.item,
+        }));
 
         // Agrupar os dados por categoria e calcular a soma dos preços
         const groupedData = filteredData.reduce((result, item) => {
@@ -85,27 +129,36 @@ function ChartExp({ selectedMonth }) {
             },
           };
 
-          setChartData({ data: chartData, options: chartOptions });
+          dispatch(updateTotalExpense(newTotalExpenseValue));
+
+
+          setChartData(chartData); // Set the processed chart data
         } catch (error) {
-          // console.error('Error fetching data:', error);
+          console.error('Error fetching data:', error);
         }
-      };
+    } 
+
   
-      fetchData();
-    }, [selectedMonth]); // Add selectedMonth to the dependency array
+    fetchData(); // Call fetchData when the component mounts or when dependencies change
+}, [selectedMonth, UserUID, userData]); // Add selectedMonth to the dependency array
   
     if (!chartData) {
       return null; // Aguardando os dados serem carregados
     }
  
+
+
+    console.log('Rendering chart with data:', chartData)
+
     return (
       <Doughnut
       
-        data={chartData.data}
-        options={{
+      data={chartData}
+      
+      options={{
           ...chartData.options,
           plugins: {
-            ...chartData.options.plugins,
+            // ...chartData.options.plugins,
             legend: {
               position: 'bottom', // Set 'bottom' for below or 'right' for the side
             },
@@ -113,10 +166,8 @@ function ChartExp({ selectedMonth }) {
         }}
         key={Math.random()}
       />
-    );
-  }
+    
+    );}
+  
   
   export default ChartExp;
-
-
-

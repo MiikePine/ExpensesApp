@@ -22,11 +22,20 @@ function ChartInc({ selectedMonth }) {
       try {
         const data = IncomingDB.posts;
 
-        const filteredData = data.filter(item => {
-          const itemMonth = new Date(item.dateValue).getMonth();
-          return itemMonth === months.indexOf(selectedMonth);
-        });
-  
+        const filteredData = data
+  .filter((incoming) => {
+    const incomingMonth = new Date(incoming.dateValue).getMonth() + 1;
+    return incomingMonth === selectedMonth;
+  })
+  .map((incoming) => ({
+    ...incoming,
+    formattedDate: format(new Date(incoming.dateValue), "dd-MM-yyyy"),
+    // Use direct property names like incoming.dateValue, incoming.price, etc.
+    price: incoming.price,
+    payBy: incoming.payBy,
+    category: incoming.category,
+    item: incoming.item,
+  }));
 
 
         // Agrupar os dados por categoria e calcular a soma dos preços

@@ -10,29 +10,33 @@ import {
   TableCell,
 } from "@tremor/react";
 import Layout from "../components/Layout";
-import { useSelector, useDispatch } from "react-redux";
-import AddInc from "../components/AddInc";
+import { useSelector } from "react-redux";
+import AddExp from "../components/AddExp";
 import { format } from "date-fns";
 import { compareAsc } from "date-fns";
 import supabase from "../../supabase/supabase";
-import { updateTotalIncome } from "../store/slices/sumincSlice"
+import { useDispatch } from 'react-redux';
+import { updateTotalExpense } from "../store/slices/sumexpSlice"
+import { updateTotalIncoming } from "../store/slices/sumincSlice"
 
 
 
 const Incoming = ({ item, handleOverlayClick }) => {
-  const [filteredData, setFilteredData] = useState([]);
   const [showRegister, setShowRegister] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
   const [UserUID, setUserUID] = useState(null);
   const [fetchedUserUID, setFetchedUserUID] = useState(false);
+  const [filteredExpenseData, setFilteredExpenseData] = useState([]);
+  const [filteredIncomingData, setFilteredIncomingData] = useState([]);
 
-  const totalIncome = useSelector(state => state.suminc.totalIncome); 
+  const totalExpense = useSelector(state => state.sumexp.totalExpense); 
+  const totalIncoming = useSelector(state => state.suminc.totalIncoming); 
+
   const selectedMonth = useSelector((state) => state.month.value);
   const userData = useSelector((state) => state.user.id);
 
-  
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
 
   const handleAddIncome = () => {
     setShowRegister(true);
@@ -46,61 +50,76 @@ const Incoming = ({ item, handleOverlayClick }) => {
     setShowRegister(false);
   };
 
+
+
+
+
+
+
+
+  // Fetch Exp Start 
   useEffect(() => {
-    fetchUserData();
+    fetchUserDataExp();
   }, []);
 
-  const fetchUserData = async () => {
+
+
+  const fetchUserDataExp = async () => {
     const { data, error } = await supabase.auth.getSession();
 
     if (data.session !== null) {
         const user = data.session.user;
         setUserUID(user.id);
         setFetchedUserUID(true);
-        console.log("LOG 4 - User UID set:", user.id);
-        fetchIncoming();
+        console.log("LOG 4 - User UID set: expense", user.id);
+        fetchExpense();
+
     } else {
-        console.log(" error 3 - No user session available.");
+        console.log(" error 3 - No user session available. expense");
     }
   };
 
-
   useEffect(() => {
     if (userData || fetchedUserUID) {
-      fetchIncoming();
+      fetchExpense();
       console.log("LOG 1 - userData user id userData:", userData);
     } else {
       console.log("error 1-  userData is not available");
     }
   }, [selectedMonth, userData, fetchedUserUID]);
 
+
   useEffect(() => {
     if (fetchedUserUID) {
-      fetchIncoming();
+      fetchExpense();
     }
   }, [selectedMonth, fetchedUserUID]);
-  
+
+
 
   useEffect(() => {
-    if (filteredData.length > 0) {
-      const totalIncome = filteredData.reduce((sum, item) => sum + item.price, 0);
-      dispatch(updateTotalIncome(totalIncome));
+    if (filteredExpenseData.length > 0) {
+      const totalExpense = filteredExpenseData.reduce((sum, item) => sum + item.price, 0);
+      dispatch(updateTotalExpense(totalExpense));
+      console.log("totalExpense:", totalExpense);
+
     }
-  }, [filteredData, dispatch]);
+  }, [filteredExpenseData, dispatch]);
 
-  const fetchIncoming = async () => {
+
+  const fetchExpense = async () => {
     if (UserUID) {
-    console.log("LOG 5 - Fetching incoming for userUID:", UserUID); 
-    const { data, error } = await supabase
-      .from("incoming")
-      .select("*")
-      .eq("user_id", UserUID);
-
+      console.log("LOG 5 - Fetching expenses for userUID:", UserUID); 
+      const { data, error } = await supabase
+        .from("expense")
+        .select("*")
+        .eq("user_id", UserUID);
+  
       if (error) {
-        console.error("Error fetching incoming:", error.message);
+        console.error("Error fetching expenses:", error.message);
         throw error;
       }
-
+  
       const monthMapping = {
         January: 1,
         February: 2,
@@ -115,14 +134,128 @@ const Incoming = ({ item, handleOverlayClick }) => {
         November: 11,
         December: 12,
       };
-
+  
       const selectedMonthNumber = monthMapping[selectedMonth];
+  
+      const filteredDataExp = data
+        .filter((expense) => {
+          const expenseMonth =
+            new Date(expense["items/dateValue"]).getMonth() + 1;
+          return expenseMonth === selectedMonthNumber;
+        })
+        .map((expense) => ({
+          ...expense,
+          formattedDate: format(
+            new Date(expense["items/dateValue"]),
+            "dd-MM-yyyy"
+          ),
+          price: expense["items/price"],
+          payBy: expense["items/pay_by"],
+          category: expense["items/category"],
+          item: expense["items/item"],
+          // id: id['items/id'],
+        }));
+  
+      console.log("Filtered data expense:", filteredDataExp);
+      setFilteredExpenseData(filteredDataExp);    }
+  };
 
-      const filteredData = data
+// fetch exp END 
+
+
+
+
+  // fetch inc start 
+
+  useEffect(() => {
+    fetchUserDataInc();
+  }, []);
+
+
+  const fetchUserDataInc = async () => {
+    const { data, error } = await supabase.auth.getSession();
+
+    if (data.session !== null) {
+        const user = data.session.user;
+        setUserUID(user.id);
+        setFetchedUserUID(true);
+        console.log("LOG 4 - User UID set: incoming", user.id);
+        fetchIncoming();
+    } else {
+        console.log(" error 3 - No user session available. incoming");
+    }
+  };
+
+
+  useEffect(() => {
+    if (userData || fetchedUserUID) {
+      fetchIncoming();
+      console.log("LOG 1 - userData user id userData:", userData);
+    } else {
+      console.log("error 1-  userData is not available");
+    }
+  }, [selectedMonth, userData, fetchedUserUID]);
+
+
+
+  useEffect(() => {
+    if (fetchedUserUID) {
+      fetchIncoming();
+    }
+  }, [selectedMonth, fetchedUserUID]);
+
+
+
+  useEffect(() => {
+    if (filteredIncomingData.length > 0) {
+      const totalIncoming = filteredIncomingData.reduce((sum, item) => sum + item.price, 0);
+      dispatch(updateTotalIncoming(totalIncoming));
+      console.log("totalIncoming:", totalIncoming);
+
+    }
+    console.log("filteredData:", filteredIncomingData);
+
+  }, [filteredIncomingData, dispatch]);
+
+
+  const fetchIncoming = async () => {
+    if (UserUID) {
+      console.log("LOG 5 - Fetching incoming for userUID:", UserUID); 
+      const { data, error } = await supabase
+        .from("incoming")
+        .select("*")
+        .eq("user_id", UserUID);
+  
+      if (error) {
+        console.error("Error fetching incoming:", error.message);
+        throw error;
+      }
+  
+      const monthMapping = {
+        January: 1,
+        February: 2,
+        March: 3,
+        April: 4,
+        May: 5,
+        June: 6,
+        July: 7,
+        August: 8,
+        September: 9,
+        October: 10,
+        November: 11,
+        December: 12,
+      };
+  
+      const selectedMonthNumber = monthMapping[selectedMonth];
+  
+      const filteredDataInc = data
         .filter((incoming) => {
           const incomingMonth =
             new Date(incoming["posts/dateValue"]).getMonth() + 1;
+            console.log("Selected Month Number: incoming ", selectedMonthNumber);
+            console.log("Incoming Month: incoming ", incomingMonth); // This is where the error occurs
           return incomingMonth === selectedMonthNumber;
+          
         })
         .map((incoming) => ({
           ...incoming,
@@ -131,28 +264,37 @@ const Incoming = ({ item, handleOverlayClick }) => {
             "dd-MM-yyyy"
           ),
           price: incoming["posts/price"],
-          payBy: incoming["posts/payBy"],
+          payBy: incoming["posts/pay_by"],
           category: incoming["posts/category"],
           item: incoming["posts/item"],
           // id: id['items/id'],
+          
         }));
+     
+     
+        console.log("Filtered data incoming:", filteredDataInc);
+        
 
-      console.log("Filtered data:", filteredData);
-      setFilteredData(filteredData);
-  }
-    };
+      const totalIncoming = filteredIncomingData.reduce((sum, item) => sum + item.price, 0);
+     
+      dispatch(updateTotalIncoming(totalIncoming));
+       
+      setFilteredIncomingData(filteredDataInc); // Update the state with the filtered data
+    }
+  };
+
+  // fetchIncoming end 
   
 
-    
 
   return (
-    <Layout items={item} UserUID={UserUID}>
+    <Layout items={item}>
       {showRegister && (
         <div
           className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay backdrop-blur-sm"
           onClick={handleOverlayClick}
         >
-          <AddInc
+          <AddExp
             item={item}
             handleOverlayClick={handleOverlayClick}
             onRegisterSuccess={handleRegisterSuccess}
@@ -186,7 +328,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredData.map((item) => (
+              {filteredIncomingData.map((item) => (
                 <TableRow key={item.id}>
                   {/* <TableCell>{item.id}</TableCell> */}
                   <TableCell>{item.item}</TableCell>

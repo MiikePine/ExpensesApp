@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 
 
 const Layout = ({ children, users, totalPrice, item, pathName, getMonthFromDate, selectedMonth, UserUID }) => {
-    const userData = useSelector((state) => state.user.id);
+    // const userData = useSelector((state) => state.user.id);
     const totalIncome = useSelector((state) => state.suminc.totalIncome);
     const totalExpense = useSelector((state) => state.sumexp.totalExpense);
 

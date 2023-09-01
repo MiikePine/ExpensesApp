@@ -1,15 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const sumincSlice = createSlice({
+const initialState = {
+  totalIncoming: 0,
+};
+
+ const sumincSlice = createSlice({
   name: 'suminc',
-  initialState: { totalIncome: 0 }, 
+  initialState,
   reducers: {
-    updateTotalIncome: (state, action) => {
-      state.totalIncome = action.payload;
+ 
+    updateTotalIncoming: (state, action) => {
+      state.totalIncoming = action.payload;
     },
   },
 });
 
-export const { updateTotalIncome } = sumincSlice.actions;
+export const { updateTotalIncoming } = sumincSlice.actions;
 
 export default sumincSlice.reducer;

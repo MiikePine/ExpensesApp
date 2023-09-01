@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import supabase from "../../supabase/supabase";
 
 const schema = Yup.object().shape({
   email: Yup.string().email('Enter a valid email').required('Email is mandatory'),
@@ -14,30 +15,37 @@ const ForgotPw = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    mode: "onChange",
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  
+      const handleForgotPassword = async (data) => {
+        try {
+          const { email } = data;
+          const response = await supabase.auth.api.resetPasswordForEmail(email);
+          if (response.error) {
+            throw new Error(response.error.message);
+          }
+          console.log('Password recovery email sent successfully');
+        } catch (error) {
+          console.error('Error sending password recovery email:', error.message);
+        }
+      };
+
+
 
   return (
     <div className="flex items-center justify-center h-screen bg-zinc-100">
-        {/* <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-          <h2 className="text-2xl md:text-3xl text-black">
-          Forgot Your Password?          </h2>
-        </div> */}
+   
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white shadow sm:rounded-lg sm:px-10">
             <form
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleForgotPassword}
               className="bg-white rounded mb-2 p-2 pb-6 pt-6 w-[100%]"
             >
               <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
           <h2 className="text-2xl md:text-3xl mb-10 text-black">Forgot Your Password?</h2>
         </div>
-
               <div>
                 <label
                   htmlFor="email"
@@ -53,7 +61,6 @@ const ForgotPw = () => {
                     placeholder="Your@email.com"
                     error={errors.email}
                   />
-
                   {errors.email && (
                     <span className="text-xs text-red">
                       {errors.email.message}
@@ -61,10 +68,6 @@ const ForgotPw = () => {
                   )}
                 </div>
               </div>
-              <span className="text-xs">
-                Enter your email
-              </span>
-
               <div>
               <button
         type="submit"

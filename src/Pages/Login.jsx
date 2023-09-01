@@ -7,8 +7,12 @@ import Input from "../components/Input";
 import auroras from "../../Images/lap7.jpg";
 import logo from "../../Images/logo4.png";
 import supabase from "../../supabase/supabase"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../store/slices/userSlice';
+import { updateTotalExpense } from "../store/slices/sumexpSlice"
+
+
+
 
 
 const schema = Yup.object().shape({
@@ -23,6 +27,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate()
   const dispatch = useDispatch();
+  const updateTotalExpense = useSelector(state => state.sumexp.totalExpense); 
 
 
   const {
@@ -61,7 +66,8 @@ const onSubmit = async (formData) => {
 };
 
 
-
+// dispatch(updateTotalIncome(initialTotalIncome)); // Replace with actual initial total income
+// dispatch(updateTotalExpense(initialTotalExpense));
 
 
   return (
