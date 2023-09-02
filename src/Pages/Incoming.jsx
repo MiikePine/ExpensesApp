@@ -11,7 +11,7 @@ import {
 } from "@tremor/react";
 import Layout from "../components/Layout";
 import { useSelector } from "react-redux";
-import AddExp from "../components/AddExp";
+import AddInc from "../components/AddInc";
 import { format } from "date-fns";
 import { compareAsc } from "date-fns";
 import supabase from "../../supabase/supabase";
@@ -294,7 +294,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
           className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay backdrop-blur-sm"
           onClick={handleOverlayClick}
         >
-          <AddExp
+          <AddInc
             item={item}
             handleOverlayClick={handleOverlayClick}
             onRegisterSuccess={handleRegisterSuccess}

@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import Input from "./Input";
 import { useState, Fragment } from "react";
 import UploadComponent from "./UploadComponent";
-// import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from "yup";
@@ -14,7 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import supabase from "../../supabase/supabase";
-import { useDispatch } from 'react-redux';
+
 
 
 const schema = Yup.object().shape({
@@ -50,7 +49,7 @@ const methodPayment = [
   const AddExp = ({ handleRegisterSuccess , onClose, insertData}) => {
       const [selectedCategory, setSelectedCategory] = useState(null);
       const [selectedMethodPayment, setSelectedMethodPayment] = useState(null);
-      const dispatch = useDispatch();
+      // const dispatch = useDispatch();
 
 
 
@@ -98,9 +97,7 @@ const methodPayment = [
       console.error("Error message:", error.message);
       toast.error("Error adding new Expense");
     } else {
-      // Only call onRegisterSuccess if there was no error
-      dispatch(setExp(dataToInsert));     
-       handleRegisterSuccess(); 
+    
       toast.success("New Expense added successfully");
       reset();
       onClose();

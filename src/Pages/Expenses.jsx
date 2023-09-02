@@ -20,7 +20,6 @@ import { updateTotalExpense } from "../store/slices/sumexpSlice"
 import { updateTotalIncoming } from "../store/slices/sumincSlice"
 
 
-
 const Expenses = ({ item, handleOverlayClick }) => {
   const [showRegister, setShowRegister] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
