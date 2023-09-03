@@ -324,8 +324,22 @@ const Expenses = ({ item, handleOverlayClick }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredExpenseData.map((item) => (
-                <TableRow key={item.id}>
+            <TableBody>
+  {filteredExpenseData
+    .sort((a, b) =>
+      compareAsc(
+        new Date(a["items/dateValue"]),
+        new Date(b["items/dateValue"])
+      )
+    )
+    .map((item) => (
+      <TableRow key={item.id}>
+        {/* Seus outros campos aqui */}
+      </TableRow>
+    ))}
+</TableBody>
+              {filteredExpenseData.map((item, index) => (
+                <TableRow key={index}>
                   {/* <TableCell>{item.id}</TableCell> */}
                   <TableCell>{item.item}</TableCell>
                   <TableCell>{item.category}</TableCell>

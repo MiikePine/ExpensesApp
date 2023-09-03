@@ -14,7 +14,7 @@ const Layout = ({ children, users, totalPrice, item, pathName, getMonthFromDate,
 
  
     return (
-     <main className="relative block md:flex md:h-full bg-gray-100">
+     <main className="relative block md:flex md:h-full bg-gray-200">
             <Menu className="shadow-lg"/> 
             <div>   
                 <MenuMobile  />

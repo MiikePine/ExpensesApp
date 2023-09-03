@@ -66,10 +66,6 @@ const onSubmit = async (formData) => {
 };
 
 
-// dispatch(updateTotalIncome(initialTotalIncome)); // Replace with actual initial total income
-// dispatch(updateTotalExpense(initialTotalExpense));
-
-
   return (
 <div className="relative min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${auroras})` }}>
       <div className="absolute inset-0 bg-white opacity-70"></div>

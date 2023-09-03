@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
 import {months} from './Months';
-import { useSelector, useDispatch } from 'react-redux'; 
-import supabase from '../../supabase/supabase';
-import { format } from 'date-fns';
-import { UNSAFE_useRouteId } from 'react-router-dom';
-import { updateTotalExpense } from "../store/slices/sumexpSlice"
-
+import { useSelector } from 'react-redux';
 
 const categoryColors = {
   Car: 'rgb(54, 162, 235)',         // Blue
@@ -19,73 +15,46 @@ const categoryColors = {
   Health: 'rgb(0, 128, 0)',        // Green
   "Night Life": 'rgb(215, 99, 132)',// Pink
   Sports: 'rgb(148, 159, 177)',     // Gray
-  Other: 'rgb(0, 210, 145', // Green palid
+  Other: 'rgb(0, 210, 145)', // Green palide
 };
 
-function ChartExp({  }) {
-  const [chartData, setChartData] = useState(null);
-  const selectedMonth = useSelector(state => state.month.value);
-  const userData = useSelector((state) => state.user.id);
-  const [UserUID, setUserUID] = useState(null);
 
 
-  const dispatch = useDispatch();
-
-  function calculateTotalExpense(data) {
-    // Calculate the total expense from the 'data' array
-    let totalExpense = 0;
-    for (const expense of data) {
-      totalExpense += expense.price;
-    }
-    return totalExpense;
-  }
-
-    console.log('Selected Month chart incmome:', selectedMonth);
+function ChartExp({ selectedMonth, expenseData, userData }) {
+    // console.log("Props received in ChartExp - selectedMonth:", selectedMonth);
+    // console.log("Props received in ChartExp - expenseData:", expenseData);
+    
   
+  if (expenseData.length === 0) {
+    // Handle the case when expenseData is empty (e.g., show a loading message)
+    return <div>Loading chart...</div>;
+  }
+  const [chartData, setChartData] = useState(null);
 
-    useEffect(() => {
+  console.log("ChartExp props - selectedMonth:", selectedMonth);
+  console.log("ChartExp props - expenseData:", expenseData);
 
+
+
+  useEffect(() => {
+    console.log('Selected Month chart expense:', selectedMonth);
+  
+  
     const fetchData = async () => {
       try {
-        console.log('Fetching data for UserUID:', userData);
-
-        const { data, error } = await supabase
-        .from('expense')
-          .select('*')
-          .eq("user_id", userData);
-          console.log("UserUID from chart", userData)
-
-
-          const newTotalExpenseValue = calculateTotalExpense(data);
-
-        if (error) {
-          console.error('Error fetching data:', error);
-          return;
-        }
-
-
-    
-        const filteredData = data
-        .filter((expense) => {
-          const expenseMonth = new Date(expense.dateValue).getMonth() + 1;
-          return expenseMonth === selectedMonth;
-        })
-        .map((expense) => ({
-          ...expense,
-          formattedDate: format(new Date(expense.dateValue), "dd-MM-yyyy"),
-          // Use direct property names like expense.dateValue, expense.price, etc.
-          price: expense.price,
-          payBy: expense.payBy,
-          category: expense.category,
-          item: expense.item,
-        }));
+        const filteredData = expenseData.filter((item) => {
+          const itemMonth = new Date(item["items/dateValue"]).getMonth();
+          return itemMonth === months.indexOf(selectedMonth);
+        });
 
         // Agrupar os dados por categoria e calcular a soma dos preços
         const groupedData = filteredData.reduce((result, item) => {
-          if (result[item.category]) {
-            result[item.category] += item.price;
+          const category = item["items/category"];
+          const price = item["items/price"];
+          if (result[category]) {
+            result[category] += price;
           } else {
-            result[item.category] = item.price;
+            result[category] = price;
           }
           return result;
         }, {});
@@ -120,8 +89,8 @@ function ChartExp({  }) {
         const chartOptions = {
             responsive: true,
             maintainAspectRatio: false,
-            width: 200, // Set the desired width
-            height: 100, // Set the desired height
+            width: 150, // Set the desired width
+            height: 150, // Set the desired height
             plugins: {
               tooltip: {
                 // ...
@@ -129,45 +98,43 @@ function ChartExp({  }) {
             },
           };
 
-          dispatch(updateTotalExpense(newTotalExpenseValue));
+          console.log('Filtered Data:', filteredData);
+          console.log('Labels:', labels);
+          console.log('Values:', values);
+          console.log('Background Colors:', backgroundColors);
 
-
-          setChartData(chartData); // Set the processed chart data
+          setChartData({ data: chartData, options: chartOptions });
         } catch (error) {
           console.error('Error fetching data:', error);
         }
-    } 
+      };
+      console.log("Chart data:", chartData);
 
-  
-    fetchData(); // Call fetchData when the component mounts or when dependencies change
-}, [selectedMonth, UserUID, userData]); // Add selectedMonth to the dependency array
+      fetchData();
+    }, [selectedMonth, expenseData]); // Add selectedMonth to the dependency array
   
     if (!chartData) {
       return null; // Aguardando os dados serem carregados
     }
  
-
-
-    console.log('Rendering chart with data:', chartData)
-
     return (
       <Doughnut
-      
-      data={chartData}
-      
-      options={{
+        data={chartData.data}
+        options={{
           ...chartData.options,
           plugins: {
-            // ...chartData.options.plugins,
+            ...chartData.options.plugins,
             legend: {
-              position: 'bottom', // Set 'bottom' for below or 'right' for the side
+              position: 'left', // Set 'bottom' for below or 'right' for the side
             },
           },
         }}
-        key={Math.random()}
       />
-    
-    );}
-  
+    );
+
+  }
   
   export default ChartExp;
+
+
+

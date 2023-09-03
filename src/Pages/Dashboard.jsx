@@ -7,6 +7,8 @@ import { updateTotalExpense } from "../store/slices/sumexpSlice"
 import { updateTotalIncoming } from "../store/slices/sumincSlice"
 import supabase from "../../supabase/supabase";
 import { format } from "date-fns";
+import { useLocation } from 'react-router-dom';
+
 
 
 
@@ -18,9 +20,6 @@ const Dashboard = ({ item }) => {
   const [fetchedUserUID, setFetchedUserUID] = useState(false);
   const [filteredExpenseData, setFilteredExpenseData] = useState([]);
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
-  
-
-
 
   const totalExpense = useSelector(state => state.sumexp.totalExpense); 
   const totalIncoming = useSelector(state => state.suminc.totalIncoming); 
@@ -30,7 +29,7 @@ const Dashboard = ({ item }) => {
 
   const dispatch = useDispatch();
 
-
+  const location = useLocation();
   const pathName = location.pathname.slice(1);
 
 
@@ -98,6 +97,12 @@ const Dashboard = ({ item }) => {
         throw error;
       }
   
+      const expenseData = data.map((expense) => expense);
+
+      // Pass the fetched data to ChartExp
+      setFilteredExpenseData(expenseData);
+
+
       const monthMapping = {
         January: 1,
         February: 2,
@@ -121,6 +126,7 @@ const Dashboard = ({ item }) => {
             new Date(expense["items/dateValue"]).getMonth() + 1;
           return expenseMonth === selectedMonthNumber;
         })
+
         .map((expense) => ({
           ...expense,
           formattedDate: format(
@@ -134,8 +140,9 @@ const Dashboard = ({ item }) => {
           // id: id['items/id'],
         }));
   
-      console.log("Filtered data expense:", filteredDataExp);
-      setFilteredExpenseData(filteredDataExp);    }
+      console.log("Filtered data expense, from dashboard", filteredDataExp);
+      setFilteredExpenseData(filteredDataExp); 
+    }
   };
 
 // fetch exp END 
@@ -271,20 +278,21 @@ const Dashboard = ({ item }) => {
 
 
     <div>
-      <div className="flex  justify-between w-full py-2  border-neutral-300 rounded-xl ">
+      <div className="flex justify-between w-full py-2 border-neutral-300 rounded-xl ">
     </div>
 
 
 
     <div className="flex">
-             <div className="w-full h-96 bg-white rounded-lg pb-16 pt-4 mr-4 shadow-lg">
+             <div className="w-full h-96 bg-white rounded-lg pt-4 mt-2 mr-4 shadow-lg">
                 <p className="flex justify-center pb-4 text-zinc-500">Incoming</p>
-                <ChartInc selectedMonth={selectedMonth}/>
+                <ChartInc selectedMonth={selectedMonth} userData={userData} incomingData={filteredIncomingData}/>
              </div>
 
-             <div className="w-full h-96 bg-white rounded-lg pb-16 pt-4 ml-2 shadow-lg">
+             <div className="w-full h-96 bg-white rounded-lg mt-2 pt-4 ml-2 shadow-lg">
                 <p className="flex justify-center pb-4 text-zinc-500">Expense</p>
-                <ChartExp selectedMonth={selectedMonth} userData={userData} />
+                <ChartExp selectedMonth={selectedMonth} userData={userData} expenseData={filteredExpenseData}/>
+
             </div>
     </div>
 

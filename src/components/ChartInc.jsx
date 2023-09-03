@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
-// import IncomingDB from '../../database/incoming.json'
 import {months} from './Months';
 
 const categoryColors = {
@@ -11,44 +10,43 @@ const categoryColors = {
   Rent: 'rgb(255, 159, 64)', // orange
 }
 
-function ChartInc({ selectedMonth }) {
+function ChartInc({ selectedMonth, incomingData, userData }) {
+
+
+if (incomingData.length === 0) {
+    // Handle the case when incomingData is empty (e.g., show a loading message)
+    return <div>Loading chart...</div>;
+  }
   const [chartData, setChartData] = useState(null);
 
-  useEffect(() => {
-    // console.log('Selected Month chart incmome:', selectedMonth);
+  console.log("ChartInc props - selectedMonth:", selectedMonth);
+  console.log("ChartInc props - incomingData:", incomingData);
+
+
+useEffect(() => {
+    console.log('Selected Month chart incmome:', selectedMonth);
   
   
     const fetchData = async () => {
       try {
-        const data = IncomingDB.posts;
-
-        const filteredData = data
-  .filter((incoming) => {
-    const incomingMonth = new Date(incoming.dateValue).getMonth() + 1;
-    return incomingMonth === selectedMonth;
-  })
-  .map((incoming) => ({
-    ...incoming,
-    formattedDate: format(new Date(incoming.dateValue), "dd-MM-yyyy"),
-    // Use direct property names like incoming.dateValue, incoming.price, etc.
-    price: incoming.price,
-    payBy: incoming.payBy,
-    category: incoming.category,
-    item: incoming.item,
-  }));
-
+        const filteredData = incomingData.filter((item) => {
+          const itemMonth = new Date(item["posts/dateValue"]).getMonth();
+          return itemMonth === months.indexOf(selectedMonth);
+        });
 
         // Agrupar os dados por categoria e calcular a soma dos preços
         const groupedData = filteredData.reduce((result, item) => {
-          if (result[item.category]) {
-            result[item.category] += item.price;
+          const category = item["posts/category"];
+          const price = item["posts/price"];
+          if (result[category]) {
+            result[category] += price;
           } else {
-            result[item.category] = item.price;
+            result[category] = price;
           }
           return result;
         }, {});
 
-        // Extrair as categorias e os preços agrupados
+ // Extrair as categorias e os preços agrupados
         const labels = Object.keys(groupedData);
         const values = Object.values(groupedData);
 
@@ -59,7 +57,8 @@ function ChartInc({ selectedMonth }) {
         const total = values.reduce((sum, value) => sum + value, 0);
         const percentages = values.map((value) => ((value / total) * 100).toFixed(2));
 
-        // Definir o objeto de configuração do gráfico
+
+ // Definir o objeto de configuração do gráfico
         const chartData = {
             labels: labels.map((label, index) => `${label} (${percentages[index]}%)`),
             datasets: [
@@ -77,7 +76,7 @@ function ChartInc({ selectedMonth }) {
         // Definir as opções do gráfico
         const chartOptions = {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             width: 200, // Set the desired width
             height: 100, // Set the desired height
             plugins: {
@@ -87,38 +86,49 @@ function ChartInc({ selectedMonth }) {
             },
           };
 
+
+  console.log('Filtered Data:', filteredData);
+          console.log('Labels:', labels);
+          console.log('Values:', values);
+          console.log('Background Colors:', backgroundColors);
+
           setChartData({ data: chartData, options: chartOptions });
         } catch (error) {
-          // console.error('Error fetching data:', error);
+          console.error('Error fetching data:', error);
         }
       };
-  
+      console.log("Chart data:", chartData);
+
       fetchData();
-    }, [selectedMonth]); // Add selectedMonth to the dependency array
+    }, [selectedMonth, incomingData]); // Add selectedMonth to the dependency array
   
     if (!chartData) {
       return null; // Aguardando os dados serem carregados
     }
  
     return (
-      <Doughnut
-      
-        data={chartData.data}
-        options={{
-          ...chartData.options,
-          plugins: {
-            ...chartData.options.plugins,
-            legend: {
-              position: 'bottom', // Set 'bottom' for below or 'right' for the side
+      <div style={{ display: '', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+        <Doughnut
+          data={chartData.data}
+          options={{
+            ...chartData.options,
+            plugins: {
+              ...chartData.options.plugins,
+              legend: {
+                position: 'right', // Set 'bottom' for below or 'right' for the side
+              },
             },
-          },
-        }}
-        key={Math.random()}
-      />
+          }}
+        />
+      </div>
     );
+  
+
   }
   
   export default ChartInc;
+
+
 
 
 
