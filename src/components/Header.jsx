@@ -10,9 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelectedMonth } from "../store/slices/monthSlice";
 import supabase from "../../supabase/supabase";
 import { format } from "date-fns";
-import { compareDesc } from "date-fns";
-
-
+import { compareDesc, compareAsc } from "date-fns";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import {
   Card,
   Title,
@@ -44,8 +43,8 @@ const Header = ({ pathName, onMonthChange }) => {
   const [fetchedUserUID, setFetchedUserUID] = useState(false);
   const [filteredExpenseData, setFilteredExpenseData] = useState([]);
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
-
   const combinedData = [...filteredExpenseData, ...filteredIncomingData];
+
 
 
   const dispatch = useDispatch();
@@ -73,15 +72,18 @@ const Header = ({ pathName, onMonthChange }) => {
     setEndDate(end);
   };
 
+
   useEffect(() => {
-    fetchUserDataExp();
+    fetchUserDataInc();
+    fetchUserDataExp
   }, []);
+
 
   // FETCH start
 
   const fetchUserDataExp = async () => {
     const { data, error } = await supabase.auth.getSession();
-
+    // console.log("Data from fetchUserDataExp:", data);
     if (data.session !== null) {
       const user = data.session.user;
       setUserUID(user.id);
@@ -110,38 +112,36 @@ const Header = ({ pathName, onMonthChange }) => {
 
   const fetchExpense = async () => {
     if (UserUID) {
-      // console.log("LOG 5 - Fetching expenses for userUID:", UserUID);
       const { data, error } = await supabase
         .from("expense")
         .select("*")
         .eq("user_id", UserUID);
-
+        // console.log("Data from fetchExpense:", data);
       if (error) {
-        // console.error("Error fetching expenses:", error.message);
         throw error;
       }
-
+  
       const monthMapping = {
-        January: 1,
-        February: 2,
-        March: 3,
-        April: 4,
-        May: 5,
-        June: 6,
-        July: 7,
-        August: 8,
-        September: 9,
-        October: 10,
-        November: 11,
-        December: 12,
+        January: "January",
+        February: "February",
+        March: "March",
+        April: "April",
+        May: "May",
+        June: "June",
+        July: "July",
+        August: "August",
+        September: "September",
+        October: "October",
+        November: "November",
+        December: "December",
       };
-
+  
       const selectedMonthNumber = monthMapping[selectedMonth];
-
+  
       const filteredDataExp = data
         .filter((expense) => {
           const expenseMonth =
-            new Date(expense["items/dateValue"]).getMonth() + 1;
+            new Date(expense["items/dateValue"]).getMonth() - 1; // Subtracting 1 to match month numbers (0-11)
           return expenseMonth === selectedMonthNumber;
         })
         .map((expense) => ({
@@ -154,36 +154,27 @@ const Header = ({ pathName, onMonthChange }) => {
           payBy: expense["items/pay_by"],
           category: expense["items/category"],
           item: expense["items/item"],
-          // id: id['items/id'],
-        }));
-
-
-        filteredDataExp.sort((a, b) =>
-        compareDesc(
-          new Date(b.formattedDate),
-          new Date(a.formattedDate)
-        )
-      );
+        }))
+        .sort((a, b) =>
+          compareDesc(
+            new Date(a.formattedDate),
+            new Date(b.formattedDate)
+          )
+        );
   
-
-      // console.log("Filtered data expense:", filteredDataExp);
       setFilteredExpenseData(filteredDataExp);
     }
   };
+  // console.log("selectedMonth:", selectedMonth);
+
 
   // Fetch end
 
 
 
-  useEffect(() => {
-    fetchUserDataInc();
-  }, []);
-  // Fetch Incoming 
-
-
   const fetchUserDataInc = async () => {
     const { data, error } = await supabase.auth.getSession();
-
+    console.log("Data from fetchUserDataInc:", data);
     if (data.session !== null) {
       const user = data.session.user;
       setUserUID(user.id);
@@ -209,20 +200,17 @@ const Header = ({ pathName, onMonthChange }) => {
       fetchIncoming();
     }
   }, [selectedMonth, fetchedUserUID]);
-
   const fetchIncoming = async () => {
     if (UserUID) {
-      // console.log("LOG 5 - Fetching expenses for userUID:", UserUID);
       const { data, error } = await supabase
         .from("incoming")
         .select("*")
         .eq("user_id", UserUID);
-
+        // console.log("Data from fetchIncoming:", data);
       if (error) {
-        // console.error("Error fetching expenses:", error.message);
         throw error;
       }
-
+  
       const monthMapping = {
         January: 1,
         February: 2,
@@ -237,14 +225,17 @@ const Header = ({ pathName, onMonthChange }) => {
         November: 11,
         December: 12,
       };
-
+  
       const selectedMonthNumber = monthMapping[selectedMonth];
-
+  
       const filteredDataInc = data
         .filter((incoming) => {
           const incomingMonth =
-            new Date(incoming["posts/dateValue"]).getMonth() + 1;
-          return incomingMonth === selectedMonthNumber;
+            new Date(incoming["posts/dateValue"]).getMonth() + 1; 
+        
+        
+        
+            return incomingMonth === selectedMonthNumber;
         })
         .map((incoming) => ({
           ...incoming,
@@ -253,27 +244,33 @@ const Header = ({ pathName, onMonthChange }) => {
             "dd-MM-yyyy"
           ),
           price: incoming["posts/price"],
-          payBy: incoming["posts/pay_by"],
+          payBy: incoming["posts/payBy"],
           category: incoming["posts/category"],
           item: incoming["posts/item"],
-          // id: id['items/id'],
-        }));
-
-
-        filteredDataInc.sort((a, b) =>
-        compareDesc(
-          new Date(b.formattedDate),
-          new Date(a.formattedDate)
-        )
-      );
-
-
-      // console.log("Filtered data expense:", filteredDataExp);
+        }))
+        .sort((a, b) =>
+          compareDesc(
+            new Date(b.formattedDate),
+            new Date(a.formattedDate)
+          )
+        );
+  
       setFilteredIncomingData(filteredDataInc);
-    }
-  }; 
+      // console.log("Length of combinedData 1 :", combinedData.length);
 
-  // Fetch incoingend 
+    }
+  };
+  // console.log("Length of combinedData 2 :", combinedData.length);
+
+
+  useEffect(() => {
+    fetchUserDataInc();
+  }, []);
+  // Fetch incoming end 
+  // console.log("Length of filteredExpenseData:", filteredExpenseData.length);
+  // console.log("Length of filteredIncomingData:", filteredIncomingData.length);
+
+  // console.log("Length of combinedData:", combinedData.length);
 
   return (
     <div className="flex">
@@ -348,7 +345,7 @@ const Header = ({ pathName, onMonthChange }) => {
       <div className="bg-white !shadow-lg mt-8 w-2/3 h-32 ml-4">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
           <Title className="bg-white !text-gray-600 flex items-center">
-            <span className="text-center flex-grow text-sm">Last Movements</span>
+            <span className="text-center flex-grow text-sm">Last Transactions</span>
           </Title>
 
           <Table className=" bg-white text-green-100 flex justify-around">
@@ -360,32 +357,34 @@ const Header = ({ pathName, onMonthChange }) => {
                 <TableHeaderCell>Price (CHF)</TableHeaderCell>
                 <TableHeaderCell>Date</TableHeaderCell>
                 <TableHeaderCell>Pay By</TableHeaderCell>
+
               </TableRow>
             </TableHead>
             <TableBody>
-            {combinedData.slice(0, 5).sort((a, b) =>
-  compareDesc(new Date(a.formattedDate), new Date(b.formattedDate))
-).map((item) => (
-  <TableRow className="text-xs" key={item.id}>
-    {/* Renderize os campos da tabela aqui */}
-  </TableRow>
-))}
-
-              {filteredExpenseData.slice(0, 5).map((item) => (
-                <TableRow className="text-xs" key={item.id}>
-                  <TableCell className="py-1 my-0.5">{item.item}</TableCell>{" "}
-                  {/* Margem menor aqui */}
-                  <TableCell className="py-2 my-1">{item.category}</TableCell>
-                  <TableCell className="py-1 my-1">
-                    {item.price} <span className="text-xs">CHF</span>
-                  </TableCell>
-                  <TableCell className="py-1 my-1">
-                    {item.formattedDate}
-                  </TableCell>
-                  <TableCell className="py-1 my-1">{item.payBy}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+  {combinedData.slice(0, 5).map((item, index) => (
+    <TableRow className="text-xs" key={item.id}>
+      {/* Renderize os campos da tabela aqui */}
+      <TableCell className="py-1 my-0.5">{item.item}</TableCell>
+      <TableCell className="py-2 my-1">{item.category}</TableCell>
+      <TableCell className="py-1 my-1">
+        {item.price} <span className="text-xs">CHF</span>
+      </TableCell>
+      <TableCell className="py-1 my-1">
+        {item.formattedDate}
+      </TableCell>
+      <TableCell className="py-1 my-1">
+        {item.payBy}
+      </TableCell>
+      <TableCell className="py-1 my-1">
+        {item.payBy === "Expenses" ? (
+          <AiOutlineMinus className="text-red-400" style={{ fontSize: '22px' }} />
+        ) : (
+          <AiOutlinePlus className="text-green-600" style={{ fontSize: '22px' }} />
+        )}
+      </TableCell>
+    </TableRow>
+  ))}
+</TableBody>
           </Table>
         </Card>
       </div>

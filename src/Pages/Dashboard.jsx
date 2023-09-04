@@ -48,20 +48,20 @@ const Dashboard = ({ item }) => {
         const user = data.session.user;
         setUserUID(user.id);
         setFetchedUserUID(true);
-        console.log("LOG 4 - User UID set: expense", user.id);
+        // console.log("LOG 4 - User UID set: expense", user.id);
         fetchExpense();
 
     } else {
-        console.log(" error 3 - No user session available. expense");
+        // console.log(" error 3 - No user session available. expense");
     }
   };
 
   useEffect(() => {
     if (userData || fetchedUserUID) {
       fetchExpense();
-      console.log("LOG 1 - userData user id userData:", userData);
+      // console.log("LOG 1 - userData user id userData:", userData);
     } else {
-      console.log("error 1-  userData is not available");
+      // console.log("error 1-  userData is not available");
     }
   }, [selectedMonth, userData, fetchedUserUID]);
 
@@ -78,7 +78,7 @@ const Dashboard = ({ item }) => {
     if (filteredExpenseData.length > 0) {
       const totalExpense = filteredExpenseData.reduce((sum, item) => sum + item.price, 0);
       dispatch(updateTotalExpense(totalExpense));
-      console.log("totalExpense:", totalExpense);
+      // console.log("totalExpense:", totalExpense);
 
     }
   }, [filteredExpenseData, dispatch]);
@@ -86,14 +86,14 @@ const Dashboard = ({ item }) => {
 
   const fetchExpense = async () => {
     if (UserUID) {
-      console.log("LOG 5 - Fetching expenses for userUID:", UserUID); 
+      // console.log("LOG 5 - Fetching expenses for userUID:", UserUID); 
       const { data, error } = await supabase
         .from("expense")
         .select("*")
         .eq("user_id", UserUID);
   
       if (error) {
-        console.error("Error fetching expenses:", error.message);
+        // console.error("Error fetching expenses:", error.message);
         throw error;
       }
   
@@ -140,7 +140,7 @@ const Dashboard = ({ item }) => {
           // id: id['items/id'],
         }));
   
-      console.log("Filtered data expense, from dashboard", filteredDataExp);
+      // console.log("Filtered data expense, from dashboard", filteredDataExp);
       setFilteredExpenseData(filteredDataExp); 
     }
   };
@@ -164,10 +164,10 @@ const Dashboard = ({ item }) => {
         const user = data.session.user;
         setUserUID(user.id);
         setFetchedUserUID(true);
-        console.log("LOG 4 - User UID set: incoming", user.id);
+        // console.log("LOG 4 - User UID set: incoming", user.id);
         fetchIncoming();
     } else {
-        console.log(" error 3 - No user session available. incoming");
+        // console.log(" error 3 - No user session available. incoming");
     }
   };
 
@@ -175,9 +175,9 @@ const Dashboard = ({ item }) => {
   useEffect(() => {
     if (userData || fetchedUserUID) {
       fetchIncoming();
-      console.log("LOG 1 - userData user id userData:", userData);
+      // console.log("LOG 1 - userData user id userData:", userData);
     } else {
-      console.log("error 1-  userData is not available");
+      // console.log("error 1-  userData is not available");
     }
   }, [selectedMonth, userData, fetchedUserUID]);
 
@@ -195,24 +195,24 @@ const Dashboard = ({ item }) => {
     if (filteredIncomingData.length > 0) {
       const totalIncoming = filteredIncomingData.reduce((sum, item) => sum + item.price, 0);
       dispatch(updateTotalIncoming(totalIncoming));
-      console.log("totalIncoming:", totalIncoming);
+      // console.log("totalIncoming:", totalIncoming);
 
     }
-    console.log("filteredData:", filteredIncomingData);
+    // console.log("filteredData:", filteredIncomingData);
 
   }, [filteredIncomingData, dispatch]);
 
 
   const fetchIncoming = async () => {
     if (UserUID) {
-      console.log("LOG 5 - Fetching incoming for userUID:", UserUID); 
+      // console.log("LOG 5 - Fetching incoming for userUID:", UserUID); 
       const { data, error } = await supabase
         .from("incoming")
         .select("*")
         .eq("user_id", UserUID);
   
       if (error) {
-        console.error("Error fetching incoming:", error.message);
+        // console.error("Error fetching incoming:", error.message);
         throw error;
       }
   

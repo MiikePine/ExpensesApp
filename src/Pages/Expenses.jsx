@@ -32,7 +32,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
   const totalIncoming = useSelector(state => state.suminc.totalIncoming); 
 
   const selectedMonth = useSelector((state) => state.month.value);
-  const userData = useSelector((state) => state.user.id);
+  const userData = useSelector((state) => state.user);
 
 
   const dispatch = useDispatch();
@@ -262,7 +262,6 @@ const Expenses = ({ item, handleOverlayClick }) => {
           payBy: incoming["posts/pay_by"],
           category: incoming["posts/category"],
           item: incoming["posts/item"],
-          // id: id['items/id'],
           
         }));
      
@@ -324,22 +323,8 @@ const Expenses = ({ item, handleOverlayClick }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-            <TableBody>
-  {filteredExpenseData
-    .sort((a, b) =>
-      compareAsc(
-        new Date(a["items/dateValue"]),
-        new Date(b["items/dateValue"])
-      )
-    )
-    .map((item) => (
-      <TableRow key={item.id}>
-        {/* Seus outros campos aqui */}
-      </TableRow>
-    ))}
-</TableBody>
-              {filteredExpenseData.map((item, index) => (
-                <TableRow key={index}>
+              {filteredExpenseData.map((item) => (
+                <TableRow key={item.id}>
                   {/* <TableCell>{item.id}</TableCell> */}
                   <TableCell>{item.item}</TableCell>
                   <TableCell>{item.category}</TableCell>

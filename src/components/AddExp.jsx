@@ -12,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import supabase from "../../supabase/supabase";
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const schema = Yup.object().shape({
   item: Yup.string().required("Item is mandatoryo"),
@@ -55,6 +57,16 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
     resolver: yupResolver(schema),
   });
 
+
+
+  const userData = useSelector((state) => state.user.id);
+  console.log("User ID from Redux store:", userData);
+  const [UserUID, setUserUID] = useState(null);
+
+
+  const dispatch = useDispatch();
+
+
   // upload file -  const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [isOpen, setIsOpen] = useState(true);
@@ -69,6 +81,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
         "items/pay_by": data.payBy,
         "items/category": data.category,
         "items/dateValue": data.dateValue,
+        "user_id": userData,
       };
 
       const { data: setExp, error } = await supabase
@@ -120,8 +133,10 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
             </div>
           </div>
           <div className="flex align-middle justify-center">
-            <h1 className="text-sm mb-8 mt-2">Add new Expense</h1>
-          </div>
+          <h1 className="text-xl mb-8 mt-2 text-teal-700 font-bold">
+              Add new Expense
+            </h1>         
+            </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-2 mx-10 my-2">

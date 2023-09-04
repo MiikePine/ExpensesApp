@@ -99,7 +99,7 @@ const Menu = (props) => {
 
           {/* Menu inferieur */}
                   <div className= " hidden md:block mb-16 max-w">
-                      <div className="mb-4">
+                      {/* <div className="mb-4">
                             <NavLink  
                                     to="/Settings"
                                     className={({ isActive, isPending }) =>
@@ -112,7 +112,7 @@ const Menu = (props) => {
                                     <AiFillSetting size={20} className="mr-4"/>
                                     Settings
                               </NavLink>
-                      </div>
+                      </div> */}
 
 
                       <NavLink  

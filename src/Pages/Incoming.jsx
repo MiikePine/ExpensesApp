@@ -13,12 +13,11 @@ import Layout from "../components/Layout";
 import { useSelector } from "react-redux";
 import AddInc from "../components/AddInc";
 import { format } from "date-fns";
-import { compareAsc, compareDesc } from "date-fns";
+import { compareAsc } from "date-fns";
 import supabase from "../../supabase/supabase";
 import { useDispatch } from 'react-redux';
 import { updateTotalExpense } from "../store/slices/sumexpSlice"
 import { updateTotalIncoming } from "../store/slices/sumincSlice"
-
 
 
 
@@ -34,7 +33,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
   const totalIncoming = useSelector(state => state.suminc.totalIncoming); 
 
   const selectedMonth = useSelector((state) => state.month.value);
-  const userData = useSelector((state) => state.user.id);
+  const userData = useSelector((state) => state.user);
 
 
   const dispatch = useDispatch();
@@ -265,7 +264,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
             "dd-MM-yyyy"
           ),
           price: incoming["posts/price"],
-          payBy: incoming["posts/pay_by"],
+          payBy: incoming["posts/payBy"],
           category: incoming["posts/category"],
           item: incoming["posts/item"],
           // id: id['items/id'],
@@ -329,18 +328,6 @@ const Incoming = ({ item, handleOverlayClick }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-            {filteredIncomingData
-    .sort((a, b) =>
-      compareAsc(
-        new Date(a["posts/dateValue"]),
-        new Date(b["posts/dateValue"])
-      )
-    )
-    .map((item) => (
-      <TableRow key={item.id}>
-        {/* Seus outros campos aqui */}
-      </TableRow>
-    ))}
               {filteredIncomingData.map((item) => (
                 <TableRow key={item.id}>
                   {/* <TableCell>{item.id}</TableCell> */}

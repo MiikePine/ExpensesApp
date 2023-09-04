@@ -19,12 +19,12 @@ if (incomingData.length === 0) {
   }
   const [chartData, setChartData] = useState(null);
 
-  console.log("ChartInc props - selectedMonth:", selectedMonth);
-  console.log("ChartInc props - incomingData:", incomingData);
+  // console.log("ChartInc props - selectedMonth:", selectedMonth);
+  // console.log("ChartInc props - incomingData:", incomingData);
 
 
 useEffect(() => {
-    console.log('Selected Month chart incmome:', selectedMonth);
+    // console.log('Selected Month chart incmome:', selectedMonth);
   
   
     const fetchData = async () => {
@@ -75,10 +75,10 @@ useEffect(() => {
 
         // Definir as opções do gráfico
         const chartOptions = {
-            responsive: true,
-            maintainAspectRatio: true,
-            width: 200, // Set the desired width
-            height: 100, // Set the desired height
+            responsive: false,
+            maintainAspectRatio: false,
+            width: 150, // Set the desired width
+            height: 75, // Set the desired height
             plugins: {
               tooltip: {
                 // ...
@@ -87,17 +87,17 @@ useEffect(() => {
           };
 
 
-  console.log('Filtered Data:', filteredData);
-          console.log('Labels:', labels);
-          console.log('Values:', values);
-          console.log('Background Colors:', backgroundColors);
+          // console.log('Filtered Data:', filteredData);
+          // console.log('Labels:', labels);
+          // console.log('Values:', values);
+          // console.log('Background Colors:', backgroundColors);
 
           setChartData({ data: chartData, options: chartOptions });
         } catch (error) {
-          console.error('Error fetching data:', error);
+          // console.error('Error fetching data:', error);
         }
       };
-      console.log("Chart data:", chartData);
+      // console.log("Chart data:", chartData);
 
       fetchData();
     }, [selectedMonth, incomingData]); // Add selectedMonth to the dependency array

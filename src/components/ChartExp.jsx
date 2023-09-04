@@ -31,13 +31,13 @@ function ChartExp({ selectedMonth, expenseData, userData }) {
   }
   const [chartData, setChartData] = useState(null);
 
-  console.log("ChartExp props - selectedMonth:", selectedMonth);
-  console.log("ChartExp props - expenseData:", expenseData);
+  // console.log("ChartExp props - selectedMonth:", selectedMonth);
+  // console.log("ChartExp props - expenseData:", expenseData);
 
 
 
   useEffect(() => {
-    console.log('Selected Month chart expense:', selectedMonth);
+    // console.log('Selected Month chart expense:', selectedMonth);
   
   
     const fetchData = async () => {
@@ -87,10 +87,10 @@ function ChartExp({ selectedMonth, expenseData, userData }) {
 
         // Definir as opções do gráfico
         const chartOptions = {
-            responsive: true,
+            responsive: false,
             maintainAspectRatio: false,
-            width: 150, // Set the desired width
-            height: 150, // Set the desired height
+            width: 200, // Set the desired width
+            height: 100, // Set the desired height
             plugins: {
               tooltip: {
                 // ...
@@ -98,17 +98,17 @@ function ChartExp({ selectedMonth, expenseData, userData }) {
             },
           };
 
-          console.log('Filtered Data:', filteredData);
-          console.log('Labels:', labels);
-          console.log('Values:', values);
-          console.log('Background Colors:', backgroundColors);
+          // console.log('Filtered Data:', filteredData);
+          // console.log('Labels:', labels);
+          // console.log('Values:', values);
+          // console.log('Background Colors:', backgroundColors);
 
           setChartData({ data: chartData, options: chartOptions });
         } catch (error) {
-          console.error('Error fetching data:', error);
+          // console.error('Error fetching data:', error);
         }
       };
-      console.log("Chart data:", chartData);
+      // console.log("Chart data:", chartData);
 
       fetchData();
     }, [selectedMonth, expenseData]); // Add selectedMonth to the dependency array

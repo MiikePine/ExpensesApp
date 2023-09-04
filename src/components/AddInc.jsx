@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import Input from "./Input";
 import { useState, Fragment, useEffect } from "react";
 import UploadComponent from "./UploadComponent";
-// import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
@@ -13,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import supabase from "../../supabase/supabase";
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const schema = Yup.object().shape({
   item: Yup.string().required("Item is mandatory"),
@@ -52,6 +53,14 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
     resolver: yupResolver(schema),
   });
 
+  const userData = useSelector((state) => state.user.id);
+  console.log("User ID from Redux store:", userData);
+  const [UserUID, setUserUID] = useState(null);
+
+
+  const dispatch = useDispatch();
+
+
   // upload file -  const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [isOpen, setIsOpen] = useState(true);
@@ -61,16 +70,19 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
 
     try {
       const dataToInsert = {
-        "items/item": data.item,
-        "items/price": parseFloat(data.price), // Make sure to convert to a number if needed
-        "items/pay_by": data.payBy,
-        "items/category": data.category,
-        "items/dateValue": data.dateValue,
+        "posts/item": data.item,
+        "posts/price": parseFloat(data.price), // Make sure to convert to a number if needed
+        "posts/payBy": data.payBy,
+        "posts/category": data.category,
+        "posts/dateValue": data.dateValue,
+        "user_id": userData,
+
       };
 
-      const { data: error } = await supabase
-        .from("expense")
+      const { data: setInc, error } = await supabase
+        .from("incoming")
         .upsert([dataToInsert]);
+        
 
       if (error) {
         throw error;
@@ -80,21 +92,21 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
         console.error("Failed to submit form:", error);
         console.error("Error name:", error.name);
         console.error("Error message:", error.message);
-        toast.error("Error adding new Expense");
+        toast.error("Error adding new incoming");
       } else {
-        toast.success("New Expense added successfully");
+        toast.success("New Incoming added successfully");
         reset();
         onClose();
       }
 
-      toast.success("New Expense add succefully");
+      toast.success("New incoming add succefully");
       reset();
       onClose(); // Fechar o componente Register
     } catch (error) {
       console.error("Failed to submit form:", error);
       console.error("Error name:", error.name);
       console.error("Error message:", error.message);
-      toast.error("Error adding new Expense");
+      toast.error("Error adding new incoming");
     }
   };
 
@@ -339,7 +351,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
             </div>
 
             <div className="flex justify-end mt-4 mr-10">
-              <Button AddNew="Add" type="submit" />
+              <Button AddNew="Add" type="submit" onChange={insertData}/>
             </div>
           </form>
         </div>
