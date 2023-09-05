@@ -345,7 +345,7 @@ const Header = ({ pathName, onMonthChange }) => {
       <div className="bg-white !shadow-lg mt-8 w-2/3 h-32 ml-4">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
           <Title className="bg-white !text-gray-600 flex items-center">
-            <span className="text-center flex-grow text-sm">Last Transactions</span>
+            <span className="text-center flex-grow text-sm mb-4">Last Transactions</span>
           </Title>
 
           <Table className=" bg-white text-green-100 flex justify-around">

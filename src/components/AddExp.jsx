@@ -32,6 +32,11 @@ const Category = [
   { id: 6, name: "Clothes", unavailable: false },
   { id: 7, name: "Night Life", unavailable: false },
   { id: 8, name: "Tobbaco", unavailable: false },
+  { id: 9, name: "Health", unavailable: false },
+  { id: 10, name: "Pets", unavailable: false },
+  { id: 11, name: "Bills", unavailable: false },
+
+
 ];
 
 const methodPayment = [
