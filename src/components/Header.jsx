@@ -11,6 +11,7 @@ import { setSelectedMonth } from "../store/slices/monthSlice";
 import supabase from "../../supabase/supabase";
 import { format } from "date-fns";
 import { compareDesc, compareAsc } from "date-fns";
+import { updateTotalIncoming } from "../store/slices/sumincSlice"
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import {
   Card,
@@ -51,7 +52,7 @@ const Header = ({ pathName, onMonthChange }) => {
   const selectedMonth = useSelector((state) => state.month.value);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
-  const userData = useSelector((state) => state.user.id);
+  const userData = useSelector((state) => state.user);
 
 
 
@@ -75,9 +76,32 @@ const Header = ({ pathName, onMonthChange }) => {
 
   useEffect(() => {
     fetchUserDataInc();
-    fetchUserDataExp
-  }, []);
+    fetchUserDataExp();
+  }, [selectedMonth, userData, fetchedUserUID]);
 
+  useEffect(() => {
+    if (filteredExpenseData.length > 0) {
+      const totalExpense = filteredExpenseData.reduce(
+        (sum, item) => sum + item.price,
+        0
+      );
+      dispatch(updateTotalExpense(totalExpense));
+    }
+  }, [filteredExpenseData, dispatch]);
+  
+  useEffect(() => {
+    if (filteredIncomingData.length > 0) {
+      const totalIncoming = filteredIncomingData.reduce(
+        (sum, item) => sum + item.price,
+        0
+      );
+      dispatch(updateTotalIncoming(totalIncoming));
+    }
+  }, [filteredIncomingData, dispatch]);
+  
+  
+  
+  
 
   // FETCH start
 
@@ -165,8 +189,11 @@ const Header = ({ pathName, onMonthChange }) => {
       setFilteredExpenseData(filteredDataExp);
     }
   };
-  // console.log("selectedMonth:", selectedMonth);
 
+  // console.log("selectedMonth:", selectedMonth);
+  useEffect(() => {
+    fetchUserDataExp();
+  }, [selectedMonth, userData, fetchedUserUID]);
 
   // Fetch end
 
@@ -265,7 +292,8 @@ const Header = ({ pathName, onMonthChange }) => {
 
   useEffect(() => {
     fetchUserDataInc();
-  }, []);
+    fetchUserDataExp();
+  }, [selectedMonth, userData, fetchedUserUID]);
   // Fetch incoming end 
   // console.log("Length of filteredExpenseData:", filteredExpenseData.length);
   // console.log("Length of filteredIncomingData:", filteredIncomingData.length);

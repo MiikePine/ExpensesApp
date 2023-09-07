@@ -29,9 +29,6 @@ function Header1({ handleSelectMonth, selectedMonth }) {
     }
   };
 
-  useEffect(() => {
-    fetchUserDataInc();
-  }, []); // Fetch user data when the component mounts
 
   return (
     <div className="text-zinc-600 pt-2 pb-6 w-full px-10 mt-4">
