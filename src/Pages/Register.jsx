@@ -95,7 +95,7 @@ const Register = () => {
               type="submit"
               className="w-full px-4 py-3 mt-8 font-bold bg-teal-700 text-white border-2 bg-red border-red
                hover:bg-white hover:text-teal-700 hover:border-2 hover:border-teal-700 focus:outline-none focus:ring-2
-                focus:ring-teal-700 focus:ring-opacity-50"
+                focus:ring-teal-700 focus:ring-opacity-50" onClick={handleSubmit}
             >
               Register
             </button>

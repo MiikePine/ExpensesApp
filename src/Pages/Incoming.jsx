@@ -35,6 +35,13 @@ const Incoming = ({ item, handleOverlayClick }) => {
   const selectedMonth = useSelector((state) => state.month.value);
   const userData = useSelector((state) => state.user);
 
+  const sortedIncomingData = filteredIncomingData.slice().sort((a, b) => {
+    const dateA = new Date(a["posts/dateValue"]);
+    const dateB = new Date(b["posts/dateValue"]);
+  
+    return compareAsc(dateA, dateB);
+  });
+  
 
   const dispatch = useDispatch();
 
@@ -328,14 +335,14 @@ const Incoming = ({ item, handleOverlayClick }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredIncomingData.map((item) => (
-                <TableRow key={item.id}>
-                  {/* <TableCell>{item.id}</TableCell> */}
+            {sortedIncomingData.map((item, index) => (                
+            <TableRow key={index}>     
                   <TableCell>{item.item}</TableCell>
                   <TableCell>{item.category}</TableCell>
-                  <TableCell>{item.price}</TableCell>
+                  <TableCell>{item.price} <span className="text-xs">CHF</span></TableCell>
                   <TableCell>{item.formattedDate}</TableCell>
                   <TableCell>{item.payBy}</TableCell>
+                  {/* <TableCell>{item.id}</TableCell> */}
                 </TableRow>
               ))}
             </TableBody>

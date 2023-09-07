@@ -25,7 +25,7 @@ const Dashboard = ({ item }) => {
   const totalIncoming = useSelector(state => state.suminc.totalIncoming); 
 
   const selectedMonth = useSelector((state) => state.month.value);
-  const userData = useSelector((state) => state.user.id);
+  const userData = useSelector((state) => state.user);
 
 
   const dispatch = useDispatch();
@@ -279,18 +279,18 @@ const Dashboard = ({ item }) => {
 
 
     <div>
-      <div className="flex justify-between w-full py-2 border-neutral-300 rounded-xl ">
+      <div className="flex justify-between w-full py-1 border-neutral-300 ">
     </div>
 
 
 
     <div className="flex">
-             <div className="w-full h-96 bg-white rounded-lg pt-4 mt-2 mr-4 shadow-lg">
+             <div className="w-full bg-white pt-4 mr-4 shadow-lg">
                 <p className="flex justify-center pb-4 text-zinc-500">Incoming</p>
                 <ChartInc selectedMonth={selectedMonth} userData={userData} incomingData={filteredIncomingData}/>
              </div>
 
-             <div className="w-full h-96 bg-white rounded-lg mt-2 pt-4 ml-2 shadow-lg">
+             <div className="w-full bg-white pt-4 mr-2 shadow-lg">
                 <p className="flex justify-center pb-4 text-zinc-500">Expense</p>
                 <ChartExp selectedMonth={selectedMonth} userData={userData} expenseData={filteredExpenseData}/>
 

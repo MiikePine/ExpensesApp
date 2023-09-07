@@ -14,19 +14,19 @@ const Layout = ({ children, users, totalPrice, item, pathName, getMonthFromDate,
 
  
     return (
-     <main className="relative block md:flex md:h-full bg-zinc-100">
+     <main className="relative block md:flex md:h-screen bg-zinc-100">
             <Menu className="shadow-lg"/> 
             <div>   
                 <MenuMobile  />
             </div>
 
 
-                <div className="w-full">
+            <div className="w-full h-full ">
                     <div>
                         <Header1/>
                     </div>
 
-                    <div className="mx-10">
+                    <div className="mx-5">
                         <Header users={users} totalPrice={totalPrice} item={item} pathName={pathName} getMonthFromDate={getMonthFromDate} selectedMonth={selectedMonth} UserUID={UserUID} totalIncome={totalIncome} totalExpense={totalExpense}/>
                     {children} 
                     </div>

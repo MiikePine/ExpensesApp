@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'chart.js/auto';
-import { Doughnut } from 'react-chartjs-2';
 import {months} from './Months';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 
 const categoryColors = {
   Tips: 'rgb(54, 162, 235)',   // blue
@@ -75,10 +76,10 @@ useEffect(() => {
 
         // Definir as opções do gráfico
         const chartOptions = {
-            responsive: false,
+            responsive: true,
             maintainAspectRatio: false,
-            width: 150, // Set the desired width
-            height: 75, // Set the desired height
+            width: 100, // Set the desired width
+            height: 40, // Set the desired height
             plugins: {
               tooltip: {
                 // ...
@@ -107,7 +108,7 @@ useEffect(() => {
     }
  
     return (
-      <div style={{ display: '', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+      <div style={{ display: 'left', justifyContent: '', alignItems: '', height: '34vh' }} className='mb-4 mt-6 pb-4'>
         <Doughnut
           data={chartData.data}
           options={{

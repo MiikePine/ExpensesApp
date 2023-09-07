@@ -35,6 +35,13 @@ const Expenses = ({ item, handleOverlayClick }) => {
   const userData = useSelector((state) => state.user);
 
 
+  const sortedExpenseData = filteredExpenseData.slice().sort((a, b) => {
+    const dateA = new Date(a["items/dateValue"]);
+    const dateB = new Date(b["items/dateValue"]);
+      return compareAsc(dateA, dateB);
+  });
+
+
   const dispatch = useDispatch();
 
   const handleAddExpense = () => {
@@ -323,14 +330,15 @@ const Expenses = ({ item, handleOverlayClick }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredExpenseData.map((item) => (
-                <TableRow key={item.id}>
-                  {/* <TableCell>{item.id}</TableCell> */}
+            {sortedExpenseData.map((item, index) => (                
+                <TableRow key={index}>
                   <TableCell>{item.item}</TableCell>
                   <TableCell>{item.category}</TableCell>
                   <TableCell>{item.price} <span className="text-xs">CHF</span></TableCell>
                   <TableCell>{item.formattedDate}</TableCell>
                   <TableCell>{item.payBy}</TableCell>
+                  {/* <TableCell>{item.id}</TableCell> */}
+
                 </TableRow>
               ))}
             </TableBody>

@@ -4,6 +4,8 @@ import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
 import {months} from './Months';
 import { useSelector } from 'react-redux';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
 
 const categoryColors = {
   Car: 'rgb(54, 162, 235)',         // Blue
@@ -20,9 +22,10 @@ const categoryColors = {
 
 
 
-function ChartExp({ selectedMonth, expenseData, userData }) {
+function ChartExp({ selectedMonth, expenseData }) {
     // console.log("Props received in ChartExp - selectedMonth:", selectedMonth);
     // console.log("Props received in ChartExp - expenseData:", expenseData);
+    
     
   
   if (expenseData.length === 0) {
@@ -87,9 +90,9 @@ function ChartExp({ selectedMonth, expenseData, userData }) {
 
         // Definir as opções do gráfico
         const chartOptions = {
-            responsive: false,
+            responsive: true,
             maintainAspectRatio: false,
-            width: 200, // Set the desired width
+            width: 100, // Set the desired width
             height: 100, // Set the desired height
             plugins: {
               tooltip: {
@@ -116,20 +119,25 @@ function ChartExp({ selectedMonth, expenseData, userData }) {
     if (!chartData) {
       return null; // Aguardando os dados serem carregados
     }
+
+
  
     return (
-      <Doughnut
-        data={chartData.data}
-        options={{
-          ...chartData.options,
-          plugins: {
-            ...chartData.options.plugins,
-            legend: {
-              position: 'left', // Set 'bottom' for below or 'right' for the side
+      <div style={{ display: 'left', justifyContent: '', alignItems: '', height: '34vh' }} className='mb-4 mt-6 pb-4'>
+        <Doughnut
+          data={chartData.data}
+          options={{
+            ...chartData.options,
+            plugins: {
+              ...chartData.options.plugins,
+              legend: {
+                position: 'right', // Set 'bottom' for below or 'right' for the side
+              },
             },
-          },
-        }}
-      />
+          }}
+        />
+      </div>
+
     );
 
   }

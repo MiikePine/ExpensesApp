@@ -1,45 +1,22 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../../Images/logo4.png";
+import React, { useState } from "react";
+import { TfiClose } from "react-icons/tfi";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import supabase from "../../supabase/supabase";
+import { useDispatch, useSelector } from 'react-redux';
 
+function RegisterSuccess() {
+  const [isOpen, setIsOpen] = useState(true); // Define and set isOpen to true or false as needed
 
-
-const RegisterSuccess = () => {
-    return (
-          <div className="w-screen md:w-2/6 h-110 top-24 ml-10 fixed z-50 flex items-center overflow-y-auto mb-10 shadow-xxl">
-    
-    
-            <div className="flex-1 h-full border-2 b-green-700 border-neutral-200 overflow-y-auto bg-zinc-100 p-4 relative">
-            
-    
-                 <div className="flex justify-end mt-4 mr-8">
-                  <Button AddNew="Add" type="submit" onChange={insertData} />
-                </div>
-    
-        </div>
-              
-            </div>
-       
-        
-      );
-    };
-    
+  return (
+    isOpen && (
+      <div className={`fixed inset-0 flex justify-center items-center ${isOpen ? "block" : "hidden"} z-50`}>
+      <div className="w-screen md:w-2/6 h-110 bg-zinc-100 p-4 relative shadow-xxl">
+        <span>hello</span>
+      </div>
+    </div>
+    )
+  );
+}
 
 export default RegisterSuccess;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

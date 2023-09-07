@@ -12,6 +12,8 @@ import supabase from "../../supabase/supabase";
 import { format } from "date-fns";
 import { compareDesc, compareAsc } from "date-fns";
 import { updateTotalIncoming } from "../store/slices/sumincSlice"
+import { updateTotalExpense } from "../store/slices/sumexpSlice"
+
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import {
   Card,
@@ -75,7 +77,7 @@ const Header = ({ pathName, onMonthChange }) => {
 
 
   useEffect(() => {
-    fetchUserDataInc();
+    fetchUserDataIncoming();
     fetchUserDataExp();
   }, [selectedMonth, userData, fetchedUserUID]);
 
@@ -89,6 +91,9 @@ const Header = ({ pathName, onMonthChange }) => {
     }
   }, [filteredExpenseData, dispatch]);
   
+
+
+
   useEffect(() => {
     if (filteredIncomingData.length > 0) {
       const totalIncoming = filteredIncomingData.reduce(
@@ -107,7 +112,7 @@ const Header = ({ pathName, onMonthChange }) => {
 
   const fetchUserDataExp = async () => {
     const { data, error } = await supabase.auth.getSession();
-    // console.log("Data from fetchUserDataExp:", data);
+    console.log("Data from fetchUserDataExp:", data);
     if (data.session !== null) {
       const user = data.session.user;
       setUserUID(user.id);
@@ -192,6 +197,7 @@ const Header = ({ pathName, onMonthChange }) => {
 
   // console.log("selectedMonth:", selectedMonth);
   useEffect(() => {
+    fetchUserDataIncoming();
     fetchUserDataExp();
   }, [selectedMonth, userData, fetchedUserUID]);
 
@@ -199,7 +205,7 @@ const Header = ({ pathName, onMonthChange }) => {
 
 
 
-  const fetchUserDataInc = async () => {
+  const fetchUserDataIncoming = async () => {
     const { data, error } = await supabase.auth.getSession();
     console.log("Data from fetchUserDataInc:", data);
     if (data.session !== null) {
@@ -258,10 +264,7 @@ const Header = ({ pathName, onMonthChange }) => {
       const filteredDataInc = data
         .filter((incoming) => {
           const incomingMonth =
-            new Date(incoming["posts/dateValue"]).getMonth() + 1; 
-        
-        
-        
+            new Date(incoming["posts/dateValue"]).getMonth() + 1;         
             return incomingMonth === selectedMonthNumber;
         })
         .map((incoming) => ({
@@ -291,8 +294,8 @@ const Header = ({ pathName, onMonthChange }) => {
 
 
   useEffect(() => {
-    fetchUserDataInc();
     fetchUserDataExp();
+    fetchUserDataIncoming();
   }, [selectedMonth, userData, fetchedUserUID]);
   // Fetch incoming end 
   // console.log("Length of filteredExpenseData:", filteredExpenseData.length);
@@ -389,9 +392,9 @@ const Header = ({ pathName, onMonthChange }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-  {combinedData.slice(0, 5).map((item, index) => (
-    <TableRow className="text-xs" key={item.id}>
-      {/* Renderize os campos da tabela aqui */}
+  {combinedData.slice(0, 4).map((item, index) => (
+                <TableRow key={index}>
+                {/* Renderize os campos da tabela aqui */}
       <TableCell className="py-1 my-0.5">{item.item}</TableCell>
       <TableCell className="py-2 my-1">{item.category}</TableCell>
       <TableCell className="py-1 my-1">
