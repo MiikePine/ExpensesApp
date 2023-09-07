@@ -26,7 +26,7 @@ const Layout = ({ children, users, totalPrice, item, pathName, getMonthFromDate,
                         <Header1/>
                     </div>
 
-                    <div className="mx-5">
+                    <div className="mx-4">
                         <Header users={users} totalPrice={totalPrice} item={item} pathName={pathName} getMonthFromDate={getMonthFromDate} selectedMonth={selectedMonth} UserUID={UserUID} totalIncome={totalIncome} totalExpense={totalExpense}/>
                     {children} 
                     </div>

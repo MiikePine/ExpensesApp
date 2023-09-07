@@ -11,8 +11,9 @@ import { setSelectedMonth } from "../store/slices/monthSlice";
 import supabase from "../../supabase/supabase";
 import { format } from "date-fns";
 import { compareDesc, compareAsc } from "date-fns";
-import { updateTotalIncoming } from "../store/slices/sumincSlice"
-import { updateTotalExpense } from "../store/slices/sumexpSlice"
+import { updateTotalIncoming } from "../store/slices/sumincSlice";
+import { updateTotalExpense } from "../store/slices/sumexpSlice";
+import Months from "./Months";
 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import {
@@ -304,9 +305,7 @@ const Header = ({ pathName, onMonthChange }) => {
   // console.log("Length of combinedData:", combinedData.length);
 
   return (
-    <div className="flex">
-      <div className="border-b border-zinc-300 mt-1"></div>
-      
+    <div className="flex mt-8">
       <div className="flex w-1/3 pt-4 py-2 gap-6 border-neutral-300 rounded-xl mt-4">
         <div className="w-full ">
         <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4 opacity-100">
@@ -419,6 +418,15 @@ const Header = ({ pathName, onMonthChange }) => {
           </Table>
         </Card>
       </div>
+
+
+      <div className=" gap-2 h-1 absolute w-500 right-4 top-24">
+          <Months
+            className="cursor-pointer"
+            onMonthChange={handleSelectMonth}
+            selectedMonth={selectedMonth}
+          />
+        </div>
     </div>
   );
 };

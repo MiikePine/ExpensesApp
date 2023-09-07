@@ -279,7 +279,7 @@ const Dashboard = ({ item }) => {
 
 
     <div>
-      <div className="flex justify-between w-full py-1 border-neutral-300 ">
+      <div className="flex justify-between w-full border-neutral-300 ">
     </div>
 
 
