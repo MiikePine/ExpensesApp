@@ -50,15 +50,17 @@ const Header = ({ pathName, onMonthChange }) => {
   const combinedData = [...filteredExpenseData, ...filteredIncomingData];
 
 
-
   const dispatch = useDispatch();
   const selectedMonth = useSelector((state) => state.month.value);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
   const userData = useSelector((state) => state.user);
 
-
-
+  const sortedCombinedData = combinedData.slice().sort((a, b) => {
+    const dateA = new Date(a.dateValue || a["items/dateValue"] || a["posts/dateValue"]);
+    const dateB = new Date(b.dateValue || b["items/dateValue"] || b["posts/dateValue"]);
+    return compareDesc(dateA, dateB);
+  });
 
 
   const handleMonthChange = (newMonth) => {
@@ -82,16 +84,6 @@ const Header = ({ pathName, onMonthChange }) => {
     fetchUserDataExp();
   }, [selectedMonth, userData, fetchedUserUID]);
 
-  useEffect(() => {
-    if (filteredExpenseData.length > 0) {
-      const totalExpense = filteredExpenseData.reduce(
-        (sum, item) => sum + item.price,
-        0
-      );
-      dispatch(updateTotalExpense(totalExpense));
-    }
-  }, [filteredExpenseData, dispatch]);
-  
 
 
 
@@ -104,12 +96,14 @@ const Header = ({ pathName, onMonthChange }) => {
       dispatch(updateTotalIncoming(totalIncoming));
     }
   }, [filteredIncomingData, dispatch]);
-  
+
+
+
   
   
   
 
-  // FETCH start
+  // FETCH exp start
 
   const fetchUserDataExp = async () => {
     const { data, error } = await supabase.auth.getSession();
@@ -146,32 +140,43 @@ const Header = ({ pathName, onMonthChange }) => {
         .from("expense")
         .select("*")
         .eq("user_id", UserUID);
+        // .then((response) => {
+        //   if (!response.error) {
+        //     return response.data.map((item) => ({
+        //       ...item,
+        //       source: "expense", // Adicione um campo "source" para indicar a fonte como "expense"
+        //     }));
+        //   }
+        //   return [];
+        // });
+      
         // console.log("Data from fetchExpense:", data);
       if (error) {
         throw error;
       }
+
   
       const monthMapping = {
-        January: "January",
-        February: "February",
-        March: "March",
-        April: "April",
-        May: "May",
-        June: "June",
-        July: "July",
-        August: "August",
-        September: "September",
-        October: "October",
-        November: "November",
-        December: "December",
+        January: 1,
+        February: 2,
+        March: 3,
+        April: 4,
+        May: 5,
+        June: 6,
+        July: 7,
+        August: 8,
+        September: 9,
+        October: 10,
+        November: 11,
+        December: 12,
       };
-  
+
       const selectedMonthNumber = monthMapping[selectedMonth];
   
       const filteredDataExp = data
         .filter((expense) => {
           const expenseMonth =
-            new Date(expense["items/dateValue"]).getMonth() - 1; // Subtracting 1 to match month numbers (0-11)
+            new Date(expense["items/dateValue"]).getMonth() + 1; // Subtracting 1 to match month numbers (0-11)
           return expenseMonth === selectedMonthNumber;
         })
         .map((expense) => ({
@@ -184,17 +189,20 @@ const Header = ({ pathName, onMonthChange }) => {
           payBy: expense["items/pay_by"],
           category: expense["items/category"],
           item: expense["items/item"],
+          source: "expense",
         }))
-        .sort((a, b) =>
-          compareDesc(
-            new Date(a.formattedDate),
-            new Date(b.formattedDate)
-          )
-        );
-  
-      setFilteredExpenseData(filteredDataExp);
+        // .sort((a, b) =>
+        //   compareDesc(
+        //     new Date(a.formattedDate),
+        //     new Date(b.formattedDate)
+        //   )
+        // );
+        setFilteredExpenseData(filteredDataExp);
+
+
     }
   };
+
 
   // console.log("selectedMonth:", selectedMonth);
   useEffect(() => {
@@ -204,6 +212,9 @@ const Header = ({ pathName, onMonthChange }) => {
 
   // Fetch end
 
+
+
+// fetch incoming
 
 
   const fetchUserDataIncoming = async () => {
@@ -234,6 +245,7 @@ const Header = ({ pathName, onMonthChange }) => {
       fetchIncoming();
     }
   }, [selectedMonth, fetchedUserUID]);
+
   const fetchIncoming = async () => {
     if (UserUID) {
       const { data, error } = await supabase
@@ -278,31 +290,23 @@ const Header = ({ pathName, onMonthChange }) => {
           payBy: incoming["posts/payBy"],
           category: incoming["posts/category"],
           item: incoming["posts/item"],
+          source: "incoming"
         }))
-        .sort((a, b) =>
-          compareDesc(
-            new Date(b.formattedDate),
-            new Date(a.formattedDate)
-          )
-        );
+        // .sort((a, b) =>
+        //   compareDesc(
+        //     new Date(b.formattedDate),
+        //     new Date(a.formattedDate)
+        //   )
+        // );
   
       setFilteredIncomingData(filteredDataInc);
-      // console.log("Length of combinedData 1 :", combinedData.length);
 
     }
   };
-  // console.log("Length of combinedData 2 :", combinedData.length);
 
-
-  useEffect(() => {
-    fetchUserDataExp();
-    fetchUserDataIncoming();
-  }, [selectedMonth, userData, fetchedUserUID]);
-  // Fetch incoming end 
-  // console.log("Length of filteredExpenseData:", filteredExpenseData.length);
-  // console.log("Length of filteredIncomingData:", filteredIncomingData.length);
-
-  // console.log("Length of combinedData:", combinedData.length);
+//   const sortedCombinedData = combinedData.slice(0, 30).sort((a, b) =>
+//   compareDesc(new Date(a.formattedDate), new Date(b.formattedDate))
+// );
 
   return (
     <div className="flex mt-8">
@@ -391,7 +395,7 @@ const Header = ({ pathName, onMonthChange }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-  {combinedData.slice(0, 4).map((item, index) => (
+  {sortedCombinedData.slice(0, 4).map((item, index) => (
                 <TableRow key={index}>
                 {/* Renderize os campos da tabela aqui */}
       <TableCell className="py-1 my-0.5">{item.item}</TableCell>
@@ -406,12 +410,12 @@ const Header = ({ pathName, onMonthChange }) => {
         {item.payBy}
       </TableCell>
       <TableCell className="py-1 my-1">
-        {item.payBy === "Expenses" ? (
-          <AiOutlineMinus className="text-red-400" style={{ fontSize: '22px' }} />
-        ) : (
-          <AiOutlinePlus className="text-green-600" style={{ fontSize: '22px' }} />
-        )}
-      </TableCell>
+      {item.source === "expense" ? (
+        <AiOutlineMinus className="text-red-400" style={{ fontSize: '22px' }} />
+      ) : (
+        <AiOutlinePlus className="text-green-600" style={{ fontSize: '22px' }} />
+      )}
+    </TableCell>
     </TableRow>
   ))}
 </TableBody>
