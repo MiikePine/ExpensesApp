@@ -21,7 +21,7 @@ const Layout = ({
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
 
   return (
-    <main className="relative block md:flex md:h-screen bg-zinc-100  max-h-screen overflow-hidden">
+    <main className="relative block md:flex md:h-screen bg-zinc-100  max-h-screen overflow-hidden overflow-y-auto">
       <Menu className="shadow-lg" />
       <div>
         <MenuMobileR />

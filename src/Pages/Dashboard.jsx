@@ -251,10 +251,10 @@ const Dashboard = ({ item }) => {
   return (
     <Layout items={item} showHeader={true}>
       <div>
-        <div className="flex justify-between w-full border-neutral-300 "></div>
+        <div className="flex justify-between w-full border-neutral-300 overflow-y-auto"></div>
 
         <div className="md:flex overflow-y-auto">
-          <div className="w-full bg-white pt-4 mr-4 shadow-lg">
+          <div className="w-full bg-white mt-14 md:mt-0 pt-4 mr-4 shadow-lg">
             <div className="flex justify-center items-center">
               <p className="pb-4 text-zinc-500 text-xl mr-4">Incoming</p>
               <BiSolidUpArrow
@@ -269,7 +269,7 @@ const Dashboard = ({ item }) => {
             />
           </div>
 
-          <div className="w-full bg-white pt-2 mr-2 shadow-lg">
+          <div className="w-full bg-white mb-22 md:mb-0 pt-2 mr-2 shadow-lg">
             <div className="flex justify-center items-center">
               <p className="pb-4 text-zinc-500 text-xl mr-4">Expense</p>
               <BiSolidDownArrow

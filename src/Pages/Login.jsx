@@ -66,14 +66,17 @@ const Login = () => {
       style={{ backgroundImage: `url(${auroras})` }}
     >
       <div className="absolute inset-0 bg-white opacity-60 overflow-y-auto "></div>
-      {/* <div className="absolute top-0 left-0 mt-8 ml-8">
-          <img src={logo} alt="Logo" className="h-20" />
-        </div> */}
+      <div className="fixed md:hidden top-0 left-0 md:mt-0 ml-2">
+          <img src={logo} alt="Logo" className="h-40 md:h-52 mt-[-30px] ml-[-10px]" />
+        </div>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-zinc-100 shadow-lg mb-2 p-8 w-3/4 mx-4 md:w-[33%] relative z-10 flex flex-col justify-center h-[520px]"
+        className="bg-zinc-100 shadow-lg mb-2 p-4 md:p-8 w-3/4 mx-4 md:w-[33%] relative z-10 flex flex-col justify-center h-[520px]"
       >
+         <div className="hidden md:flex absolute  top-0  left-0 md:mt-0 ml-2">
+          <img src={logo} alt="Logo" className="h-18 md:h-36 mt-[-30px] ml-[-10px]" />
+        </div>
         <div className="items-center">
           <div className="text-center">
             <span className="text-2xl text-teal-700 font-bold md:text-3xl text-red">
@@ -127,7 +130,7 @@ const Login = () => {
 
         <Link
           to="/ForgotPw"
-          className="float-right mt-1 mb-10 text-sm text-black focus:text-red-500 hover:text-red hover:underline"
+          className="items-end mt-1 mb-6 text-xs text-black focus:text-red-500 hover:text-red hover:underline"
         >
           Forgot password?
         </Link>
