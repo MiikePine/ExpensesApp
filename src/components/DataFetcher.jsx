@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import supabase from '../../supabase/supabase';
+import React, { useEffect, useState } from "react";
+import supabase from "../../supabase/supabase";
 
 const monthMapping = {
   January: 1,
@@ -25,17 +25,17 @@ function DataFetcher({ userId, selectedMonth, children }) {
       console.log("Fetching data for user ID:", userId);
       console.log("Selected month:", selectedMonth);
       const { data: expenseData, error: expenseError } = await supabase
-        .from('expense')
-        .select('*')
-        .eq('user_id', userId);
+        .from("expense")
+        .select("*")
+        .eq("user_id", userId);
 
       // ...
 
       // Example for fetching incoming data
       const { data: incomingData, error: incomingError } = await supabase
-        .from('incoming')
-        .select('*')
-        .eq('user_id', userId);
+        .from("incoming")
+        .select("*")
+        .eq("user_id", userId);
 
       // ...
 

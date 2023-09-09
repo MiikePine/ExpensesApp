@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const expSlice = createSlice({
-  name: 'exp',
+  name: "exp",
   initialState: [],
   reducers: {
     setExp: (state, action) => {

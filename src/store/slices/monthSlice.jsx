@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const monthSlice = createSlice({
-  name: 'month',
+  name: "month",
   initialState: {
-    value: 'August',
+    value: "August",
   },
   reducers: {
     setSelectedMonth: (state, action) => {
-      console.log('Setting selected month:', action.payload); 
+      console.log("Setting selected month:", action.payload);
       state.value = action.payload;
     },
   },

@@ -1,14 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   totalIncoming: 0,
 };
 
- const sumincSlice = createSlice({
-  name: 'suminc',
+const sumincSlice = createSlice({
+  name: "suminc",
   initialState,
   reducers: {
- 
     updateTotalIncoming: (state, action) => {
       state.totalIncoming = action.payload;
     },

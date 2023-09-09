@@ -15,11 +15,9 @@ import AddInc from "../components/AddInc";
 import { format } from "date-fns";
 import { compareAsc } from "date-fns";
 import supabase from "../../supabase/supabase";
-import { useDispatch } from 'react-redux';
-import { updateTotalExpense } from "../store/slices/sumexpSlice"
-import { updateTotalIncoming } from "../store/slices/sumincSlice"
-
-
+import { useDispatch } from "react-redux";
+import { updateTotalExpense } from "../store/slices/sumexpSlice";
+import { updateTotalIncoming } from "../store/slices/sumincSlice";
 
 const Incoming = ({ item, handleOverlayClick }) => {
   const [showRegister, setShowRegister] = useState(false);
@@ -29,8 +27,8 @@ const Incoming = ({ item, handleOverlayClick }) => {
   const [filteredExpenseData, setFilteredExpenseData] = useState([]);
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
 
-  const totalExpense = useSelector(state => state.sumexp.totalExpense); 
-  const totalIncoming = useSelector(state => state.suminc.totalIncoming); 
+  const totalExpense = useSelector((state) => state.sumexp.totalExpense);
+  const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
 
   const selectedMonth = useSelector((state) => state.month.value);
   const userData = useSelector((state) => state.user);
@@ -38,10 +36,9 @@ const Incoming = ({ item, handleOverlayClick }) => {
   const sortedIncomingData = filteredIncomingData.slice().sort((a, b) => {
     const dateA = new Date(a["posts/dateValue"]);
     const dateB = new Date(b["posts/dateValue"]);
-  
+
     return compareAsc(dateA, dateB);
   });
-  
 
   const dispatch = useDispatch();
 
@@ -49,40 +46,28 @@ const Incoming = ({ item, handleOverlayClick }) => {
     setShowRegister(true);
   };
 
-
-  const handleRegisterSuccess = (data) => { 
-  };
+  const handleRegisterSuccess = (data) => {};
 
   const handleCloseRegister = () => {
     setShowRegister(false);
   };
 
-
-
-
-
-
-
-
-  // Fetch Exp Start 
+  // Fetch Exp Start
   useEffect(() => {
     fetchUserDataExp();
   }, []);
-
-
 
   const fetchUserDataExp = async () => {
     const { data, error } = await supabase.auth.getSession();
 
     if (data.session !== null) {
-        const user = data.session.user;
-        setUserUID(user.id);
-        setFetchedUserUID(true);
-        console.log("LOG 4 - User UID set: expense", user.id);
-        fetchExpense();
-
+      const user = data.session.user;
+      setUserUID(user.id);
+      setFetchedUserUID(true);
+      console.log("LOG 4 - User UID set: expense", user.id);
+      fetchExpense();
     } else {
-        console.log(" error 3 - No user session available. expense");
+      console.log(" error 3 - No user session available. expense");
     }
   };
 
@@ -95,38 +80,36 @@ const Incoming = ({ item, handleOverlayClick }) => {
     }
   }, [selectedMonth, userData, fetchedUserUID]);
 
-
   useEffect(() => {
     if (fetchedUserUID) {
       fetchExpense();
     }
   }, [selectedMonth, fetchedUserUID]);
 
-
-
   useEffect(() => {
     if (filteredExpenseData.length > 0) {
-      const totalExpense = filteredExpenseData.reduce((sum, item) => sum + item.price, 0);
+      const totalExpense = filteredExpenseData.reduce(
+        (sum, item) => sum + item.price,
+        0
+      );
       dispatch(updateTotalExpense(totalExpense));
       console.log("totalExpense:", totalExpense);
-
     }
   }, [filteredExpenseData, dispatch]);
 
-
   const fetchExpense = async () => {
     if (UserUID) {
-      console.log("LOG 5 - Fetching expenses for userUID:", UserUID); 
+      console.log("LOG 5 - Fetching expenses for userUID:", UserUID);
       const { data, error } = await supabase
         .from("expense")
         .select("*")
         .eq("user_id", UserUID);
-  
+
       if (error) {
         console.error("Error fetching expenses:", error.message);
         throw error;
       }
-  
+
       const monthMapping = {
         January: 1,
         February: 2,
@@ -141,9 +124,9 @@ const Incoming = ({ item, handleOverlayClick }) => {
         November: 11,
         December: 12,
       };
-  
+
       const selectedMonthNumber = monthMapping[selectedMonth];
-  
+
       const filteredDataExp = data
         .filter((expense) => {
           const expenseMonth =
@@ -162,37 +145,33 @@ const Incoming = ({ item, handleOverlayClick }) => {
           item: expense["items/item"],
           // id: id['items/id'],
         }));
-  
+
       console.log("Filtered data expense:", filteredDataExp);
-      setFilteredExpenseData(filteredDataExp);    }
+      setFilteredExpenseData(filteredDataExp);
+    }
   };
 
-// fetch exp END 
+  // fetch exp END
 
-
-
-
-  // fetch inc start 
+  // fetch inc start
 
   useEffect(() => {
     fetchUserDataInc();
   }, []);
 
-
   const fetchUserDataInc = async () => {
     const { data, error } = await supabase.auth.getSession();
 
     if (data.session !== null) {
-        const user = data.session.user;
-        setUserUID(user.id);
-        setFetchedUserUID(true);
-        console.log("LOG 4 - User UID set: incoming", user.id);
-        fetchIncoming();
+      const user = data.session.user;
+      setUserUID(user.id);
+      setFetchedUserUID(true);
+      console.log("LOG 4 - User UID set: incoming", user.id);
+      fetchIncoming();
     } else {
-        console.log(" error 3 - No user session available. incoming");
+      console.log(" error 3 - No user session available. incoming");
     }
   };
-
 
   useEffect(() => {
     if (userData || fetchedUserUID) {
@@ -203,41 +182,37 @@ const Incoming = ({ item, handleOverlayClick }) => {
     }
   }, [selectedMonth, userData, fetchedUserUID]);
 
-
-
   useEffect(() => {
     if (fetchedUserUID) {
       fetchIncoming();
     }
   }, [selectedMonth, fetchedUserUID]);
 
-
-
   useEffect(() => {
     if (filteredIncomingData.length > 0) {
-      const totalIncoming = filteredIncomingData.reduce((sum, item) => sum + item.price, 0);
+      const totalIncoming = filteredIncomingData.reduce(
+        (sum, item) => sum + item.price,
+        0
+      );
       dispatch(updateTotalIncoming(totalIncoming));
       console.log("totalIncoming:", totalIncoming);
-
     }
     console.log("filteredData:", filteredIncomingData);
-
   }, [filteredIncomingData, dispatch]);
-
 
   const fetchIncoming = async () => {
     if (UserUID) {
-      console.log("LOG 5 - Fetching incoming for userUID:", UserUID); 
+      console.log("LOG 5 - Fetching incoming for userUID:", UserUID);
       const { data, error } = await supabase
         .from("incoming")
         .select("*")
         .eq("user_id", UserUID);
-  
+
       if (error) {
         console.error("Error fetching incoming:", error.message);
         throw error;
       }
-  
+
       const monthMapping = {
         January: 1,
         February: 2,
@@ -252,17 +227,16 @@ const Incoming = ({ item, handleOverlayClick }) => {
         November: 11,
         December: 12,
       };
-  
+
       const selectedMonthNumber = monthMapping[selectedMonth];
-  
+
       const filteredDataInc = data
         .filter((incoming) => {
           const incomingMonth =
             new Date(incoming["posts/dateValue"]).getMonth() + 1;
-            console.log("Selected Month Number: incoming ", selectedMonthNumber);
-            console.log("Incoming Month: incoming ", incomingMonth); // This is where the error occurs
+          console.log("Selected Month Number: incoming ", selectedMonthNumber);
+          console.log("Incoming Month: incoming ", incomingMonth); // This is where the error occurs
           return incomingMonth === selectedMonthNumber;
-          
         })
         .map((incoming) => ({
           ...incoming,
@@ -275,24 +249,22 @@ const Incoming = ({ item, handleOverlayClick }) => {
           category: incoming["posts/category"],
           item: incoming["posts/item"],
           // id: id['items/id'],
-          
         }));
-     
-     
-        console.log("Filtered data incoming:", filteredDataInc);
-        
 
-      const totalIncoming = filteredIncomingData.reduce((sum, item) => sum + item.price, 0);
-     
+      console.log("Filtered data incoming:", filteredDataInc);
+
+      const totalIncoming = filteredIncomingData.reduce(
+        (sum, item) => sum + item.price,
+        0
+      );
+
       dispatch(updateTotalIncoming(totalIncoming));
-       
+
       setFilteredIncomingData(filteredDataInc); // Update the state with the filtered data
     }
   };
 
-  // fetchIncoming end 
-  
-
+  // fetchIncoming end
 
   return (
     <Layout items={item}>
@@ -335,11 +307,13 @@ const Incoming = ({ item, handleOverlayClick }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-            {sortedIncomingData.map((item, index) => (                
-            <TableRow key={index}>     
+              {sortedIncomingData.map((item, index) => (
+                <TableRow key={index}>
                   <TableCell>{item.item}</TableCell>
                   <TableCell>{item.category}</TableCell>
-                  <TableCell>{item.price} <span className="text-xs">CHF</span></TableCell>
+                  <TableCell>
+                    {item.price} <span className="text-xs">CHF</span>
+                  </TableCell>
                   <TableCell>{item.formattedDate}</TableCell>
                   <TableCell>{item.payBy}</TableCell>
                   {/* <TableCell>{item.id}</TableCell> */}
@@ -351,8 +325,6 @@ const Incoming = ({ item, handleOverlayClick }) => {
       </div>
     </Layout>
   );
-}
-
-
+};
 
 export default Incoming;

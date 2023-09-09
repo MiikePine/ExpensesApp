@@ -294,9 +294,10 @@ const Header = ({ pathName, onMonthChange }) => {
         )}
       </div>
 
-      <div className={`flex flex-col sm:flex-row ${isDivVisible ? "" : "hidden"}`}>
+      <div
+        className={`flex flex-col sm:flex-row ${isDivVisible ? "" : "hidden"}`}
+      >
         <div className="flex md:w-1/3 py-2 gap-6 border-neutral-300 rounded-xl">
-          
           <div className="w-full ">
             <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4">
               <div className="flex justify-between">
@@ -374,9 +375,11 @@ const Header = ({ pathName, onMonthChange }) => {
             </Title>
             <Table className=" bg-white text-green-100 flex justify-around">
               <TableHead className="bg-white  justify-between">
-                <TableRow className="bg-white justify-between text-xs">
-                  <TableHeaderCell>Item</TableHeaderCell>
-                  <TableHeaderCell>Category</TableHeaderCell>
+                <TableRow className="bg-white justify-between">
+                  <TableHeaderCell className="text-sm">Item</TableHeaderCell>
+                  <TableHeaderCell className="text-sm">
+                    Category
+                  </TableHeaderCell>
                   <TableHeaderCell>Price (CHF)</TableHeaderCell>
                   <TableHeaderCell>Date</TableHeaderCell>
                   <TableHeaderCell>Pay By</TableHeaderCell>
@@ -385,24 +388,30 @@ const Header = ({ pathName, onMonthChange }) => {
               <TableBody>
                 {sortedCombinedData.slice(0, 4).map((item, index) => (
                   <TableRow key={index}>
-                    <TableCell className="py-1 my-0.5">{item.item}</TableCell>
-                    <TableCell className="py-2 my-1">{item.category}</TableCell>
-                    <TableCell className="py-1 my-1">
+                    <TableCell className="py-1 my-0.5 text-xs">
+                      {item.item}
+                    </TableCell>
+                    <TableCell className="py-2 my-1 text-xs">
+                      {item.category}
+                    </TableCell>
+                    <TableCell className="py-1 my-1 text-xs">
                       {item.price} <span className="text-xs">CHF</span>
                     </TableCell>
-                    <TableCell className="py-1 my-1">
+                    <TableCell className="py-1 my-1 text-xs">
                       {item.formattedDate}
                     </TableCell>
-                    <TableCell className="py-1 my-1">{item.payBy}</TableCell>
-                    <TableCell className="py-1 my-1">
+                    <TableCell className="py-1 my-1 text-xs">
+                      {item.payBy}
+                    </TableCell>
+                    <TableCell className="py-1 my-1 text-xs">
                       {item.source === "expense" ? (
                         <AiOutlineMinus
-                          className="text-red-400"
+                          className="text-red-400 text-xs"
                           style={{ fontSize: "22px" }}
                         />
                       ) : (
                         <AiOutlinePlus
-                          className="text-green-600"
+                          className="text-green-600 text-xs"
                           style={{ fontSize: "22px" }}
                         />
                       )}
@@ -413,14 +422,6 @@ const Header = ({ pathName, onMonthChange }) => {
             </Table>
           </Card>
         </div>
-
-        {/* <div className=" gap-2 h-1 absolute w-500 right-4 top-32">
-          <Months
-            className="cursor-pointer"
-            onMonthChange={handleSelectMonth}
-            selectedMonth={selectedMonth}
-          />
-        </div> */}
       </div>
     </div>
   );

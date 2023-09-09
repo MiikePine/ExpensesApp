@@ -12,8 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import supabase from "../../supabase/supabase";
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from "react-redux";
 
 const schema = Yup.object().shape({
   item: Yup.string().required("Item is mandatory"),
@@ -57,9 +56,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
   console.log("User ID from Redux store:", userData);
   const [UserUID, setUserUID] = useState(null);
 
-
   const dispatch = useDispatch();
-
 
   // upload file -  const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [acceptedFiles, setAcceptedFiles] = useState([]);
@@ -75,14 +72,12 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
         "posts/payBy": data.payBy,
         "posts/category": data.category,
         "posts/dateValue": data.dateValue,
-        "user_id": userData,
-
+        user_id: userData,
       };
 
       const { data: setInc, error } = await supabase
         .from("incoming")
         .upsert([dataToInsert]);
-        
 
       if (error) {
         throw error;
@@ -351,7 +346,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
             </div>
 
             <div className="flex justify-end mt-4 mr-10">
-              <Button AddNew="Add" type="submit" onChange={insertData}/>
+              <Button AddNew="Add" type="submit" onChange={insertData} />
             </div>
           </form>
         </div>

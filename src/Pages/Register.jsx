@@ -14,7 +14,8 @@ const schema = Yup.object().shape({
 });
 
 const Register = () => {
-  const [isRegistrationSuccessful, setIsRegistrationSuccessful] = useState(false);
+  const [isRegistrationSuccessful, setIsRegistrationSuccessful] =
+    useState(false);
 
   const {
     handleSubmit,
@@ -43,81 +44,94 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat" style={{ backgroundImage: `url(${auroras})` }}>
-      <div className="absolute inset-0 bg-white opacity-10 overflow-y-auto "></div>
+    <div
+    className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm"
+    style={{ backgroundImage: `url(${auroras})` }}
+  >
+    <div className="absolute inset-0 bg-white opacity-60 overflow-y-auto "></div>
 
-  
-
-        {isRegistrationSuccessful ? (
-  <RegisterSuccess redirectToLogin={() => setIsRegistrationSuccessful(false)} />
-  ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className="bg-zinc-100 backdrop-blur-sm shadow-lg mb-2 p-8 md:w-[30%] relative z-10 h-full flex flex-col justify-center">
-           
-            <div className="items-center">
-              <div className="text-center">
-                <span className="text-2xl text-teal-700 font-bold md:text-3xl text-red">Register</span>
-              </div>
+      {isRegistrationSuccessful ? (
+        <RegisterSuccess
+          redirectToLogin={() => setIsRegistrationSuccessful(false)}
+        />
+      ) : (
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="bg-zinc-100 backdrop-blur-sm shadow-lg mb-2 p-8 md:w-[30%] relative z-10 h-full flex flex-col justify-center"
+        >
+          <div className="items-center">
+            <div className="text-center">
+              <span className="text-2xl text-teal-700 font-bold md:text-3xl text-red">
+                Register
+              </span>
             </div>
-            <div className="flex flex-col mt-6">
-              <label htmlFor="email" className="mt-4 mb-2 font-medium">
-                Email
-              </label>
+          </div>
+          <div className="flex flex-col mt-6">
+            <label htmlFor="email" className="mt-4 mb-2 font-medium">
+              Email
+            </label>
 
+            <Input
+              id="email"
+              register={register("email")}
+              type="email"
+              placeholder="Your@email.com"
+              error={errors.email}
+            />
+            {errors.email && (
+              <span className="mt-2 text-xs text-red">
+                {errors.email.message}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col mt-6">
+            <label htmlFor="password" className="mt-2 mb-2 font-medium">
+              Password
+            </label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="***********"
+              register={register("password")}
+              error={errors.password}
+            />
+            {errors.password && (
+              <span className="mt-2 text-xs text-red ">
+                {errors.password.message}
+              </span>
+            )}
+          </div>
 
-              <Input
-                id="email"
-                register={register("email")}
-                type="email"
-                placeholder="Your@email.com"
-                error={errors.email}
-              />
-              {errors.email && (
-                <span className="mt-2 text-xs text-red">{errors.email.message}</span>
-              )}
-            </div>
-            <div className="flex flex-col mt-6">
-              <label htmlFor="password" className="mt-2 mb-2 font-medium">
-                Password
-              </label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="***********"
-                register={register("password")}
-                error={errors.password}
-              />
-              {errors.password && (
-                <span className="mt-2 text-xs text-red ">{errors.password.message}</span>
-              )}
-            </div>
+          <div className="flex flex-col mt-6">
+            <label htmlFor="password" className="mt-2 mb-2 font-medium">
+              Confirm Password
+            </label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="***********"
+              register={register("password")}
+              error={errors.password}
+            />
+            {errors.password && (
+              <span className="mt-2 text-xs text-red ">
+                {errors.password.message}
+              </span>
+            )}
+          </div>
 
-            <div className="flex flex-col mt-6">
-              <label htmlFor="password" className="mt-2 mb-2 font-medium">
-                Confirm Password
-              </label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="***********"
-                register={register("password")}
-                error={errors.password}
-              />
-              {errors.password && (
-                <span className="mt-2 text-xs text-red ">{errors.password.message}</span>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              className="w-full px-4 py-3 mt-8 font-bold bg-teal-700 text-white border-2 bg-red border-red
+          <button
+            type="submit"
+            className="w-full px-4 py-3 mt-8 font-bold bg-teal-700 text-white border-2 bg-red border-red
                hover:bg-white hover:text-teal-700 hover:border-2 hover:border-teal-700 focus:outline-none focus:ring-2
-                focus:ring-teal-700 focus:ring-opacity-50" onClick={handleSubmit}
-            >
-              Register
-            </button>
-          </form>
-        )}
-      </div>
+                focus:ring-teal-700 focus:ring-opacity-50"
+            onClick={handleSubmit}
+          >
+            Register
+          </button>
+        </form>
+      )}
+    </div>
   );
 };
 

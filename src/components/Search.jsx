@@ -7,12 +7,10 @@ function Search({ users }) {
   const [searchFilteredData, setSearchFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-
-
   const handleSearchFilter = (event) => {
     const searchValue = event.target.value;
     setSearchTerm(searchValue);
-  
+
     const filteredResults = incomingDB.posts.filter((item) => {
       return (
         item.payBy.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -20,51 +18,49 @@ function Search({ users }) {
         item.price.toString().includes(searchValue)
       );
     });
-  
- setSearchFilteredData(filteredResults);
+
+    setSearchFilteredData(filteredResults);
   };
 
   return (
     <div className="relative z-1 flex w-full max-w-lg pt-1 md:mx-auto text-gray-400 border-red-200 border-solid rounded-full ">
+      {/* filter search bar  */}
+      {searchFilteredData.length !== 0 && (
+        <div className="mt-16 w-100 absolute bg-white border-2 border-zinc-300 rounded-lg overflow-hidden overflow-y-auto">
+          {searchFilteredData.map((user) => {
+            let renderedProperty = "";
 
+            if (user.payBy.toLowerCase().includes(searchTerm.toLowerCase())) {
+              renderedProperty = user.payBy;
+            } else if (
+              user.category.toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+              renderedProperty = user.category;
+            } else if (user.price.toString().includes(searchTerm)) {
+              renderedProperty = user.price.toString();
+            }
 
-{/* filter search bar  */}
-{searchFilteredData.length !== 0 && (
-  <div className="mt-16 w-100 absolute bg-white border-2 border-zinc-300 rounded-lg overflow-hidden overflow-y-auto">
-    {searchFilteredData.map((user) => {
-      let renderedProperty = "";
+            return (
+              <a
+                className="w-100 h-50 align-middle py-5"
+                target="_blank"
+                key={user.id}
+              >
+                <p className="py-2 w-full pl-4 pr-24 pt-4 hover:bg-neutral-200 cursor-pointer">
+                  {renderedProperty}
+                </p>
+              </a>
+            );
+          })}
+        </div>
+      )}
 
-      if (user.payBy.toLowerCase().includes(searchTerm.toLowerCase())) {
-        renderedProperty = user.payBy;
-      } else if 
-         (user.category.toLowerCase().includes(searchTerm.toLowerCase())) {
-        renderedProperty = user.category;
-      } else if 
-        (user.price.toString().includes(searchTerm)) {
-        renderedProperty = user.price.toString();
-      }
-
-
-      return (
-        <a
-        className="w-100 h-50 align-middle py-5"
-        target="_blank"
-        key={user.id}>
-
-        <p className="py-2 w-full pl-4 pr-24 pt-4 hover:bg-neutral-200 cursor-pointer">{renderedProperty}</p>
-      </a>
-      );
-    })}
-  </div>
-)}
-
-{/* filter search bar ends */}
+      {/* filter search bar ends */}
       <input
         className="flex-1 h-11 py-0 px-10 z-1 border-b relative bg-white shadow-md border-gray md:w-full text-md focus:border-green-500 focus:ring-green-500 focus:outline-teal-600 focus:ring-opacity-40"
         type="search"
         name="search"
         placeholder="Search.."
-        
         onChange={handleSearchFilter}
       />
       <div className="absolute right-2 top-3">
@@ -89,11 +85,9 @@ function Search({ users }) {
             />
           </svg>
         </button>
-        
       </div>
     </div>
   );
 }
 
 export default Search;
-
