@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../components/Input";
 import auroras from "../../Images/pineWebp.webp";
-import logo from "../../Images/logoN.png";
+import logo from "../../Images/logo2.png";
 import supabase from "../../supabase/supabase";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../store/slices/userSlice";

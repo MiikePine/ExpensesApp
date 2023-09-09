@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import Menu from "./Menu";
-import MenuMobile from "./MenuMobile";
+import MenuMobileR from "./MenuMobileR";
 import Header1 from "./Header1";
 import { useSelector } from "react-redux";
 
@@ -24,7 +24,7 @@ const Layout = ({
     <main className="relative block md:flex md:h-screen bg-zinc-100  max-h-screen overflow-hidden">
       <Menu className="shadow-lg" />
       <div>
-        <MenuMobile />
+        <MenuMobileR />
       </div>
 
       <div className="w-full h-full ">
