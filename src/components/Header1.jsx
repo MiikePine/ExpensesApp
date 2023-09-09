@@ -38,7 +38,7 @@ function Header1({}) {
             <h1 className="text-sm">{selectedMonth}</h1>
           </div>
 
-          <div className="hidden sm:block">
+          <div className="">
             <Search />
           </div>
 

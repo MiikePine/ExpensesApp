@@ -23,9 +23,9 @@ function MenuMobile() {
       </div> */}
 
       <div className="z-10">
-        <button onClick={() => setShowMenu(!showMenu)}>
+        {/* <button onClick={() => setShowMenu(!showMenu)}>
           {!showMenu ? (
-            <AiOutlineMenu size={22} className="mt-12 mr-4 text-red" />
+            <AiOutlineMenu size={10} className="mt-12 mr-4 text-red" />
           ) : (
             <TfiClose
               onClick={() => setShowMenu(!showMenu)}
@@ -33,8 +33,8 @@ function MenuMobile() {
               size={18}
             />
           )}
-        </button>
-        {showMenu && <MenuMobileR />}
+        </button> */}
+        <MenuMobileR />
       </div>
     </div>
   );
