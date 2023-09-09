@@ -43,16 +43,15 @@ const Register = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${auroras})` }}>
-      <div className="absolute inset-0 bg-white opacity-70"></div>
+    <div className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm" style={{ backgroundImage: `url(${auroras})` }}>
+      <div className="absolute inset-0 bg-white opacity-10 overflow-y-auto "></div>
 
-      <div className="flex items-center justify-end h-screen">
-        <span></span>
+  
 
         {isRegistrationSuccessful ? (
           <RegisterSuccess />
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className="bg-zinc-100 shadow-lg mb-2 p-8 md:w-[30%] relative z-10 h-full flex flex-col justify-center">
+          <form onSubmit={handleSubmit(onSubmit)} className="bg-zinc-100 backdrop-blur-sm shadow-lg mb-2 p-8 md:w-[30%] relative z-10 h-full flex flex-col justify-center">
             <div className="absolute top-0 left-0 mt-8 ml-8">
               <img src={logo} alt="Logo" className="h-20" />
             </div>
@@ -65,6 +64,8 @@ const Register = () => {
               <label htmlFor="email" className="mt-4 mb-2 font-medium">
                 Email
               </label>
+
+
               <Input
                 id="email"
                 register={register("email")}
@@ -91,6 +92,23 @@ const Register = () => {
                 <span className="mt-2 text-xs text-red ">{errors.password.message}</span>
               )}
             </div>
+
+            <div className="flex flex-col mt-6">
+              <label htmlFor="password" className="mt-2 mb-2 font-medium">
+                Confirm Password
+              </label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="***********"
+                register={register("password")}
+                error={errors.password}
+              />
+              {errors.password && (
+                <span className="mt-2 text-xs text-red ">{errors.password.message}</span>
+              )}
+            </div>
+
             <button
               type="submit"
               className="w-full px-4 py-3 mt-8 font-bold bg-teal-700 text-white border-2 bg-red border-red
@@ -102,7 +120,6 @@ const Register = () => {
           </form>
         )}
       </div>
-    </div>
   );
 };
 

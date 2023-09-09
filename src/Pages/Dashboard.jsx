@@ -8,6 +8,8 @@ import { updateTotalIncoming } from "../store/slices/sumincSlice"
 import supabase from "../../supabase/supabase";
 import { format } from "date-fns";
 import { useLocation } from 'react-router-dom';
+import Header from "../components/Header";
+import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
 
 
 
@@ -15,7 +17,8 @@ import { useLocation } from 'react-router-dom';
 
 
 
-const Dashboard = ({ item }) => {
+
+const Dashboard = ({item }) => {
   const [UserUID, setUserUID] = useState(null);
   const [fetchedUserUID, setFetchedUserUID] = useState(false);
   const [filteredExpenseData, setFilteredExpenseData] = useState([]);
@@ -275,7 +278,7 @@ const Dashboard = ({ item }) => {
 
 
   return (
-      <Layout  items={item} >
+    <Layout items={item} showHeader={true}>
 
 
     <div>
@@ -283,15 +286,19 @@ const Dashboard = ({ item }) => {
     </div>
 
 
-
     <div className="flex">
              <div className="w-full bg-white pt-4 mr-4 shadow-lg">
-                <p className="flex justify-center pb-4 text-zinc-500">Incoming</p>
-                <ChartInc selectedMonth={selectedMonth} userData={userData} incomingData={filteredIncomingData}/>
+             <div className="flex justify-center items-center">
+  <p className="pb-4 text-zinc-500 text-xl mr-4">Incoming</p>
+  <BiSolidUpArrow className="text-green-400 mt-4 flex-col mb-6" size={22} />
+</div>                <ChartInc selectedMonth={selectedMonth} userData={userData} incomingData={filteredIncomingData}/>
              </div>
 
-             <div className="w-full bg-white pt-4 mr-2 shadow-lg">
-                <p className="flex justify-center pb-4 text-zinc-500">Expense</p>
+             <div className="w-full bg-white pt-2 mr-2 shadow-lg">
+             <div className="flex justify-center items-center">
+  <p className="pb-4 text-zinc-500 text-xl mr-4">Expense</p>
+  <BiSolidDownArrow className="text-red-400 mt-4 flex-col mb-6" size={22} />
+</div>
                 <ChartExp selectedMonth={selectedMonth} userData={userData} expenseData={filteredExpenseData}/>
 
             </div>

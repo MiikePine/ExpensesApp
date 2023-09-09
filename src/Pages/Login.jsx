@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../components/Input";
-import auroras from "../../Images/lap7.jpg";
+import auroras from "../../Images/pineWebp.webp";
 import logo from "../../Images/logo4.png";
 import supabase from "../../supabase/supabase"
 import { useDispatch, useSelector } from 'react-redux';
@@ -67,22 +67,18 @@ const onSubmit = async (formData) => {
 
 
   return (
-<div className="relative min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${auroras})` }}>
-      <div className="absolute inset-0 bg-white opacity-70"></div>
+    <div className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm" style={{ backgroundImage: `url(${auroras})` }}>
+      <div className="absolute inset-0 bg-white opacity-40 overflow-y-auto "></div>
 
-      <div className="flex items-center justify-end h-screen " >
 
-        <span></span>
-
-        <form
-        
+        <form  
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-zinc-100 shadow-lg mb-2 p-8 md:w-[30%] relative z-10 h-full flex flex-col justify-center"
-        >
+          className="bg-zinc-100 shadow-lg mb-2 p-8 md:w-[33%] relative z-10 flex flex-col justify-center h-[520px]"
+          >
 
-        <div className="absolute top-0 left-0 mt-8 ml-8">
+        {/* <div className="absolute top-0 left-0 mt-8 ml-8">
           <img src={logo} alt="Logo" className="h-20" />
-        </div>
+        </div> */}
           <div className="items-center">
          
 
@@ -145,7 +141,6 @@ const onSubmit = async (formData) => {
           </Link>
     </form>
    
-</div>
 </div>
 
   );

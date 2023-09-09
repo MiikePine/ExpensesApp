@@ -14,6 +14,8 @@ import { compareDesc, compareAsc } from "date-fns";
 import { updateTotalIncoming } from "../store/slices/sumincSlice";
 import { updateTotalExpense } from "../store/slices/sumexpSlice";
 import Months from "./Months";
+import {BsChevronUp} from "react-icons/bs"
+import {BsChevronDown} from "react-icons/bs"
 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import {
@@ -28,15 +30,13 @@ import {
 } from "@tremor/react";
 
 const getMonthFromDate = (dateString) => {
-  // console.log("dateString:", dateString);
   const [year, month, day] = dateString?.split("-") || [];
   const d = new Date(year, month - 1, day);
   return d.getMonth();
 };
 
 const Header = ({ pathName, onMonthChange }) => {
-  // const [totalIncome, setTotalIncome] = useState(0);
-  // const [totalExpense, setTotalExpense] = useState(0);
+
   const [incomingData, setIncomingData] = useState([]);
   const [expenseData, setExpenseData] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
@@ -48,6 +48,7 @@ const Header = ({ pathName, onMonthChange }) => {
   const [filteredExpenseData, setFilteredExpenseData] = useState([]);
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
   const combinedData = [...filteredExpenseData, ...filteredIncomingData];
+  const [isDivVisible, setIsDivVisible] = useState(true);
 
 
   const dispatch = useDispatch();
@@ -70,6 +71,10 @@ const Header = ({ pathName, onMonthChange }) => {
   const handleSelectMonth = (month) => {
     setSelectedMonth(month);
     setShowMonth(false); // Oculta o componente Months quando um mês é selecionado
+  };
+
+  const toggleDivVisibility = () => {
+    setIsDivVisible(!isDivVisible);
   };
 
   const handleDateChange = (dates) => {
@@ -140,17 +145,7 @@ const Header = ({ pathName, onMonthChange }) => {
         .from("expense")
         .select("*")
         .eq("user_id", UserUID);
-        // .then((response) => {
-        //   if (!response.error) {
-        //     return response.data.map((item) => ({
-        //       ...item,
-        //       source: "expense", // Adicione um campo "source" para indicar a fonte como "expense"
-        //     }));
-        //   }
-        //   return [];
-        // });
-      
-        // console.log("Data from fetchExpense:", data);
+  
       if (error) {
         throw error;
       }
@@ -191,12 +186,7 @@ const Header = ({ pathName, onMonthChange }) => {
           item: expense["items/item"],
           source: "expense",
         }))
-        // .sort((a, b) =>
-        //   compareDesc(
-        //     new Date(a.formattedDate),
-        //     new Date(b.formattedDate)
-        //   )
-        // );
+    
         setFilteredExpenseData(filteredDataExp);
 
 
@@ -204,7 +194,6 @@ const Header = ({ pathName, onMonthChange }) => {
   };
 
 
-  // console.log("selectedMonth:", selectedMonth);
   useEffect(() => {
     fetchUserDataIncoming();
     fetchUserDataExp();
@@ -292,27 +281,50 @@ const Header = ({ pathName, onMonthChange }) => {
           item: incoming["posts/item"],
           source: "incoming"
         }))
-        // .sort((a, b) =>
-        //   compareDesc(
-        //     new Date(b.formattedDate),
-        //     new Date(a.formattedDate)
-        //   )
-        // );
+    
   
       setFilteredIncomingData(filteredDataInc);
 
     }
   };
 
-//   const sortedCombinedData = combinedData.slice(0, 30).sort((a, b) =>
-//   compareDesc(new Date(a.formattedDate), new Date(b.formattedDate))
-// );
+
 
   return (
-    <div className="flex mt-8">
-      <div className="flex w-1/3 pt-4 py-2 gap-6 border-neutral-300 rounded-xl mt-4">
+
+
+
+
+    <div className="mt-4">
+
+
+<div className="flex justify-between">
+  <Months
+    className="cursor-pointer"
+    onMonthChange={handleSelectMonth}
+    selectedMonth={selectedMonth}
+  />
+
+  {isDivVisible ? (
+    <BsChevronUp
+      className="text-zinc-400 flex-col mb-4 z-40 align-top"
+      size={32}
+      onClick={toggleDivVisibility}
+    />
+  ) : (
+    <BsChevronDown
+      className="text-zinc-400 flex-col mb-4 z-40 align-top"
+      size={32}
+      onClick={toggleDivVisibility}
+    />
+  )}
+</div>
+
+
+      <div className={`flex ${isDivVisible ? '' : 'hidden'}`}>
+      <div className="flex w-1/3 py-2 gap-6 border-neutral-300 rounded-xl">
         <div className="w-full ">
-        <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4 opacity-100">
+        <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4">
             <div className="flex justify-between">
               <p className="text-xs p-4 text-zinc-400">Incoming</p>
               <BiSolidUpArrow className="text-green-400  mr-8 mt-4" size={18} />
@@ -326,7 +338,7 @@ const Header = ({ pathName, onMonthChange }) => {
           </div>
 
 
-          <div className="grid bg-white text-zinc-700 w-full h-32 mb-2 shadow-lg ">
+          <div className="grid bg-white text-zinc-700 w-full h-32 mb-2 shadow-lg">
             <div className="flex justify-between ">
               <p className="text-xs p-4 text-zinc-400">Balance</p>
               <FaWallet className="text-zinc-500  mr-8 mt-4" size={18} />
@@ -376,28 +388,27 @@ const Header = ({ pathName, onMonthChange }) => {
         </div>
       </div>
 
-      <div className="bg-white !shadow-lg mt-8 w-2/3 h-32 ml-4">
-        <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
-          <Title className="bg-white !text-gray-600 flex items-center">
-            <span className="text-center flex-grow text-sm mb-4">Last Transactions</span>
-          </Title>
 
+ 
+
+      <div className="bg-white !shadow-lg w-2/3 h-32 ml-4">
+        <Card className="!bg-white shadow-lg border-none ring-0">
+          <Title className="bg-white !text-gray-600 flex items-center">
+            <span className="text-center flex-grow text-md mb-2">Last Transactions</span>
+          </Title>
           <Table className=" bg-white text-green-100 flex justify-around">
             <TableHead className="bg-white  justify-between">
               <TableRow className="bg-white justify-between text-xs">
-                {/* <TableHeaderCell>ID</TableHeaderCell> */}
                 <TableHeaderCell>Item</TableHeaderCell>
                 <TableHeaderCell>Category</TableHeaderCell>
                 <TableHeaderCell>Price (CHF)</TableHeaderCell>
                 <TableHeaderCell>Date</TableHeaderCell>
                 <TableHeaderCell>Pay By</TableHeaderCell>
-
               </TableRow>
             </TableHead>
             <TableBody>
   {sortedCombinedData.slice(0, 4).map((item, index) => (
                 <TableRow key={index}>
-                {/* Renderize os campos da tabela aqui */}
       <TableCell className="py-1 my-0.5">{item.item}</TableCell>
       <TableCell className="py-2 my-1">{item.category}</TableCell>
       <TableCell className="py-1 my-1">
@@ -424,13 +435,14 @@ const Header = ({ pathName, onMonthChange }) => {
       </div>
 
 
-      <div className=" gap-2 h-1 absolute w-500 right-4 top-24">
+      {/* <div className=" gap-2 h-1 absolute w-500 right-4 top-32">
           <Months
             className="cursor-pointer"
             onMonthChange={handleSelectMonth}
             selectedMonth={selectedMonth}
           />
-        </div>
+        </div> */}
+    </div>
     </div>
   );
 };

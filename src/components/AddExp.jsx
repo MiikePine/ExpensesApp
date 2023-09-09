@@ -64,7 +64,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
 
 
-  const userData = useSelector((state) => state.user.id);
+  const userData = useSelector((state) => state.user);
   console.log("User ID from Redux store:", userData);
   const [UserUID, setUserUID] = useState(null);
 
@@ -162,9 +162,10 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
               {/* category start */}
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 ">
                 <div className="mb-4 grid w-full">
                   <Listbox
+                  className="z-50"
                     value={selectedCategory}
                     onChange={(selectedOption) => {
                       setSelectedCategory(selectedOption);

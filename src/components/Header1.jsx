@@ -6,7 +6,7 @@ import { BiHomeAlt } from "react-icons/bi";
 import { useLocation } from "react-router-dom"
 import  { useEffect, useState } from "react";
 import { setSelectedMonth } from "../store/slices/monthSlice"; // Importe a ação para definir o mês selecionado
-
+import Search from "./Search";
 
 
 
@@ -32,7 +32,7 @@ function Header1 ({ }) {
 
   return (
     <div>
-    <div className="text-zinc-600 pt-2 pb-6 w-full px-6 mt-6">
+    <div className="text-zinc-600 pt-2 pb-3 w-full px-6 mt-3">
       <div className="flex justify-between items-center w-full">
 
                     <div className="flex gap-2">
@@ -42,6 +42,11 @@ function Header1 ({ }) {
                         <span className="text-sm">/</span>                         
                         <h1 className="text-sm">{selectedMonth}</h1>
                     </div>
+
+
+                    <div className="">
+                            <Search/>
+                        </div>
 
 
 

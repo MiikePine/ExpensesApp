@@ -20,6 +20,7 @@ import { updateTotalExpense } from "../store/slices/sumexpSlice"
 import { updateTotalIncoming } from "../store/slices/sumincSlice"
 
 
+
 const Expenses = ({ item, handleOverlayClick }) => {
   const [showRegister, setShowRegister] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
@@ -290,12 +291,14 @@ const Expenses = ({ item, handleOverlayClick }) => {
   
 
   return (
-    <Layout items={item}>
+    <Layout items={item} showHeader={true}>
       {showRegister && (
         <div
-          className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay backdrop-blur-sm"
+        className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay backdrop-blur-sm"
           onClick={handleOverlayClick}
         >
+
+
           <AddExp
             item={item}
             handleOverlayClick={handleOverlayClick}
@@ -306,7 +309,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
         </div>
       )}
 
-      <div className="bg-white !shadow-lg mt-10">
+      <div className="bg-white !shadow-lg mt-4">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
           <Title className="bg-white !text-gray-600 flex items-center">
             <span className="text-center flex-grow">Expenses List</span>
@@ -317,8 +320,8 @@ const Expenses = ({ item, handleOverlayClick }) => {
               Add +
             </button>
           </Title>
-
-          <Table className="mt-10 bg-white text-green-100 flex justify-around">
+          <div style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}> {/* Defina a altura máxima aqui */}
+                    <Table className="mt-10 bg-white text-green-100 flex justify-around">
             <TableHead className="bg-white  justify-between">
               <TableRow className="bg-white justify-between">
                 {/* <TableHeaderCell>ID</TableHeaderCell> */}
@@ -343,6 +346,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
               ))}
             </TableBody>
           </Table>
+          </div>
         </Card>
       </div>
     </Layout>
