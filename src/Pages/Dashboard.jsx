@@ -286,7 +286,7 @@ const Dashboard = ({item }) => {
     </div>
 
 
-    <div className="flex">
+    <div className="md:flex overflow-y-auto">
              <div className="w-full bg-white pt-4 mr-4 shadow-lg">
              <div className="flex justify-center items-center">
   <p className="pb-4 text-zinc-500 text-xl mr-4">Incoming</p>

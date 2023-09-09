@@ -43,7 +43,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm" style={{ backgroundImage: `url(${auroras})` }}>
+    <div className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat" style={{ backgroundImage: `url(${auroras})` }}>
       <div className="absolute inset-0 bg-white opacity-10 overflow-y-auto "></div>
 
   

@@ -34,7 +34,7 @@ function MenuMobile  () {
             : 
               <TfiClose                       
               onClick={() => setShowMenu(!showMenu)} className="fixed top-[55px] right-[30px] z-20 text-red"
-              size={30}
+              size={20}
             />
             }
         </button>

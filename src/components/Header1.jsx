@@ -44,10 +44,9 @@ function Header1 ({ }) {
                     </div>
 
 
-                    <div className="">
-                            <Search/>
-                        </div>
-
+                    <div className="hidden sm:block">
+    <Search />
+</div>
 
 
         <div className="flex gap-2">
