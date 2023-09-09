@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../components/Input";
-import auroras from "../../Images/lap7.jpg";
+import auroras from "../../Images/pineWebp.webp";
 import logo from "../../Images/logo4.png";
 import supabase from "../../supabase/supabase";
 import RegisterSuccess from "../components/RegisterSucess";
@@ -49,12 +49,10 @@ const Register = () => {
   
 
         {isRegistrationSuccessful ? (
-          <RegisterSuccess />
-        ) : (
+  <RegisterSuccess redirectToLogin={() => setIsRegistrationSuccessful(false)} />
+  ) : (
           <form onSubmit={handleSubmit(onSubmit)} className="bg-zinc-100 backdrop-blur-sm shadow-lg mb-2 p-8 md:w-[30%] relative z-10 h-full flex flex-col justify-center">
-            <div className="absolute top-0 left-0 mt-8 ml-8">
-              <img src={logo} alt="Logo" className="h-20" />
-            </div>
+           
             <div className="items-center">
               <div className="text-center">
                 <span className="text-2xl text-teal-700 font-bold md:text-3xl text-red">Register</span>
