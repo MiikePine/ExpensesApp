@@ -30,7 +30,7 @@ function Header1({}) {
 
   return (
     <div>
-      <div className="text-zinc-600 pt-0 md:pt-4 pb-3 w-full px-6 mt-0 md:mt-3">
+      <div className="text-zinc-600 pt-0 md:pt-2 pb-3 w-full px-6 mt-0 md:mt-3">
         <div className="grid md:flex md:justify-between items-center w-full">
         <div className="flex md:hidden justify-end">
             <div className="absolute top-0 left-0 mt-[-30px] ml-[-10px]" >
@@ -47,7 +47,7 @@ function Header1({}) {
             <span className="text-sm">/</span>
             <h1 className="text-sm">{pathName}</h1>
             <span className="text-sm">/</span>
-            <h1 className="text-sm">{selectedMonth}</h1>
+            <h1 className="text-sm z-50">{selectedMonth}</h1>
           </div>
 
           <div className="hidden md:flex w-3/4 md:w-1/5 justify-center mt-10 md:mt-0 md:mr-24">
@@ -64,7 +64,7 @@ function Header1({}) {
             <span className="text-sm">/</span>
             <h1 className="text-sm">{pathName}</h1>
             <span className="text-sm">/</span>
-            <h1 className="text-sm">{selectedMonth}</h1>
+            <h1 className="text-sm z-50">{selectedMonth}</h1>
           </div>
 
         </div>

@@ -281,7 +281,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
         </div>
       )}
 
-      <div className="bg-white !shadow-lg mt-16 md:mt-4">
+      <div className="bg-white !shadow-lg mt-16 md:mt-4 z-10">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
           <Title className="bg-white !text-gray-600 flex items-center">
             <span className="text-center flex-grow">Expenses List</span>

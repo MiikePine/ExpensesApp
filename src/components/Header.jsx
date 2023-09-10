@@ -272,7 +272,7 @@ const Header = ({ pathName, onMonthChange }) => {
 
   return (
     <div className="mt-4">
-      <div className="flex justify-between">
+      <div className="flex justify-between z-100">
         <Months
           className="cursor-pointer"
           onMonthChange={handleSelectMonth}
@@ -297,7 +297,7 @@ const Header = ({ pathName, onMonthChange }) => {
       <div
         className={`flex flex-col sm:flex-row ${isDivVisible ? "" : "hidden"}`}
       >
-        <div className="flex md:w-1/3 py-2 gap-6 border-neutral-300 rounded-xl">
+        <div className="flex md:w-1/3 py-2 gap-6 border-neutral-300">
           <div className="w-full ">
             <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4">
               <div className="flex justify-between">
@@ -366,14 +366,14 @@ const Header = ({ pathName, onMonthChange }) => {
           </div>
         </div>
 
-        <div className="bg-white !shadow-lg md:w-2/3 h-32 md:ml-4 mb-24">
-          <Card className="!bg-white shadow-lg border-none ring-0">
-            <Title className="bg-white !text-gray-600 flex items-center">
-              <span className="text-center flex-grow text- md:text-md mb-2">
+        <div className="bg-white !shadow-lg md:w-2/3 md:ml-4 h-58 mb-4 mt-2 !border-none">
+          <Card className="!bg-white shadow-lg !border-none ring-0 pb-4  !rounded-none ">
+            <Title className="bg-white !text-gray-600 flex !rounded-none items-center">
+              <span className="text-center flex-grow md:text-md mb-6">
                 Last Transactions
               </span>
             </Title>
-            <Table className=" bg-white text-green-100 flex justify-around">
+            <Table className=" bg-white text-green-100 flex justify-around ">
               <TableHead className="bg-white  justify-between">
                 <TableRow className="bg-white justify-between">
                   <TableHeaderCell className="text-sm">Item</TableHeaderCell>
