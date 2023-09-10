@@ -388,25 +388,25 @@ const Header = ({ pathName, onMonthChange }) => {
               <TableBody>
                 {sortedCombinedData.slice(0, 4).map((item, index) => (
                   <TableRow key={index}>
-                    <TableCell className="py-1 my-0.5 text-xs">
+                    <TableCell className="py-1 my-0.5 text-xs border-b border-zinc-300 text-zinc-500">
                       {item.item}
                     </TableCell>
-                    <TableCell className="py-2 my-1 text-xs">
+                    <TableCell className="py-2 my-1 text-xs border-b border-zinc-300 text-zinc-500">
                       {item.category}
                     </TableCell>
-                    <TableCell className="py-1 my-1 text-xs">
-                      {item.price} <span className="text-xs">CHF</span>
+                    <TableCell className="py-1 my-1 text-xs border-b border-zinc-300 text-zinc-500">
+                      {item.price} <span className="text-xs ">CHF</span>
                     </TableCell>
-                    <TableCell className="py-1 my-1 text-xs">
+                    <TableCell className="py-1 my-1 text-xs border-b border-zinc-300 text-zinc-500">
                       {item.formattedDate}
                     </TableCell>
-                    <TableCell className="py-1 my-1 text-xs">
+                    <TableCell className="py-1 my-1 text-xs border-b border-zinc-300 text-zinc-500">
                       {item.payBy}
                     </TableCell>
-                    <TableCell className="py-1 my-1 text-xs">
+                    <TableCell className="py-1 my-1 text-xs border-b border-zinc-300 text-zinc-500">
                       {item.source === "expense" ? (
                         <AiOutlineMinus
-                          className="text-red-400 text-xs"
+                          className="text-red-400 text-xs "
                           style={{ fontSize: "22px" }}
                         />
                       ) : (

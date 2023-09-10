@@ -33,7 +33,7 @@ function Months({}) {
 
   return (
     <div className="w-32 h-4">
-      <Listbox value={selectedMonth} onChange={handleSelectMonth}>
+      <Listbox className="text-zinc-500" value={selectedMonth} onChange={handleSelectMonth}>
         <div className="relative">
           <Listbox.Button
             onClick={() => setIsListOpen(!isListOpen)}
@@ -53,7 +53,7 @@ function Months({}) {
                 key={monthIdx}
                 className={({ active }) =>
                   `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                    active ? "bg-green-100 text-green-900" : "text-gray-900"
+                    active ? "bg-green-100 text-green-900" : "text-zinc-500"
                   }`
                 }
                 value={month}

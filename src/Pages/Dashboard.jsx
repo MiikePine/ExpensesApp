@@ -269,7 +269,7 @@ const Dashboard = ({ item }) => {
             />
           </div>
 
-          <div className="w-full bg-white mb-22 md:mb-0 pt-2 mr-2 shadow-lg">
+          <div className="w-full bg-white  mb-20 md:mb-0 pt-2 mr-2 shadow-lg">
             <div className="flex justify-center items-center">
               <p className="pb-4 text-zinc-500 text-xl mr-4">Expense</p>
               <BiSolidDownArrow

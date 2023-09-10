@@ -24,13 +24,14 @@ function ChartExp({ selectedMonth, expenseData }) {
   // console.log("Props received in ChartExp - expenseData:", expenseData);
 
   if (expenseData.length === 0) {
-    // Handle the case when expenseData is empty (e.g., show a loading message)
     return <div>Loading chart...</div>;
   }
   const [chartData, setChartData] = useState(null);
+  const isSmallScreen = window.innerWidth <= 768;
 
   // console.log("ChartExp props - selectedMonth:", selectedMonth);
   // console.log("ChartExp props - expenseData:", expenseData);
+  const legendPosition = isSmallScreen ? "bottom" : "right";
 
   useEffect(() => {
     // console.log('Selected Month chart expense:', selectedMonth);
@@ -39,10 +40,10 @@ function ChartExp({ selectedMonth, expenseData }) {
       try {
         const filteredData = expenseData.filter((item) => {
           const itemMonth = new Date(item["items/dateValue"]).getMonth();
+
           return itemMonth === months.indexOf(selectedMonth);
         });
 
-        // Agrupar os dados por categoria e calcular a soma dos preços
         const groupedData = filteredData.reduce((result, item) => {
           const category = item["items/category"];
           const price = item["items/price"];
@@ -54,19 +55,16 @@ function ChartExp({ selectedMonth, expenseData }) {
           return result;
         }, {});
 
-        // Extrair as categorias e os preços agrupados
         const labels = Object.keys(groupedData);
         const values = Object.values(groupedData);
 
         const backgroundColors = labels.map((label) => categoryColors[label]);
 
-        // Calcular as porcentagens
         const total = values.reduce((sum, value) => sum + value, 0);
         const percentages = values.map((value) =>
           ((value / total) * 100).toFixed(2)
         );
 
-        // Definir o objeto de configuração do gráfico
         const chartData = {
           labels: labels.map(
             (label, index) => `${label} (${percentages[index]}%)`
@@ -82,12 +80,12 @@ function ChartExp({ selectedMonth, expenseData }) {
           ],
         };
 
-        // Definir as opções do gráfico
+        // Chart options
         const chartOptions = {
           responsive: true,
           maintainAspectRatio: false,
-          width: 100, // Set the desired width
-          height: 100, // Set the desired height
+          width: 100, 
+          height: 100, 
           plugins: {
             tooltip: {
               // ...
@@ -108,10 +106,10 @@ function ChartExp({ selectedMonth, expenseData }) {
     // console.log("Chart data:", chartData);
 
     fetchData();
-  }, [selectedMonth, expenseData]); // Add selectedMonth to the dependency array
+  }, [selectedMonth, expenseData, isSmallScreen]); 
 
   if (!chartData) {
-    return null; // Aguardando os dados serem carregados
+    return null; 
   }
 
   return (
@@ -131,7 +129,7 @@ function ChartExp({ selectedMonth, expenseData }) {
           plugins: {
             ...chartData.options.plugins,
             legend: {
-              position: "right", // Set 'bottom' for below or 'right' for the side
+              position: legendPosition,
             },
           },
         }}

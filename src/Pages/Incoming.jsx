@@ -283,7 +283,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
         </div>
       )}
 
-      <div className="bg-white !shadow-lg mt-10">
+      <div className="bg-white !shadow-lg mt-4 md:mt-4 ">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
           <Title className="bg-white !text-gray-600 flex items-center">
             <span className="text-center flex-grow">Incoming List</span>
@@ -294,8 +294,9 @@ const Incoming = ({ item, handleOverlayClick }) => {
               Add +
             </button>
           </Title>
+          <div style={{ overflowX: 'auto' }}>
 
-          <Table className="mt-10 bg-white text-green-100 flex justify-around">
+          <Table className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-10">
             <TableHead className="bg-white  justify-between">
               <TableRow className="bg-white justify-between">
                 {/* <TableHeaderCell>ID</TableHeaderCell> */}
@@ -309,18 +310,19 @@ const Incoming = ({ item, handleOverlayClick }) => {
             <TableBody>
               {sortedIncomingData.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell>{item.item}</TableCell>
-                  <TableCell>{item.category}</TableCell>
-                  <TableCell>
+                  <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">{item.item}</TableCell>
+                  <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4"> {item.category}</TableCell>
+                  <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
                     {item.price} <span className="text-xs">CHF</span>
                   </TableCell>
-                  <TableCell>{item.formattedDate}</TableCell>
-                  <TableCell>{item.payBy}</TableCell>
+                  <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">{item.formattedDate}</TableCell>
+                  <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">{item.payBy}</TableCell>
                   {/* <TableCell>{item.id}</TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+          </div>
         </Card>
       </div>
     </Layout>
