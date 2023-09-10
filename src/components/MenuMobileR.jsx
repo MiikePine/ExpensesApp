@@ -164,7 +164,7 @@ const MenuMobileR = () => {
           "fixed bottom-0 left-0 right-0 md:hidden bg-neutral-100 flex-col w-full z-10"
       >
     
-        <div className=" flex justify-between items-center">
+    <div className="flex justify-between items-center">
           <NavLink
             to="/Dashboard"
             className={({ isActive, isPending }) =>
@@ -175,8 +175,11 @@ const MenuMobileR = () => {
                 : "py-3 px-4 flex-1 text-sm bg-white hover:bg-zinc-100 text-teal-700"
             }
           >
+                                              <div className="flex flex-col items-center">
+
             <RxDashboard size={20} className="items-center justify-center" />
-            
+            </div>
+
           </NavLink>
 
           <NavLink
@@ -189,8 +192,11 @@ const MenuMobileR = () => {
                 : "py-3 px-4 flex-1 text-sm bg-white hover:bg-zinc-100 text-teal-700"
             }
           >
+                                  <div className="flex flex-col items-center">
+
             <RiBillLine size={20} className="items-center justify-center" />
-            
+            </div>
+
           </NavLink>
 
           <NavLink
@@ -203,7 +209,9 @@ const MenuMobileR = () => {
                 : "py-3 px-4 flex-1 text-sm bg-white hover:bg-zinc-100 text-teal-700"
             }
           >
-            <AiOutlineFileAdd size={20} className="items-center justify-center" />
+                      <div className="flex flex-col items-center">
+            <AiOutlineFileAdd size={20} className="" />
+            </div>
           </NavLink>
 
           <NavLink
@@ -216,7 +224,9 @@ const MenuMobileR = () => {
                 : "py-3 px-4 flex-1 text-sm bg-white hover:bg-zinc-100 text-teal-700"
             }
           >
+          <div className="flex flex-col items-center">
             <MdLogout size={20} className="items-center justify-center" /> 
+            </div>
           </NavLink>
         </div>
       </section>
