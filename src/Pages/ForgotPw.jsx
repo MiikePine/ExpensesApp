@@ -39,7 +39,7 @@ const ForgotPw = () => {
     className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm"
     style={{ backgroundImage: `url(${auroras})` }}
   >
-    <div className="absolute inset-0 bg-white opacity-60 overflow-y-auto "></div>
+    <div className="absolute  bg-white opacity-20 overflow-y-auto "></div>
       
       <div className="mt-8 w-full px-4 md:px-0 md:max-w-md">
         <div className="bg-zinc-100 shadow px-2">
@@ -48,7 +48,7 @@ const ForgotPw = () => {
             className="bg-zinc-100 rounded mb-2 p-2 pb-6 pt-6 w-[100%]"
           >
             <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-              <h2 className="text-2xl md:text-3xl mb-10 text-black">
+              <h2 className="text-2xl md:text-2xl mb-10 text-black">
                 Forgot Your Password?
               </h2>
             </div>

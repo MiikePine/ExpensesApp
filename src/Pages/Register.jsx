@@ -48,7 +48,7 @@ const Register = () => {
     className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm"
     style={{ backgroundImage: `url(${auroras})` }}
   >
-    <div className="absolute inset-0 bg-white opacity-60 overflow-y-auto "></div>
+    <div className="absolute inset-0 bg-white opacity-20 overflow-y-auto "></div>
 
       {isRegistrationSuccessful ? (
         <RegisterSuccess

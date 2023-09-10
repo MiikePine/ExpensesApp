@@ -65,7 +65,7 @@ const Login = () => {
       className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm"
       style={{ backgroundImage: `url(${auroras})` }}
     >
-      <div className="absolute inset-0 bg-white opacity-60 overflow-y-auto "></div>
+      <div className="absolute inset-0 bg-white opacity-20 overflow-y-auto "></div>
       <div className="fixed md:hidden top-0 left-0 md:mt-0 ml-2">
           <img src={logo} alt="Logo" className="h-40 md:h-52 mt-[-30px] ml-[-10px]" />
         </div>
