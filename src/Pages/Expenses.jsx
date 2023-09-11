@@ -18,6 +18,9 @@ import supabase from "../../supabase/supabase";
 import { useDispatch } from "react-redux";
 import { updateTotalExpense } from "../store/slices/sumexpSlice";
 import { updateTotalIncoming } from "../store/slices/sumincSlice";
+import { MdExpandMore } from "react-icons/md";
+
+
 
 const Expenses = ({ item, handleOverlayClick }) => {
   const [showRegister, setShowRegister] = useState(false);
@@ -26,6 +29,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
   const [fetchedUserUID, setFetchedUserUID] = useState(false);
   const [filteredExpenseData, setFilteredExpenseData] = useState([]);
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
+  const [isSortingByItem, setIsSortingByItem] = useState(false);
 
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
@@ -44,6 +48,11 @@ const Expenses = ({ item, handleOverlayClick }) => {
   const handleAddExpense = () => {
     setShowRegister(true);
   };
+
+  const toggleSortByItem = () => {
+    setIsSortingByItem(!isSortingByItem);
+  };
+
 
   const handleRegisterSuccess = (data) => {};
 
@@ -264,6 +273,29 @@ const Expenses = ({ item, handleOverlayClick }) => {
 
   // fetchIncoming end
 
+
+    const handleSortByItem = () => {
+      toggleSortByItem();
+    
+      const sortedData = [...filteredExpenseData];
+    
+      if (isSortingByItem) {
+        sortedData.sort((a, b) => a.item.localeCompare(b.item));
+      } else {
+        // Se não estiver ordenando por item, ordene por data novamente
+        sortedData.sort((a, b) => {
+          const dateA = new Date(a["items/dateValue"]);
+          const dateB = new Date(b["items/dateValue"]);
+          return compareAsc(dateA, dateB);
+        });
+      }
+    
+      setFilteredExpenseData(sortedData);
+    };
+  
+
+
+
   return (
     <Layout items={item} showHeader={true}>
       {showRegister && (
@@ -280,6 +312,9 @@ const Expenses = ({ item, handleOverlayClick }) => {
           />
         </div>
       )}
+
+
+
 
       <div className="bg-white !shadow-lg mt-4 md:mt-4 z-10">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
@@ -299,6 +334,9 @@ const Expenses = ({ item, handleOverlayClick }) => {
               <TableHead className="bg-white  justify-between ">
                 <TableRow className="bg-white justify-between">
                   {/* <TableHeaderCell>ID</TableHeaderCell> */}
+                 
+              
+
                   <TableHeaderCell>Item</TableHeaderCell>
                   <TableHeaderCell>Category</TableHeaderCell>
                   <TableHeaderCell>Price (CHF)</TableHeaderCell>

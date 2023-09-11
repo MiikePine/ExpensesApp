@@ -66,18 +66,20 @@ const Login = () => {
       style={{ backgroundImage: `url(${auroras})` }}
     >
       <div className="absolute inset-0 bg-white opacity-20 overflow-y-auto "></div>
-      <div className="fixed md:hidden top-0 left-0 md:mt-0 ml-2">
-          <img src={logo} alt="Logo" className="h-40 md:h-52 mt-[-30px] ml-[-10px]" />
+     
+      <div className="fixed md:hidden top-0 left-0 mb-6 md:mt-0 ml-2">
+          <img src={logo} alt="Logo" className="h-32 md:h-36 mt-[-30px] ml-[-10px]" />
         </div>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-zinc-100 shadow-lg mb-2 p-4 md:p-8 w-3/4 mx-4 md:w-[33%] relative z-10 flex flex-col justify-center h-[520px]"
+        className="bg-zinc-100 shadow-lg mb-2 md:mb-0 p-4 md:px-8 md:py-2 w-3/4 mx-4 md:w-[33%] relative z-10 flex flex-col justify-center h-[520px]"
       >
-         <div className="hidden md:flex absolute  top-0  left-0 md:mt-0 ml-2">
-          <img src={logo} alt="Logo" className="h-18 md:h-36 mt-[-30px] ml-[-10px]" />
+        <div className="hidden md:flex absolute  top-0  left-0 md:mt-0 ml-2">
+          <img src={logo} alt="Logo" className="h-12 md:h-36 mt-[-30px] ml-[-14px]" />
         </div>
-        <div className="items-center">
+         
+        <div className="items-center mt-10">
           <div className="text-center">
             <span className="text-2xl text-teal-700 font-bold md:text-3xl text-red">
               Login
@@ -88,7 +90,7 @@ const Login = () => {
             </span>
           </div>
         </div>
-        <div className="flex flex-col mt-6">
+        <div className="flex flex-col mt-2">
           <label htmlFor="email" className="mt-4 mb-2 font-medium">
             Email
           </label>
@@ -144,7 +146,7 @@ const Login = () => {
         </button>
         <Link
           to="/Register"
-          className="float-right mt-1 mb-10 text-sm text-black focus:text-red-500 hover:text-red hover:underline"
+          className="float-right mt-1  text-sm text-black focus:text-red-500 hover:text-red hover:underline"
         >
           Register
         </Link>

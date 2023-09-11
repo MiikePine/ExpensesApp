@@ -52,7 +52,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
     resolver: yupResolver(schema),
   });
 
-  const userData = useSelector((state) => state.user.id);
+  const userData = useSelector((state) => state.user);
   console.log("User ID from Redux store:", userData);
   const [UserUID, setUserUID] = useState(null);
 
