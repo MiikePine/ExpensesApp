@@ -118,26 +118,27 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
   return (
     isOpen && (
-      <div className="w-screen md:w-2/6 h-110 top-24 ml-10 fixed z-50 flex items-center overflow-y-auto mb-10 shadow-xxl">
+      <div className="w-full md:w-2/6 h-2/4 md:h-110 top-24 ml-10 fixed z-10 px-4 mr-10 md:mr-0 flex items-center mb-10 shadow-xxl">
         <div className="flex-1 h-full border-2 border-neutral-200 overflow-y-auto bg-zinc-100 p-4 relative">
           <div className="flex px-0">
-            <div className="ml-auto mr-3 mt-4 pb-0 mb-0">
+            <div className="ml-auto mb-4 mr-3 mt-4 pb-0 md:mb-0">
+           
               <button onClick={handleClose}>
                 <TfiClose
-                  size={30}
-                  className="text-red hover:text-red-500 transition-transform font-bold"
+                  size={24}
+                  className="text-red hover:text-red-500 transition-transform font-bold "
                 ></TfiClose>
               </button>
             </div>
           </div>
-          <div className="flex align-middle justify-center">
-            <h1 className="text-xl mb-8 mt-2 text-teal-700 font-bold">
-              Add new Expense
+          <div className="flex align-middle justify-center mt-2">
+            <h1 className="text-xl mb-4 md:mb-4s  mt-2 text-teal-700 font-bold">
+              Add Expense
             </h1>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid gap-2 mx-10 my-2">
+            <div className="grid gap-2 mx-4 md:mx-10 my-2">
               <div className="mb-4">
                 <Input
                   id="item"
@@ -157,11 +158,12 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
               <div className="flex gap-2 ">
                 <div className="mb-4 grid w-full">
-                  <Listbox
-    className={`${
-      open ? "absolute z-100 mt-1 w-full overflow-auto bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" : "hidden"
-    }`}
-    style={{ zIndex: 9999 }}
+<Listbox
+  className={`${
+    open
+      ? "absolute z-99 mt-1 w-full overflow-auto  bg-white py-1  shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+      : "hidden"
+  }`}
 
             
                     value={selectedCategory}
@@ -194,7 +196,10 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto  bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                              <Listbox.Options
+                                static
+                                className="absolute mt-1 w-full max-h-[200px] overflow-auto bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-[50]"
+                              >
                               {Category.map((person, personIdx) => (
                                 <Listbox.Option
                                   key={personIdx}
@@ -282,8 +287,8 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                           >
                             <Listbox.Options
                               static
-                              className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-                            >
+                              className="absolute mt-1 w-full max-h-[200px] overflow-auto bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-[50]"
+                              >
                               {methodPayment.map((method, methodIdx) => (
                                 <Listbox.Option
                                   key={methodIdx}
@@ -336,7 +341,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
               {/* PAID BY end */}
 
               <div className="flex gap-2">
-                <div className="mb-4 w-full">
+                <div className="mb-4 w-full text-sm">
                   <Input
                     id="price"
                     register={register("price")}
@@ -346,7 +351,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                   />
                 </div>
 
-                <div className="mb-4 w-full">
+                <div className="mb-4 w-full text-sm">
                   <Input
                     id="dateValue"
                     register={register("dateValue")}

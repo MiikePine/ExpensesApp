@@ -1,5 +1,5 @@
 {
-  "name": "expense-project",
+  "name": "pine-tree",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -57,7 +57,7 @@
     "vite": "^4.3.7"
   },
   "main": "index.js",
-  "repository": "https://github.com/P3drodeSousa/BNi_Componants.git",
+  "repository": "https://github.com/MiikePine/ExpensesApp.git",
   "author": "miikepine <miikepiine@gmail.com>",
   "license": "MIT"
 }
