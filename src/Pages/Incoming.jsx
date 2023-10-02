@@ -18,6 +18,8 @@ import supabase from "../../supabase/supabase";
 import { useDispatch } from "react-redux";
 import { updateTotalExpense } from "../store/slices/sumexpSlice";
 import { updateTotalIncoming } from "../store/slices/sumincSlice";
+import { setSelectedYear } from "../store/slices/yearSlice";
+
 
 const Incoming = ({ item, handleOverlayClick }) => {
   const [showRegister, setShowRegister] = useState(false);
@@ -30,8 +32,11 @@ const Incoming = ({ item, handleOverlayClick }) => {
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
 
+  const selectedYear = useSelector((state) => state.year.value);
   const selectedMonth = useSelector((state) => state.month.value);
   const userData = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
 
   const sortedIncomingData = filteredIncomingData.slice().sort((a, b) => {
     const dateA = new Date(a["posts/dateValue"]);
@@ -40,7 +45,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
     return compareAsc(dateA, dateB);
   });
 
-  const dispatch = useDispatch();
+
 
   const handleAddIncome = () => {
     setShowRegister(true);
@@ -265,6 +270,15 @@ const Incoming = ({ item, handleOverlayClick }) => {
   };
 
   // fetchIncoming end
+
+  const handleSelectYear = async (newYear) => {
+    dispatch(setSelectedYear(newYear));
+    // Resto do seu código
+  };
+
+  useEffect(() => {
+    fetchIncoming();
+  }, [selectedYear]);
 
   return (
     <Layout items={item} showHeader={true}>

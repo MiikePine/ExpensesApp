@@ -297,7 +297,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
 
 
   return (
-    <Layout items={item} showHeader={true}>
+    <Layout items={item} showHeader={true} showHeaderSavings={false}>
       {showRegister && (
         <div
           className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay backdrop-blur-sm"

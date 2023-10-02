@@ -4,6 +4,7 @@ import Menu from "./Menu";
 import MenuMobileR from "./MenuMobileR";
 import Header1 from "./Header1";
 import { useSelector } from "react-redux";
+import HeaderSavings from "./HeaderSavings";
 
 const Layout = ({
   children,
@@ -15,6 +16,7 @@ const Layout = ({
   selectedMonth,
   UserUID,
   showHeader,
+  showHeaderSavings,
 }) => {
   // const userData = useSelector((state) => state.user.id);
   const totalIncome = useSelector((state) => state.suminc.totalIncome);
@@ -48,6 +50,23 @@ const Layout = ({
           )}
           {children}
         </div>
+
+        <div className="mx-4">
+  {showHeaderSavings && (
+    <HeaderSavings
+      users={users}
+      totalPrice={totalPrice}
+      item={item}
+      pathName={pathName}
+      getMonthFromDate={getMonthFromDate}
+      selectedMonth={selectedMonth}
+      UserUID={UserUID}
+      totalIncome={totalIncome}
+      totalExpense={totalExpense}
+    />
+  )}
+</div>
+
       </div>
     </main>
   );

@@ -5,7 +5,8 @@ import Months from "./Months";
 import { BiHomeAlt } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { setSelectedMonth } from "../store/slices/monthSlice"; // Importe a ação para definir o mês selecionado
+import { setSelectedMonth } from "../store/slices/monthSlice"; 
+import { setSelectedYear } from "../store/slices/yearSlice";// Importe a ação para definir o mês selecionado
 import Search from "./Search";
 import logo from "../../Images/logo2.png";
 
@@ -17,6 +18,8 @@ function Header1({}) {
   const [pathName, setPathName] = useState(location.pathname.slice(1));
   const userEmail = useSelector((state) => state.user?.email);
   const selectedMonth = useSelector((state) => state.month.value); // Obtenha o mês selecionado
+  const selectedYear = useSelector((state) => state.year.value); // Obtenha o mês selecionado
+
 
   const dispatch = useDispatch(); // Obtenha a função dispatch
 
@@ -27,6 +30,11 @@ function Header1({}) {
   const handleSelectMonth = (newMonth) => {
     dispatch(setSelectedMonth(newMonth)); // Atualize o mês selecionado usando a ação
   };
+
+  const handleSelecYear = (newYear) => {
+    dispatch(setSelectedYear(newYear)); // Atualize o mês selecionado usando a ação
+  };
+
 
   return (
     <div>
@@ -47,7 +55,10 @@ function Header1({}) {
             <span className="text-sm">/</span>
             <h1 className="text-sm">{pathName}</h1>
             <span className="text-sm">/</span>
+            <h1 className="text-sm z-50">{selectedYear}</h1>
+            <span className="text-sm">/</span>
             <h1 className="text-sm z-50">{selectedMonth}</h1>
+
           </div>
 
           <div className="hidden md:flex w-3/4 md:w-1/5 justify-center mt-10 md:mt-0 md:mr-24">
