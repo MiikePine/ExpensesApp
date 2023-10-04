@@ -91,7 +91,8 @@ const Login = () => {
           </div>
         </div>
         <div className="flex flex-col mt-2">
-          <label htmlFor="email" className="mt-4 mb-2 font-medium">
+          <label htmlFor="email" 
+            className="mt-2 mb-2 text-sm md:text-base">
             Email
           </label>
 
@@ -112,7 +113,7 @@ const Login = () => {
         <div className="flex flex-col mt-6">
           <label
             htmlFor="password"
-            className="mt-2 mb-2 text-sm md:text-base font-medium "
+            className="mt-2 mb-2 text-sm md:text-base"
           >
             Password
           </label>
