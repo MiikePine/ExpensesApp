@@ -311,7 +311,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
           <div style={{ overflowX: 'auto' }}>
 
           <Table className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-10">
-            <TableHead className="bg-white  justify-between">
+          <TableHead className="bg-white justify-between w-full sticky top-0 z-10">
               <TableRow className="bg-white justify-between">
                 {/* <TableHeaderCell>ID</TableHeaderCell> */}
                 <TableHeaderCell>Item</TableHeaderCell>

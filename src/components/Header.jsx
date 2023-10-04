@@ -49,6 +49,8 @@ const Header = ({ pathName, onMonthChange }) => {
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
   const combinedData = [...filteredExpenseData, ...filteredIncomingData];
   const [isDivVisible, setIsDivVisible] = useState(true);
+  const isDashboardPage = pathName === '/Dashboard'; 
+
 
   const dispatch = useDispatch();
   const selectedMonth = useSelector((state) => state.month.value);
@@ -289,34 +291,29 @@ const Header = ({ pathName, onMonthChange }) => {
   return (
     <div className="mt-4">
       <div className="flex justify-between z-100">
+          <div className="flex gap-2 w-1/5">
+                <Year
+                    className="cursor-pointer"
+                    onYearChange={handleSelectYear}
+                    selectedYear={selectedYear}
+                  />
 
-      <Year
-          className="cursor-pointer"
-          onYearChange={handleSelectYear}
-          selectedYear={selectedYear}
-        />
+                  <Months
+                    className="cursor-pointer"
+                    onMonthChange={handleSelectMonth}
+                    selectedMonth={selectedMonth}
+                  />
+          </div>
+          {!isDashboardPage && (
+            <div className="text-zinc-400 flex-col mb-4 z-40 align-top">
+              {isDivVisible ? (
+                <BsChevronUp size={32} onClick={toggleDivVisibility} />
+              ) : (
+                <BsChevronDown size={32} onClick={toggleDivVisibility} />
+              )}
+            </div>
+          )}
 
-        <Months
-          className="cursor-pointer"
-          onMonthChange={handleSelectMonth}
-          selectedMonth={selectedMonth}
-        />
-
-
-
-        {isDivVisible ? (
-          <BsChevronUp
-            className="text-zinc-400 flex-col mb-4 z-40 align-top"
-            size={32}
-            onClick={toggleDivVisibility}
-          />
-        ) : (
-          <BsChevronDown
-            className="text-zinc-400 flex-col mb-4 z-40 align-top"
-            size={32}
-            onClick={toggleDivVisibility}
-          />
-        )}
       </div>
 
       <div

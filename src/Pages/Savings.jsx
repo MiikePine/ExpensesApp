@@ -260,49 +260,52 @@ const Savings = ({ item, handleOverlayClick }) => {
   return (
     <Layout items={item} showHeader={false} >
 <HeaderSavings totalYearIncoming={totalIncoming} totalExpense={totalExpense} />
-<div className="bg-white !shadow-lg mt-4 md:mt-4 z-10">
-  <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
-    <Title className="bg-white !text-gray-600 flex items-center text-center">
-      <span className="flex-grow">Savings</span>
-    </Title>
 
-    <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
-      <Table className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-2 px-6">
-        <TableHead className="bg-white justify-between">
-          <TableRow className="bg-white justify-between">
-            <TableHeaderCell className="bg-red-300">Month</TableHeaderCell>
-            <TableHeaderCell className="bg-green-300">Incoming</TableHeaderCell>
-            <TableHeaderCell className="bg-yellow-300">Expense</TableHeaderCell>
-            <TableHeaderCell className="bg-blue-300">Savings</TableHeaderCell>
-          </TableRow>
-        </TableHead>
 
-        <TableBody>
-          {monthlyIncomingData.map((item, index) => {
-            const balance = monthlyExpenseData[index]
-              ? item.totalIncoming - monthlyExpenseData[index].totalExpense
-              : 0;
-            return (
-              <TableRow key={index}>
-                <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
-                  {monthNames[item.month - 1]}
-                </TableCell>
-                <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
-                  {item.totalIncoming} CHF
-                </TableCell>
-                <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
-                  {monthlyExpenseData[index]?.totalExpense || 0} CHF
-                </TableCell>
-                <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
-                  {balance} CHF
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+<div className="bg-white !shadow-lg mt-4 md:mt-4 z-10 ">
+<Card className="!bg-white shadow-lg rounded-none border-none ring-0">
+  <Title className="bg-white !text-gray-600 flex items-center text-center">
+    <span className="flex-grow">Savings</span>
+  </Title>
+  <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }} className="">
+            {" "}
+    <Table className="mt-10 bg-white text-green-100 w-full">
+      <TableHead className="bg-white justify-between w-full sticky top-0 z-10 ">
+        <TableRow className="bg-white justify-between sticky">
+          <TableHeaderCell>Month</TableHeaderCell>
+          <TableHeaderCell>Incoming</TableHeaderCell>
+          <TableHeaderCell>Expense</TableHeaderCell>
+          <TableHeaderCell>Savings</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+
+      <TableBody >
+        {monthlyIncomingData.map((item, index) => {
+          const balance = monthlyExpenseData[index]
+            ? item.totalIncoming - monthlyExpenseData[index].totalExpense
+            : 0;
+          return (
+            <TableRow key={index}>
+              <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+                {monthNames[item.month - 1]}
+              </TableCell>
+              <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+                {item.totalIncoming} CHF
+              </TableCell>
+              <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+                {monthlyExpenseData[index]?.totalExpense || 0} CHF
+              </TableCell>
+              <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+                {balance} CHF
+              </TableCell>
+            </TableRow>
+          );
+        })}
+      </TableBody>
+      
+    </Table>
     </div>
-  </Card>
+</Card>
 </div>
   </Layout>
 );

@@ -300,7 +300,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
     <Layout items={item} showHeader={true} showHeaderSavings={false}>
       {showRegister && (
         <div
-          className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay backdrop-blur-sm"
+          className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 backdrop-blur-sm"
           onClick={handleOverlayClick}
         >
           <AddExp
@@ -327,16 +327,12 @@ const Expenses = ({ item, handleOverlayClick }) => {
               Add +
             </button>
           </Title>
-          <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
-            {" "}
-            {/* Defina a altura máxima aqui */}
+         
             <Table className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-10">
-              <TableHead className="bg-white  justify-between ">
-                <TableRow className="bg-white justify-between">
-                  {/* <TableHeaderCell>ID</TableHeaderCell> */}
-                 
-              
-
+            <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }} className="">
+            {" "}
+            <TableHead className="bg-white justify-between w-full sticky top-0 z-10">
+                <TableRow className="bg-white justify-between sticky">
                   <TableHeaderCell>Item</TableHeaderCell>
                   <TableHeaderCell>Category</TableHeaderCell>
                   <TableHeaderCell>Price (CHF)</TableHeaderCell>
@@ -362,12 +358,12 @@ const Expenses = ({ item, handleOverlayClick }) => {
                     <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
                       {item.payBy}
                     </TableCell>
-                    {/* <TableCell>{item.id}</TableCell> */}
                   </TableRow>
                 ))}
               </TableBody>
+              </div>
             </Table>
-          </div>
+         
         </Card>
       </div>
     </Layout>
