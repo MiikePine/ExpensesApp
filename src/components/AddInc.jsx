@@ -112,8 +112,8 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
 
   return (
     isOpen && (
-      <div className="w-screen md:w-2/6 h-110 top-24 ml-10 fixed z-50 flex items-center  mb-10 shadow-xxl">
-        <div className="flex-1 h-full border-2 border-neutral-200  bg-zinc-100 p-4 relative">
+      <div className="w-full md:w-2/6 h-90 md:h-110 top-24 px-4 md:px-4 mx-10 md:mx-10 fixed z-50 flex items-center mb-10 shadow-xxl">
+        <div className="flex-1 h-full border-2 border-neutral-200  bg-zinc-100 p-2 md:p-4 relative">
           <div className="flex px-0">
             <div className="ml-auto mr-3 mt-4 pb-0 mb-0">
               <button onClick={handleClose}>
@@ -131,8 +131,8 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid gap-2 mx-10 my-2">
-              <div className="mb-4">
+          <div className="grid gap-2 mx-4 md:mx-10 my-1 md:my-2">
+          <div className="mb-2 md:mb-4 text-sm md:text-base">
                 <Input
                   id="item"
                   register={register("item")}
@@ -149,9 +149,15 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
               </div>
 
               {/* category start */}
-              <div className="flex gap-2">
-                <div className="mb-4 grid w-full">
+              <div className="flex gap-2 mb-0">
+              <div className="mb-2 md:mb-4 grid w-full">
                   <Listbox
+                    className={`${
+                      open
+                        ? "absolute z-100 mt-1 w-full bg-white py-1 text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none "
+                        : "hidden"
+                    }`}
+                    style={{ zIndex: 9999 }}
                     value={selectedCategory}
                     onChange={(selectedOption) => {
                       setSelectedCategory(selectedOption);
@@ -163,7 +169,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
                     {({ open }) => (
                       <>
                         <div className="relative mt-1 z-10 ">
-                          <Listbox.Button className="relative w-full cursor-default bg-white py-3 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-teal-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                          <Listbox.Button className="relative w-full text-xs md:text-base cursor-default bg-white py-3 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-teal-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                             <span className="block truncate">
                               {selectedCategory
                                 ? selectedCategory.name
@@ -182,7 +188,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Listbox.Options className="absolute mt-1 max-h-60 w-full   bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            <Listbox.Options className="absolute mt-1 max-h-100 w-full   bg-white py-1 text-xs md:text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-xs">
                               {Category.map((person, personIdx) => (
                                 <Listbox.Option
                                   key={personIdx}
@@ -207,7 +213,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
                                         {person.name}
                                       </span>
                                       {selected ? (
-                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-teal-700">
+                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-teal-600">
                                           <CheckIcon
                                             className="h-5 w-5"
                                             aria-hidden="true"
@@ -235,10 +241,10 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
 
                 {/* PAID BY start */}
 
-                <div className="mb-4 w-full">
+                <div className="w-full mb-2 md:mb-4">
                   <Listbox
                    className={`${
-                    open ? "absolute z-100 mt-1 w-full bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" : "hidden"
+                    open ? "absolute z-100 mt-1 w-full bg-white py-1 text-xs md:text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" : "hidden"
                   }`}
                   style={{ zIndex: 9999 }}
               
@@ -253,7 +259,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
                     {({ open }) => (
                       <>
                         <div className="relative mt-1">
-                          <Listbox.Button className="relative w-full cursor-default bg-white py-3 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                          <Listbox.Button className="relative w-full text-xs md:text-base cursor-default bg-white py-3 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 ">
                             <span className="block truncate">
                               {selectedMethodPayment
                                 ? selectedMethodPayment.name
@@ -275,13 +281,13 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
                           >
                             <Listbox.Options
     
-                              className="absolute mt-1 max-h-80 w-full bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                              className="absolute mt-1 max-h-80 w-full bg-white py-1 text-xs md:text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                             >
                               {methodPayment.map((method, methodIdx) => (
                                 <Listbox.Option
                                   key={methodIdx}
                                   className={({ active }) =>
-                                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                    `relative cursor-default select-none py-2 pl-10 pr-4 text-xs md:text-base ${
                                       active
                                         ? "bg-teal-50 text-teal-700"
                                         : "text-gray-900"
@@ -301,7 +307,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
                                         {method.name}
                                       </span>
                                       {selected && (
-                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-teal-700">
+                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-teal-600">
                                           <CheckIcon
                                             className="h-5 w-5"
                                             aria-hidden="true"
@@ -328,7 +334,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
               {/* PAID BY end */}
 
               <div className="flex gap-2">
-                <div className="mb-4 w-full">
+              <div className="mb-4 w-full text-xs md:text-base">
                   <Input
                     id="price"
                     register={register("price")}
@@ -338,7 +344,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
                   />
                 </div>
 
-                <div className="mb-4 w-full">
+                <div className="mb-4 w-full text-xs md:text-base">
                   <Input
                     id="dateValue"
                     register={register("dateValue")}
@@ -350,7 +356,7 @@ const AddInc = ({ handleRegisterSuccess, onClose, insertData }) => {
               </div>
             </div>
 
-            <div className="flex justify-end mt-4 mr-10">
+            <div className="flex justify-end mt-4 mr-4 md:mr-10">
               <Button AddNew="Add" type="submit" onChange={insertData} />
             </div>
           </form>

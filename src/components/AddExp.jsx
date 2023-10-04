@@ -131,14 +131,14 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
             </div>
           </div>
           <div className="flex align-middle justify-center">
-            <h1 className="text-xl mb-8 mt-2 text-teal-700 font-bold">
+            <h1 className="text-base md:text-xl mb-8 mt-2 text-teal-700 font-bold">
               Add Expense
             </h1>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-2 mx-4 md:mx-10 my-1 md:my-2">
-              <div className="mb-2 md:mb-4 text-xs md:text-base">
+              <div className="mb-2 md:mb-4 text-sm md:text-base">
                 <Input
                   id="item"
                   register={register("item")}
