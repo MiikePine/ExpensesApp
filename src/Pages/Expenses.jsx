@@ -331,7 +331,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
             <Table className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-10">
             <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }} className="">
             {" "}
-            <TableHead className="bg-white justify-between w-full sticky top-0 z-10">
+            <TableHead className="bg-white text-xs md:text-base justify-between w-full sticky top-0 z-10">
                 <TableRow className="bg-white justify-between sticky">
                   <TableHeaderCell>Item</TableHeaderCell>
                   <TableHeaderCell>Category</TableHeaderCell>
@@ -343,19 +343,19 @@ const Expenses = ({ item, handleOverlayClick }) => {
               <TableBody>
                 {sortedExpenseData.map((item, index) => (
                   <TableRow key={index}>
-                    <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+                    <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4 text-xs sm:text-sm">
                       {item.item}
                     </TableCell>{" "}
-                    <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+                    <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4 text-xs sm:text-sm">
                       {item.category}
                     </TableCell>
-                    <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+                    <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4 text-xs sm:text-sm">
                       {item.price} <span className="text-xs">CHF</span>
                     </TableCell>
-                    <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+                    <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4 text-xs sm:text-sm">
                       {item.formattedDate}
                     </TableCell>
-                    <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+                    <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4 text-xs sm:text-sm">
                       {item.payBy}
                     </TableCell>
                   </TableRow>
