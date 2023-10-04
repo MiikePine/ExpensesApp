@@ -138,7 +138,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-2 mx-4 md:mx-10 my-2">
-              <div className="mb-4">
+              <div className="mb-4 text-xs md:text-base">
                 <Input
                   id="item"
                   register={register("item")}
@@ -156,14 +156,14 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
               {/* category start */}
 
               <div className="flex gap-2 ">
-                <div className="mb-4 grid w-full">
+                <div className="mb-2 md:mb-4 grid w-full">
                   <Listbox
-    className={`${
-      open ? "absolute z-100 mt-1 w-full bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" : "hidden"
-    }`}
-    style={{ zIndex: 9999 }}
-
-            
+                    className={`${
+                      open
+                        ? "absolute z-100 mt-1 w-full bg-white py-1 text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none "
+                        : "hidden"
+                    }`}
+                    style={{ zIndex: 9999 }}
                     value={selectedCategory}
                     onChange={(selectedOption) => {
                       setSelectedCategory(selectedOption);
@@ -175,7 +175,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                     {({ open }) => (
                       <>
                         <div className="relative mt-1">
-                          <Listbox.Button className="relative w-full cursor-default  bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                          <Listbox.Button className="relative w-full text-xs md:text-base cursor-default  bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                             <span className="block truncate">
                               {selectedCategory
                                 ? selectedCategory.name
@@ -194,12 +194,12 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Listbox.Options className="absolute mt-1 max-h-100 w-full  bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-xs">
+                            <Listbox.Options className="absolute mt-1 max-h-100 w-full  bg-white py-1 text-xs md:text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-xs">
                               {Category.map((person, personIdx) => (
                                 <Listbox.Option
                                   key={personIdx}
                                   className={({ active }) =>
-                                    `relative cursor-default select-none py-2 md:pl-10 pl-3  pr-4 ${
+                                    `relative cursor-default select-none py-2 md:pl-10 pl-3  pr-4 text-xs md:text-base ${
                                       active
                                         ? "bg-teal-50 text-teal-700"
                                         : "text-gray-900"
@@ -260,7 +260,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                     {({ open }) => (
                       <>
                         <div className="relative mt-1">
-                          <Listbox.Button className="relative w-full cursor-default bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                          <Listbox.Button className="relative w-full text-xs md:text-base cursor-default bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                             <span className="block truncate">
                               {selectedMethodPayment
                                 ? selectedMethodPayment.name
@@ -282,13 +282,13 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                           >
                             <Listbox.Options
                               static
-                              className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                              className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-xs md:text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                             >
                               {methodPayment.map((method, methodIdx) => (
                                 <Listbox.Option
                                   key={methodIdx}
                                   className={({ active }) =>
-                                    `relative cursor-default select-none py-2 md:pl-10 pl-3 pr-4 ${
+                                    `relative cursor-default select-none py-2 md:pl-10 pl-3 pr-4 text-xs md:text-base ${
                                       active
                                         ? "bg-teal-50 text-teal-700"
                                         : "text-gray-900"
@@ -336,7 +336,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
               {/* PAID BY end */}
 
               <div className="flex gap-2">
-                <div className="mb-4 w-full">
+                <div className="mb-4 w-full text-xs md:text-base">
                   <Input
                     id="price"
                     register={register("price")}
@@ -346,7 +346,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                   />
                 </div>
 
-                <div className="mb-4 w-full">
+                <div className="mb-4 w-full text-xs md:text-base">
                   <Input
                     id="dateValue"
                     register={register("dateValue")}
