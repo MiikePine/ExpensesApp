@@ -118,8 +118,8 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
   return (
     isOpen && (
-      <div className="w-screen md:w-2/6 h-110 top-24 ml-10 fixed z-50 flex items-center mb-10 shadow-xxl">
-        <div className="flex-1 h-full border-2 border-neutral-200  bg-zinc-100 p-4 relative">
+      <div className="w-4/5 md:w-2/6 h-90 md:h-110 top-24 md:ml-10 fixed z-50 flex items-center mb-10 shadow-xxl">
+        <div className="flex-1 h-full border-2 border-neutral-200  bg-zinc-100 p-2 md:p-4 relative">
           <div className="flex px-0">
             <div className="ml-auto mr-3 mt-4 pb-0 mb-0">
               <button onClick={handleClose}>
@@ -137,7 +137,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid gap-2 mx-10 my-2">
+            <div className="grid gap-2 mx-4 md:mx-10 my-2">
               <div className="mb-4">
                 <Input
                   id="item"
@@ -194,12 +194,12 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Listbox.Options className="absolute mt-1 max-h-100 w-full  bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            <Listbox.Options className="absolute mt-1 max-h-100 w-full  bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-xs">
                               {Category.map((person, personIdx) => (
                                 <Listbox.Option
                                   key={personIdx}
                                   className={({ active }) =>
-                                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                    `relative cursor-default select-none py-2 md:pl-10 pl-3  pr-4 ${
                                       active
                                         ? "bg-teal-50 text-teal-700"
                                         : "text-gray-900"
@@ -288,7 +288,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                                 <Listbox.Option
                                   key={methodIdx}
                                   className={({ active }) =>
-                                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                    `relative cursor-default select-none py-2 md:pl-10 pl-3 pr-4 ${
                                       active
                                         ? "bg-teal-50 text-teal-700"
                                         : "text-gray-900"
