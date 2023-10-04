@@ -118,7 +118,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
   return (
     isOpen && (
-      <div className="w-4/5 md:w-2/6 h-90 md:h-110 top-24 md:ml-10 fixed z-50 flex items-center mb-10 shadow-xxl">
+      <div className="w-full md:w-2/6 h-90 md:h-110 top-24 px-4 md:px-4 mx-10 md:mx-10 fixed z-50 flex items-center mb-10 shadow-xxl">
         <div className="flex-1 h-full border-2 border-neutral-200  bg-zinc-100 p-2 md:p-4 relative">
           <div className="flex px-0">
             <div className="ml-auto mr-3 mt-4 pb-0 mb-0">
@@ -132,13 +132,13 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
           </div>
           <div className="flex align-middle justify-center">
             <h1 className="text-xl mb-8 mt-2 text-teal-700 font-bold">
-              Add new Expense
+              Add Expense
             </h1>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid gap-2 mx-4 md:mx-10 my-2">
-              <div className="mb-4 text-xs md:text-base">
+            <div className="grid gap-2 mx-4 md:mx-10 my-1 md:my-2">
+              <div className="mb-2 md:mb-4 text-xs md:text-base">
                 <Input
                   id="item"
                   register={register("item")}
@@ -155,7 +155,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
               {/* category start */}
 
-              <div className="flex gap-2 ">
+              <div className="flex gap-2 mb-0">
                 <div className="mb-2 md:mb-4 grid w-full">
                   <Listbox
                     className={`${
@@ -247,7 +247,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
                 {/* PAID BY start */}
 
-                <div className="mb-4 w-full">
+                <div className="w-full mb-2 md:mb-4">
                   <Listbox
                     value={selectedMethodPayment}
                     onChange={(selectedOption) => {
@@ -358,7 +358,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
               </div>
             </div>
 
-            <div className="flex justify-end mt-4 mr-8">
+            <div className="flex justify-end mt-4 mr-4 md:mr-10">
               <Button AddNew="Add" type="submit" onChange={insertData} />
             </div>
           </form>
