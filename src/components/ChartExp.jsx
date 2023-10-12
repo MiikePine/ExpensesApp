@@ -93,17 +93,12 @@ function ChartExp({ selectedMonth, expenseData }) {
           },
         };
 
-        // console.log('Filtered Data:', filteredData);
-        // console.log('Labels:', labels);
-        // console.log('Values:', values);
-        // console.log('Background Colors:', backgroundColors);
+       
 
         setChartData({ data: chartData, options: chartOptions });
       } catch (error) {
-        // console.error('Error fetching data:', error);
       }
     };
-    // console.log("Chart data:", chartData);
 
     fetchData();
   }, [selectedMonth, expenseData, isSmallScreen]); 

@@ -16,7 +16,7 @@ import { updateTotalExpense } from "../store/slices/sumexpSlice";
 import Months from "./Months";
 import { BsChevronUp } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
-import Year from "./Year";
+
 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import {
@@ -49,17 +49,12 @@ const Header = ({ pathName, onMonthChange }) => {
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
   const combinedData = [...filteredExpenseData, ...filteredIncomingData];
   const [isDivVisible, setIsDivVisible] = useState(true);
-  const isDashboardPage = pathName === '/Dashboard'; 
-
 
   const dispatch = useDispatch();
   const selectedMonth = useSelector((state) => state.month.value);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
   const userData = useSelector((state) => state.user);
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-
-
 
   const sortedCombinedData = combinedData.slice().sort((a, b) => {
     const dateA = new Date(
@@ -71,10 +66,6 @@ const Header = ({ pathName, onMonthChange }) => {
     return compareDesc(dateA, dateB);
   });
 
-
-
-
-
   const handleMonthChange = (newMonth) => {
     dispatch(setSelectedMonth(newMonth));
   };
@@ -83,12 +74,6 @@ const Header = ({ pathName, onMonthChange }) => {
     setSelectedMonth(month);
     setShowMonth(false); // Oculta o componente Months quando um mês é selecionado
   };
-
-  const handleSelectYear = (year) => {
-    setSelectedYear(year);
-  };
-
- 
 
   const toggleDivVisibility = () => {
     setIsDivVisible(!isDivVisible);
@@ -115,13 +100,11 @@ const Header = ({ pathName, onMonthChange }) => {
     }
   }, [filteredIncomingData, dispatch]);
 
-
-
   // FETCH exp start
 
   const fetchUserDataExp = async () => {
     const { data, error } = await supabase.auth.getSession();
-    // console.log("Data from fetchUserDataExp:", data);
+    console.log("Data from fetchUserDataExp:", data);
     if (data.session !== null) {
       const user = data.session.user;
       setUserUID(user.id);
@@ -202,7 +185,7 @@ const Header = ({ pathName, onMonthChange }) => {
   useEffect(() => {
     fetchUserDataIncoming();
     fetchUserDataExp();
-  }, [selectedMonth, selectedYear, userData, fetchedUserUID]);
+  }, [selectedMonth, userData, fetchedUserUID]);
 
   // Fetch end
 
@@ -210,7 +193,7 @@ const Header = ({ pathName, onMonthChange }) => {
 
   const fetchUserDataIncoming = async () => {
     const { data, error } = await supabase.auth.getSession();
-    // console.log("Data from fetchUserDataInc:", data);
+    console.log("Data from fetchUserDataInc:", data);
     if (data.session !== null) {
       const user = data.session.user;
       setUserUID(user.id);
@@ -291,29 +274,25 @@ const Header = ({ pathName, onMonthChange }) => {
   return (
     <div className="mt-4">
       <div className="flex justify-between z-100">
-          <div className="flex gap-2 w-1/5">
-                <Year
-                    className="cursor-pointer"
-                    onYearChange={handleSelectYear}
-                    selectedYear={selectedYear}
-                  />
+        <Months
+          className="cursor-pointer"
+          onMonthChange={handleSelectMonth}
+          selectedMonth={selectedMonth}
+        />
 
-                  <Months
-                    className="cursor-pointer"
-                    onMonthChange={handleSelectMonth}
-                    selectedMonth={selectedMonth}
-                  />
-          </div>
-          {!isDashboardPage && (
-            <div className="text-zinc-400 flex-col mb-4 z-40 align-top">
-              {isDivVisible ? (
-                <BsChevronUp size={32} onClick={toggleDivVisibility} />
-              ) : (
-                <BsChevronDown size={32} onClick={toggleDivVisibility} />
-              )}
-            </div>
-          )}
-
+        {isDivVisible ? (
+          <BsChevronUp
+            className="text-zinc-400 flex-col mb-4 z-40 align-top"
+            size={32}
+            onClick={toggleDivVisibility}
+          />
+        ) : (
+          <BsChevronDown
+            className="text-zinc-400 flex-col mb-4 z-40 align-top"
+            size={32}
+            onClick={toggleDivVisibility}
+          />
+        )}
       </div>
 
       <div

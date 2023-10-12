@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { updateTotalExpense } from "../store/slices/sumexpSlice";
 import { updateTotalIncoming } from "../store/slices/sumincSlice";
 import { MdExpandMore } from "react-icons/md";
+import { RiFileAddLine } from "react-icons/ri";
 
 
 
@@ -317,22 +318,22 @@ const Expenses = ({ item, handleOverlayClick }) => {
 
 
       <div className="bg-white !shadow-lg mt-4 md:mt-4 z-10">
-        <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
+        <Card className="!bg-white shadow-lg rounded-none border-none ring-0" >
           <Title className="bg-white !text-gray-600 flex items-center">
             <span className="text-center flex-grow">Expenses List</span>
             <button
-              className="py-2 px-8 flex items-center text-sm bg-teal-700 text-bg-white text-white font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
+              className="py-2 px-4 flex items-center text-sm text-bg-white border text-teal-700 font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
               onClick={handleAddExpense}
             >
-              Add +
+               <RiFileAddLine size={22}></RiFileAddLine>
             </button>
           </Title>
          
-            <Table className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-10">
-            <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }} className="">
+            <Table className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-10 ">
+            <div style={{ maxHeight: "calc(33vh - 40px)", overflowY: "auto" }} className="">
             {" "}
-            <TableHead className="bg-white text-xs md:text-base justify-between w-full sticky top-0 z-10">
-                <TableRow className="bg-white justify-between sticky">
+            <TableHead className="bg-white text-xs md:text-sm justify-between w-full sticky top-0 z-10">
+                <TableRow className="bg-white justify-between sticky ">
                   <TableHeaderCell>Item</TableHeaderCell>
                   <TableHeaderCell>Category</TableHeaderCell>
                   <TableHeaderCell>Price (CHF)</TableHeaderCell>
@@ -342,7 +343,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
               </TableHead>
               <TableBody>
                 {sortedExpenseData.map((item, index) => (
-                  <TableRow key={index}>
+                  <TableRow  key={index}>
                     <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4 text-xs sm:text-sm">
                       {item.item}
                     </TableCell>{" "}

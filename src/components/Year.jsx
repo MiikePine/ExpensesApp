@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelectedYear } from "../store/slices/yearSlice";
 
 export const years = [
-  "2020",
-  "2021",
+
   "2022",
   "2023",
 ];
@@ -22,9 +21,13 @@ function Year({onYearChange}) {
 
 
   const handleSelectYear = (newYear) => {
-    setSelectedYear(newYear); // Atualize o ano selecionado localmente
-    dispatch(setSelectedYear(newYear));
+    dispatch(setSelectedYear(newYear)); // Dispatch with a string
     setIsListOpen(false);
+  
+    // Call the onYearChange prop
+    if (onYearChange) {
+      onYearChange(newYear);
+    }
   };
 
  

@@ -4,15 +4,18 @@ export const yearSlice = createSlice({
   name: "year",
   initialState: {
     value: "2023",
+    totalYearIncoming: 0, // Adicione o totalYearIncoming ao estado inicial
   },
   reducers: {
     setSelectedYear: (state, action) => {
-      console.log("Setting selected year:", action.payload);
-      state.value = action.payload;
+      state.value = parseInt(action.payload); // Convert to numeric value
+    },
+    updateTotalYearIncoming: (state, action) => {
+      state.totalYearIncoming = action.payload; // Atualize o totalYearIncoming com o novo valor
     },
   },
 });
 
-export const { setSelectedYear } = yearSlice.actions;
+export const { setSelectedYear, updateTotalYearIncoming } = yearSlice.actions;
 
 export default yearSlice.reducer;

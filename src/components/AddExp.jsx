@@ -3,7 +3,7 @@ import Button from "./Button";
 import { TfiClose } from "react-icons/tfi";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import UploadComponent from "./UploadComponent";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -59,15 +59,37 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
     resolver: yupResolver(schema),
   });
 
-  const userData = useSelector((state) => state.user);
-  console.log("User ID from Redux store:", userData);
   const [UserUID, setUserUID] = useState(null);
+
+
+  const userData = useSelector((state) => state.user);
+  console.log("User ID from Redux store:", UserUID);
 
   const dispatch = useDispatch();
 
   // upload file -  const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    // Faça a chamada à base de dados para obter UserUID quando o componente é montado
+    const fetchUserData = async () => {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+
+        if (data.session !== null) {
+          const user = data.session.user;
+          setUserUID(user.id);
+        } else {
+          console.log("Não há sessão de usuário disponível.");
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados do usuário:", error);
+      }
+    };
+
+    fetchUserData(); // Chame a função de busca ao montar o componente
+  }, []); 
 
   const onSubmit = async (data) => {
     console.log("Data before upsert:", data);
@@ -79,7 +101,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
         "items/pay_by": data.payBy,
         "items/category": data.category,
         "items/dateValue": data.dateValue,
-        user_id: userData,
+        "user_id": UserUID,
       };
 
       const { data: setExp, error } = await supabase
@@ -101,9 +123,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
         onClose();
       }
 
-      toast.success("New Expense add succefully");
-      reset();
-      onClose(); // Fechar o componente Register
+    // Fechar o componente Register
     } catch (error) {
       console.error("Failed to submit form:", error);
       console.error("Error name:", error.name);
@@ -131,14 +151,14 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
             </div>
           </div>
           <div className="flex align-middle justify-center">
-            <h1 className="text-base md:text-xl mb-8 mt-2 text-teal-700 font-bold">
+            <h1 className="text-sm md:text-xl mb-8 mt-2 text-teal-700 font-bold">
               Add Expense
             </h1>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-2 mx-4 md:mx-10 my-1 md:my-2">
-              <div className="mb-2 md:mb-4 text-sm md:text-base">
+              <div className="mb-2 md:mb-4 text-sm md:text-sm">
                 <Input
                   id="item"
                   register={register("item")}
@@ -175,7 +195,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                     {({ open }) => (
                       <>
                         <div className="relative mt-1">
-                          <Listbox.Button className="relative w-full text-xs md:text-base cursor-default  bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                          <Listbox.Button className="relative w-full text-xs md:text-sm cursor-default  bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                             <span className="block truncate">
                               {selectedCategory
                                 ? selectedCategory.name
@@ -194,12 +214,12 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Listbox.Options className="absolute mt-1 max-h-100 w-full  bg-white py-1 text-xs md:text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-xs">
+                            <Listbox.Options className="absolute mt-1 max-h-100 w-full  bg-white py-1 text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-xs">
                               {Category.map((person, personIdx) => (
                                 <Listbox.Option
                                   key={personIdx}
                                   className={({ active }) =>
-                                    `relative cursor-default select-none py-2 md:pl-10 pl-3  pr-4 text-xs md:text-base ${
+                                    `relative cursor-default select-none py-2 md:pl-10 pl-3  pr-4 text-xs md:text-sm ${
                                       active
                                         ? "bg-teal-50 text-teal-700"
                                         : "text-gray-900"
@@ -260,7 +280,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                     {({ open }) => (
                       <>
                         <div className="relative mt-1">
-                          <Listbox.Button className="relative w-full text-xs md:text-base cursor-default bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                          <Listbox.Button className="relative w-full text-xs md:text-sm cursor-default bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                             <span className="block truncate">
                               {selectedMethodPayment
                                 ? selectedMethodPayment.name
@@ -282,13 +302,13 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                           >
                             <Listbox.Options
                               static
-                              className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-xs md:text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                              className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                             >
                               {methodPayment.map((method, methodIdx) => (
                                 <Listbox.Option
                                   key={methodIdx}
                                   className={({ active }) =>
-                                    `relative cursor-default select-none py-2 md:pl-10 pl-3 pr-4 text-xs md:text-base ${
+                                    `relative cursor-default select-none py-2 md:pl-10 pl-3 pr-4 text-xs md:text- ${
                                       active
                                         ? "bg-teal-50 text-teal-700"
                                         : "text-gray-900"
@@ -336,7 +356,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
               {/* PAID BY end */}
 
               <div className="flex gap-2">
-                <div className="mb-4 w-full text-xs md:text-base">
+                <div className="mb-4 w-full text-xs md:text-sm">
                   <Input
                     id="price"
                     register={register("price")}
@@ -346,7 +366,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                   />
                 </div>
 
-                <div className="mb-4 w-full text-xs md:text-base">
+                <div className="mb-4 w-full text-xs md:text-sm">
                   <Input
                     id="dateValue"
                     register={register("dateValue")}

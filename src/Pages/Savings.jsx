@@ -16,6 +16,7 @@ import { updateTotalExpense } from "../store/slices/sumexpSlice";
 import supabase from "../../supabase/supabase";
 import { format } from "date-fns";
 import HeaderSavings from "../components/HeaderSavings"; 
+import StackedBar from "../components/StackedBar";
 
 
 const Savings = ({ item, handleOverlayClick }) => {
@@ -25,11 +26,16 @@ const Savings = ({ item, handleOverlayClick }) => {
   const [monthlyIncomingData, setMonthlyIncomingData] = useState([]);
   const [monthlyExpenseData, setMonthlyExpenseData] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
+  const [isHeaderSavingsVisible, setIsHeaderSavingsVisible] = useState(true); // Variável para controlar a visibilidade do HeaderSavings
+
 
     const selectedMonth = useSelector((state) => state.month.value);
 
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
+
+
+  
 
   const monthNames = [
     "January",
@@ -59,9 +65,9 @@ const Savings = ({ item, handleOverlayClick }) => {
       const user = data.session.user;
       setUserUID(user.id);
       setFetchedUserUID(true);
-      console.log("LOG 4 - User UID set: incoming", user.id);
+      // console.log("LOG 4 - User UID set: incoming", user.id);
     } else {
-      console.log(" error 3 - No user session available. incoming");
+      // console.log(" error 3 - No user session available. incoming");
     }
   };
 
@@ -75,7 +81,7 @@ const Savings = ({ item, handleOverlayClick }) => {
 
   const fetchIncoming = async () => {
     if (UserUID) {
-      console.log("LOG 5 - Fetching incoming for userUID:", UserUID);
+      // console.log("LOG 5 - Fetching incoming for userUID:", UserUID);
       const { data, error } = await supabase
         .from("incoming")
         .select("*")
@@ -101,7 +107,7 @@ const Savings = ({ item, handleOverlayClick }) => {
         December: 12,
       };
 
-      console.log("Fetched data from Supabase:", data);
+      // console.log("Fetched data from Supabase:", data);
 
       const selectedMonthNumber = monthMapping[selectedMonth];
 
@@ -122,7 +128,7 @@ const Savings = ({ item, handleOverlayClick }) => {
           item: incoming["posts/item"],
         }));
 
-      console.log("Filtered data incoming:", filteredDataInc);
+      // console.log("Filtered data incoming:", filteredDataInc);
 
       // Calcular o total para cada mês
       const totalsByMonth = {};
@@ -142,7 +148,7 @@ const Savings = ({ item, handleOverlayClick }) => {
         };
       });
 
-      console.log("Monthly data:", monthlyData);
+      // console.log("Monthly data:", monthlyData);
 
       dispatch(updateTotalIncoming(totalIncoming));
       setMonthlyIncomingData(monthlyData);
@@ -165,9 +171,9 @@ const Savings = ({ item, handleOverlayClick }) => {
       const user = data.session.user;
       setUserUID(user.id);
       setFetchedUserUID(true);
-      console.log("LOG 4 - User UID set: incoming", user.id);
+      // console.log("LOG 4 - User UID set: incoming", user.id);
     } else {
-      console.log(" error 3 - No user session available. incoming");
+      // console.log(" error 3 - No user session available. incoming");
     }
   };
 
@@ -181,7 +187,7 @@ const Savings = ({ item, handleOverlayClick }) => {
 
   const fetchExpense = async () => {
     if (UserUID) {
-      console.log("LOG 5 - Fetching expense for userUID:", UserUID);
+      // console.log("LOG 5 - Fetching expense for userUID:", UserUID);
       const { data, error } = await supabase
         .from("expense")
         .select("*")
@@ -207,7 +213,7 @@ const Savings = ({ item, handleOverlayClick }) => {
         December: 12,
       };
 
-      console.log("Fetched data from Supabase:", data);
+      // console.log("Fetched data from Supabase:", data);
 
       const selectedMonthNumber = monthMapping[selectedMonth];
 
@@ -228,7 +234,7 @@ const Savings = ({ item, handleOverlayClick }) => {
           item: expense["items/item"],
         }));
 
-      console.log("Filtered data expense:", filteredDataExp);
+      // console.log("Filtered data expense:", filteredDataExp);
 
       // Calcular o total para cada mês
       const totalsByMonth = {};
@@ -248,7 +254,7 @@ const Savings = ({ item, handleOverlayClick }) => {
         };
       });
 
-      console.log("Monthly data:", monthlyData);
+      // console.log("Monthly data:", monthlyData);
 
       dispatch(updateTotalExpense(totalExpense));
   setMonthlyExpenseData(monthlyData);
@@ -259,16 +265,23 @@ const Savings = ({ item, handleOverlayClick }) => {
 
   return (
     <Layout items={item} showHeader={false} >
-<HeaderSavings totalYearIncoming={totalIncoming} totalExpense={totalExpense} />
-
+{isHeaderSavingsVisible && (
+      <HeaderSavings totalYearIncoming={totalIncoming} totalExpense={totalExpense} />
+    )}
 
 <div className="bg-white !shadow-lg mt-4 md:mt-4 z-10 ">
 <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
   <Title className="bg-white !text-gray-600 flex items-center text-center">
     <span className="flex-grow">Savings</span>
   </Title>
-  <div style={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }} className="">
-            {" "}
+  <div
+          style={{
+            maxHeight: isHeaderSavingsVisible ? "calc(70vh - 300px)" : "calc(100vh - 300px)",
+            overflowY: "auto",
+          }}
+          className=""
+        >
+          {" "}
     <Table className="mt-10 bg-white text-green-100 w-full">
       <TableHead className="bg-white justify-between w-full sticky top-0 z-10 ">
         <TableRow className="bg-white justify-between sticky">
@@ -307,8 +320,13 @@ const Savings = ({ item, handleOverlayClick }) => {
     </div>
 </Card>
 </div>
+
   </Layout>
+
+
 );
 };
+
+
 
 export default Savings;
