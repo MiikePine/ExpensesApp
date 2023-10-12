@@ -28,6 +28,9 @@ const Incoming = ({ item, handleOverlayClick }) => {
   const [fetchedUserUID, setFetchedUserUID] = useState(false);
   const [filteredExpenseData, setFilteredExpenseData] = useState([]);
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [isDivVisible, setIsDivVisible] = useState(true);
+
 
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
@@ -280,6 +283,9 @@ const Incoming = ({ item, handleOverlayClick }) => {
     fetchIncoming();
   }, [selectedYear]);
 
+
+  console.log('isHeaderVisible:', isHeaderVisible);
+
   return (
     <Layout items={item} showHeader={true}>
       {showRegister && (
@@ -298,6 +304,12 @@ const Incoming = ({ item, handleOverlayClick }) => {
       )}
 
       <div className="bg-white !shadow-lg mt-4 md:mt-4 ">
+      <div
+  className={`${
+    isHeaderVisible ? "max-h-[10vh-100px]" : "max-h-[30vh-300px]"
+  } overflow-y-auto`}
+>
+
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
           <Title className="bg-white !text-gray-600 flex items-center">
             <span className="text-center flex-grow">Incoming List</span>
@@ -308,11 +320,11 @@ const Incoming = ({ item, handleOverlayClick }) => {
               Add +
             </button>
           </Title>
-          <div style={{ maxHeight:  "calc(70vh - 300px)",
-            overflowY: "auto", }}>
+       
 
-          <Table className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-10 mb-1" >
-          <TableHead className="bg-white justify-between w-full sticky top-0 z-10">
+<Table
+  className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-10 mb-1"
+>          <TableHead className="bg-white justify-between w-full sticky top-0 z-10">
               <TableRow className="bg-white justify-between">
                 {/* <TableHeaderCell>ID</TableHeaderCell> */}
                 <TableHeaderCell>Item</TableHeaderCell>
@@ -337,9 +349,10 @@ const Incoming = ({ item, handleOverlayClick }) => {
               ))}
             </TableBody>
           </Table>
-          </div>
         </Card>
-      </div>
+        </div>
+
+        </div>
     </Layout>
   );
 };

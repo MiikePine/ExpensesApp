@@ -26,15 +26,20 @@ const Savings = ({ item, handleOverlayClick }) => {
   const [monthlyIncomingData, setMonthlyIncomingData] = useState([]);
   const [monthlyExpenseData, setMonthlyExpenseData] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
-  const [isHeaderSavingsVisible, setIsHeaderSavingsVisible] = useState(true); // Variável para controlar a visibilidade do HeaderSavings
 
 
     const selectedMonth = useSelector((state) => state.month.value);
 
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
+  const [isDivVisible, setIsDivVisible] = useState(true);
+
+  const toggleDivVisibility = () => {
+    setIsDivVisible(!isDivVisible);
+  };
 
 
+ 
   
 
   const monthNames = [
@@ -265,8 +270,9 @@ const Savings = ({ item, handleOverlayClick }) => {
 
   return (
     <Layout items={item} showHeader={false} >
-{isHeaderSavingsVisible && (
-      <HeaderSavings totalYearIncoming={totalIncoming} totalExpense={totalExpense} />
+{isDivVisible && (
+      <HeaderSavings totalYearIncoming={totalIncoming} totalExpense={totalExpense}   isDivVisible={isDivVisible}
+      />
     )}
 
 <div className="bg-white !shadow-lg mt-4 md:mt-4 z-10 ">
@@ -274,15 +280,15 @@ const Savings = ({ item, handleOverlayClick }) => {
   <Title className="bg-white !text-gray-600 flex items-center text-center">
     <span className="flex-grow">Savings</span>
   </Title>
-  <div
-          style={{
-            maxHeight: isHeaderSavingsVisible ? "calc(70vh - 300px)" : "calc(100vh - 300px)",
-            overflowY: "auto",
-          }}
-          className=""
-        >
+ 
           {" "}
-    <Table className="mt-10 bg-white text-green-100 w-full">
+          <Table
+  className={`mt-10 bg-white text-green-100 w-full ${
+    isDivVisible
+      ? 'max-h-[calc(65vh-300px)] overflow-y-auto'
+      : 'max-h-[calc(120vh-600px)] overflow-y-auto'
+  }`}
+>
       <TableHead className="bg-white justify-between w-full sticky top-0 z-10 ">
         <TableRow className="bg-white justify-between sticky">
           <TableHeaderCell>Month</TableHeaderCell>
@@ -317,7 +323,6 @@ const Savings = ({ item, handleOverlayClick }) => {
       </TableBody>
       
     </Table>
-    </div>
 </Card>
 </div>
 

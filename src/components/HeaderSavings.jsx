@@ -67,7 +67,7 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
     setIsDivVisible(!isDivVisible);
   };
 
-  
+
 
 
   useEffect(() => {
@@ -196,14 +196,14 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
 
         {isDivVisible ? (
           <BsChevronUp
-            className="text-zinc-400 flex-col mb-4 z-40 align-top"
+            className="text-zinc-400 flex-col mb-4 z-40 align-top cursor-pointer"
             size={32}
             onClick={toggleDivVisibility}
 
           />
         ) : (
           <BsChevronDown
-            className="text-zinc-400 flex-col mb-4 z-40 align-top"
+            className="text-zinc-400 flex-col mb-4 z-40 align-top cursor-pointer"
             size={32}
             onClick={toggleDivVisibility}
           />
@@ -212,7 +212,7 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
 
      
         <div
-          className={`flex flex-col w-full sm:flex-row ${
+          className={`flex flex-col w-full sm:flex-row ease-out  ${
             isDivVisible ? "" : "hidden"
           }`}
         >
@@ -284,7 +284,7 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
           </div>
           <div className="bg-white !shadow-lg md:w-2/3 md:ml-4 h-58 mb-4 mt-2 !border-none">
           <StackedBar monthlyIncomingData={monthlyIncomingData} monthlyExpenseData={monthlyExpenseData} monthNames={monthNames} />
-
+      
           </div>
         </div>
       </div>
