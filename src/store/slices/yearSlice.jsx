@@ -4,7 +4,7 @@ export const yearSlice = createSlice({
   name: "year",
   initialState: {
     value: "2023",
-    totalYearIncoming: 0, // Adicione o totalYearIncoming ao estado inicial
+    // totalYearIncoming: 0, // Adicione o totalYearIncoming ao estado inicial
   },
   reducers: {
     setSelectedYear: (state, action) => {

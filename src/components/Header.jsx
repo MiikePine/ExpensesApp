@@ -282,14 +282,14 @@ const Header = ({ pathName, onMonthChange }) => {
 
         {isDivVisible ? (
           <BsChevronUp
-            className="text-zinc-400 flex-col mb-4 z-40 align-top cursor-pointer"
+          className="text-white rounded-full bg-teal-700 p-2 flex-col mb-4 z-40 align-top cursor-pointer transform scale-130 hover:scale-110 transition-transform "
             size={32}
             onClick={toggleDivVisibility}
           />
         ) : (
           <BsChevronDown
-            className="text-zinc-400 flex-col mb-4 z-40 align-to cursor-pointer"
-            size={32}
+          className="text-white rounded-full bg-teal-700 p-2 flex-col mb-4 z-40 align-top cursor-pointer transform scale-130 hover:scale-110 transition-transform "
+          size={32}
             onClick={toggleDivVisibility}
           />
         )}

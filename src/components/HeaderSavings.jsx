@@ -41,6 +41,7 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
   const combinedData = [...filteredExpenseData, ...filteredIncomingData];
   const [isDivVisible, setIsDivVisible] = useState(true);
   const [totalYearIncoming, setTotalYearIncoming] = useState([]);
+  const [totalYearExpense, setTotalYearExpense] = useState([]);
   const [monthlyIncomingData, setMonthlyIncomingData] = useState([]);
   const [monthlyExpenseData, setMonthlyExpenseData] = useState([]);
 
@@ -50,7 +51,6 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
   const userData = useSelector((state) => state.user);
   const selectedYear = useSelector((state) => state.year.value);
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
-  // const totalYearIncoming = useSelector((state) => state.year.totalYearIncoming);
 
 
   const handleYearChange = (newYear) => {
@@ -67,15 +67,21 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
     setIsDivVisible(!isDivVisible);
   };
 
-
+  useEffect(() => {
+    dispatch(setSelectedYear(2023));
+    fetchIncoming(2023);
+    fetchExpenses(2023)
+  }, [dispatch]);
 
 
   useEffect(() => {
     fetchUserDataIncoming();
-    // fetchUserDataExp();
+    fetchUserDataExp();
   }, [selectedYear, userData, fetchedUserUID]);
 
 
+
+  // fetch incoming start
   
   useEffect(() => {
     const fetchData = async () => {
@@ -91,10 +97,9 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
 
 
 
-
   const fetchUserDataIncoming = async () => {
     const { data, error } = await supabase.auth.getSession();
-    console.log("Data from fetchUserDataInc:", data);
+    console.log("Data from fetchUserDataIncoming:", data);
     if (data.session !== null) {
       const user = data.session.user;
       setUserUID(user.id);
@@ -104,6 +109,8 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
       // Handle the case when there's no user session
     }
   };
+
+
 
   useEffect(() => {
     if (userData || fetchedUserUID) {
@@ -135,6 +142,7 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
       if (error) {
         throw error;
       }
+
 
       const filteredDataInc = data
         .filter((incoming) => {
@@ -185,6 +193,120 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
 
   // fetch total incoming END
 
+
+// fetch total expenses start
+
+
+
+useEffect(() => {
+  const fetchData = async () => {
+    await fetchExpenses(selectedYear);
+  };
+
+  if (selectedYear && userData) {
+    fetchData();
+  }
+}, [selectedYear, userData]);
+
+
+const fetchUserDataExp = async () => {
+  const { data, error } = await supabase.auth.getSession();
+  console.log("Data from fetchUserDataExp:", data);
+  if (data.session !== null) {
+    const user = data.session.user;
+    setUserUID(user.id);
+    setFetchedUserUID(true);
+    fetchExpenses(selectedYear); // Passe selectedYear aqui
+  } else {
+    // Handle the case when there's no user session
+  }
+};
+
+
+
+useEffect(() => {
+  if (userData || fetchedUserUID) {
+    fetchExpenses();
+    // console.log("LOG 1 - userData user id userData:", userData);
+  } else {
+    // console.log("error 1-  userData is not available");
+  }
+}, [selectedYear, userData, fetchedUserUID]);
+
+useEffect(() => {
+  if (fetchedUserUID) {
+    fetchExpenses();
+  }
+}, [selectedYear, fetchedUserUID]);
+
+
+
+
+  const fetchExpenses = async (selectedYear) => {
+    console.log("Fetching expenses data for year:", selectedYear);
+
+    if (UserUID) {
+      const { data, error } = await supabase
+        .from("expense")
+        .select("*")
+        .eq("user_id", UserUID);
+      console.log("Data from fetchExpenses:", data);
+      if (error) {
+        throw error;
+      }
+
+
+      const filteredDataExp = data
+        .filter((expense) => {
+          const expenseDate = new Date(expense["items/dateValue"]);
+          const expenseYear = expenseDate.getFullYear();
+          console.log("Expense Year:", expenseYear);
+          console.log("Selected Year:", selectedYear);
+          return expenseYear === selectedYear;
+        })
+        .map((expense) => ({
+          ...expense,
+          formattedDate: format(
+            new Date(expense["items/dateValue"]),
+            "dd-MM-yyyy"
+          ),
+          price: expense["items/price"],
+          payBy: expense["items/payBy"],
+          category: expense["items/category"],
+          item: expense["items/item"],
+          source: "expense",
+        }));
+
+      console.log(
+        "Filtered expense data for year:",
+        selectedYear,
+        filteredDataExp
+      );
+
+      if (filteredDataExp.length > 0) {
+        const totalExpense = filteredDataExp.reduce((sum, item) => {
+          console.log("Adding item price:", item.price);
+          return sum + item.price;
+        }, 0);
+        console.log(
+          "Total expense for Year:",
+          selectedYear,
+          "is",
+          totalExpense
+        );
+
+        dispatch(updateTotalExpense(totalExpense));
+        setTotalYearExpense(totalExpense);
+      }
+    }
+  };
+
+
+
+
+
+
+
   return (
     <div className="mt-4 ">
       <div className="flex justify-between z-100">
@@ -196,14 +318,14 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
 
         {isDivVisible ? (
           <BsChevronUp
-            className="text-zinc-400 flex-col mb-4 z-40 align-top cursor-pointer"
-            size={32}
+          className="text-white rounded-full bg-teal-700 p-2 flex-col mb-4 z-40 align-top cursor-pointer transform scale-130 hover:scale-110 transition-transform "
+          size={32}
             onClick={toggleDivVisibility}
 
           />
         ) : (
           <BsChevronDown
-            className="text-zinc-400 flex-col mb-4 z-40 align-top cursor-pointer"
+            className="text-white rounded-full bg-teal-700 p-2 flex-col mb-4 z-40 align-top cursor-pointer transform scale-130 hover:scale-110 transition-transform"
             size={32}
             onClick={toggleDivVisibility}
           />
@@ -212,8 +334,8 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
 
      
         <div
-          className={`flex flex-col w-full sm:flex-row ease-out  ${
-            isDivVisible ? "" : "hidden"
+          className={`flex flex-col w-full sm:flex-row  ${
+            isDivVisible ? "" : "transition delay-150 duration-500 ease-in-out hidden"
           }`}
         >
         <div className="flex md:w-1/3 py-2 gap-6 border-neutral-300">
@@ -229,7 +351,7 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
                 <div className="flex justify-between">
                   <div className="flex items-baseline">
                     <p className="text-3xl ml-6 text-zinc-500">
-                      {totalYearIncoming}
+                      {totalYearIncoming.toLocaleString()}
                     </p>
                     <p className="text-sm text-zinc-500  ml-1">CHF</p>
                   </div>
@@ -238,13 +360,13 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
 
               <div className="grid bg-white text-zinc-700 w-full h-32 mb-2 shadow-lg">
                 <div className="flex justify-between ">
-                  <p className="text-xs p-4 text-zinc-400">Balance</p>
+                  <p className="text-xs p-4 text-zinc-400">Yearly Balance</p>
                   <FaWallet className="text-zinc-500  mr-8 mt-4" size={18} />
                 </div>
 
                 <div className="flex justify-between">
                   <div className="flex items-baseline">
-                    <p className="text-3xl ml-6 text-zinc-500">sss</p>
+                    <p className="text-3xl ml-6 text-zinc-500">   { (totalYearIncoming - totalYearExpense).toLocaleString()}</p>
                     <p className="text-xs text-zinc-500  ml-1">CHF</p>
                   </div>
                 </div>
@@ -254,7 +376,7 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
             <div className="w-full">
               <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4">
                 <div className="flex justify-between">
-                  <p className="text-xs p-4 text-zinc-400">Expense</p>
+                  <p className="text-xs p-4 text-zinc-400">Year Total Expense</p>
                   <BiSolidDownArrow
                     className="text-red-400  mr-8 mt-4"
                     size={18}
@@ -262,7 +384,7 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
                 </div>
                 <div className="flex justify-between">
                   <div className="flex items-baseline">
-                    <p className="text-3xl ml-6 text-zinc-500">sss</p>
+                    <p className="text-3xl ml-6 text-zinc-500">{totalYearExpense.toLocaleString()}</p>
                     <p className="text-xs text-zinc-500  ml-1">CHF</p>
                   </div>
                 </div>
@@ -270,13 +392,13 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
 
               <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-2 ">
                 <div className="flex justify-between">
-                  <p className="text-xs p-4 text-zinc-400">Average Expense</p>
+                  <p className="text-xs p-4 text-zinc-400">Average</p>
                   <FaWallet className="text-zinc-500  mr-8 mt-4" size={18} />
                 </div>
                 <div className="flex justify-between">
                   <div className="flex items-baseline">
-                    <p className="text-3xl ml-6 text-zinc-500">sss</p>
-                    <p className="text-xs text-zinc-500  ml-1">CHF/day</p>
+                    <p className="text-3xl ml-6 text-zinc-500">{(totalYearExpense / 12).toFixed(0).toLocaleString()}</p>
+                    <p className="text-xs text-zinc-500  ml-1">CHF/Month</p>
                   </div>
                 </div>
               </div>
