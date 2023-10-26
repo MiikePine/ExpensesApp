@@ -6,6 +6,7 @@ import { RiBillLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import clsx from "clsx";
 
 const Menu = (props) => {
   return (
@@ -20,53 +21,52 @@ const Menu = (props) => {
 
       <div className="flex flex-col h-full w-full justify-between text-xl mt-10 ">
         <div className="hidden md:block mt-5 md:w-full">
-          <div className="w-full group-hover:scale-110">
+          <div className="w-full group-hover:scale-105">
             <NavLink
               to="/Dashboard"
-              className={({ isActive, isPending }) =>
-                isPending
-                  ? ""
-                  : isActive
-                  ? "py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center transform scale-100 hover:scale-100 transition-transform "
-                  : "py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center scale-100 hover:scale-105 transition-transform "
-              }
-            >
-              <RxDashboard size={20} className="mr-4 group-hover:scale-110 " />
-              <span className="transition-transform group-hover:scale-110">
+              className={({ isActive }) => clsx(
+                'py-3 px-4 flex text-sm border-e-3 group',
+                {
+                  'py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center ': isActive,
+                  'py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center': !isActive
+                }
+              )}>
+              <RxDashboard size={20} className="mr-4 group-hover:scale-105 " />
+              <span className="transition-transform group-hover:scale-105">
               Dashboard
+              </span>
+            </NavLink>
+          </div>
+
+          <div className="w-full group-hover:scale-110">
+            <NavLink
+              to="/Expenses"
+              className={({ isActive }) => clsx(
+                'py-3 px-4 flex text-sm border-e-3 group',
+                {
+                  'py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center ': isActive,
+                  'py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center': !isActive
+                }
+              )}>
+               <AiOutlineFileAdd size={20} className="mr-4 group-hover:scale-105 " />
+              <span className="transition-transform group-hover:scale-105">
+              Expenses
               </span>
             </NavLink>
           </div>
 
           <div className="w-full">
             <NavLink
-              to="/Expenses"
-              className={({ isActive, isPending }) =>
-                isPending
-                  ? ""
-                  : isActive
-                  ? "py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center transform scale-100 hover:scale-100 transition-transform "
-                  : "py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center scale-100 hover:scale-105 transition-transform"
-              }
-            >
-              <RiBillLine size={20} className="mr-4" />
-              Expenses
-            </NavLink>
-          </div>
-
-          <div className="w-full">
-            <NavLink
               to="/Incoming"
-              className={({ isActive, isPending }) =>
-                isPending
-                  ? ""
-                  : isActive
-                  ? "py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center transform scale-100 hover:scale-100 transition-transform "
-                  : "py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center scale-100 hover:scale-105 transition-transform"
-              }
-            >
-              <AiOutlineFileAdd size={20} className="mr-4 hover:scale-110 " />
-              <span className="hover:scale-110">
+              className={({ isActive }) => clsx(
+                'py-3 px-4 flex text-sm border-e-3 group',
+                {
+                  'py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center ': isActive,
+                  'py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center': !isActive
+                }
+              )}>
+              <AiOutlineFileAdd size={20} className="mr-4 group-hover:scale-105 " />
+              <span className="transition-transform group-hover:scale-105">
               Incomings
               </span>
             </NavLink>
@@ -75,17 +75,32 @@ const Menu = (props) => {
           <div className="w-full">
             <NavLink
               to="/Savings"
-              className={({ isActive, isPending }) =>
-                isPending
-                  ? ""
-                  : isActive
-                  ? "py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center transform scale-100 hover:scale-100 transition-transform "
-                  : "py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center scale-100 hover:scale-105 transition-transform"
-              }
-            >
-              <AiOutlineFileAdd size={20} className="mr-4" />
+              className={({ isActive }) => clsx(
+                'py-3 px-4 flex text-sm border-e-3 group',
+                {
+                  'py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center ': isActive,
+                  'py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center': !isActive
+                }
+              )}>
+              <AiOutlineFileAdd size={20} className="mr-4 group-hover:scale-105 " />
+              <span className="transition-transform group-hover:scale-105">
               Savings
-            </NavLink>
+              </span>            </NavLink>
+          </div>
+          <div className="w-full">
+            <NavLink
+              to="/Banking"
+              className={({ isActive }) => clsx(
+                'py-3 px-4 flex text-sm border-e-3 group',
+                {
+                  'py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center ': isActive,
+                  'py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center': !isActive
+                }
+              )}>
+              <AiOutlineFileAdd size={20} className="mr-4 group-hover:scale-105 " />
+              <span className="transition-transform group-hover:scale-105">
+              Banking
+              </span>            </NavLink>
           </div>
 
 

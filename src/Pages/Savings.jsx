@@ -26,18 +26,15 @@ const Savings = ({ item, handleOverlayClick }) => {
   const [monthlyIncomingData, setMonthlyIncomingData] = useState([]);
   const [monthlyExpenseData, setMonthlyExpenseData] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
-
-
-    const selectedMonth = useSelector((state) => state.month.value);
-
-  const totalExpense = useSelector((state) => state.sumexp.totalExpense);
-  const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
   const [isDivVisible, setIsDivVisible] = useState(true);
 
-  const toggleDivVisibility = () => {
-    setIsDivVisible(!isDivVisible);
-  };
 
+  const selectedYear = useSelector((state) => state.year.value);
+  const selectedMonth = useSelector((state) => state.month.value);
+  const totalExpense = useSelector((state) => state.sumexp.totalExpense);
+  const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
+
+ 
 
  
   
@@ -79,12 +76,15 @@ const Savings = ({ item, handleOverlayClick }) => {
 
 
   useEffect(() => {
-    if (fetchedUserUID) {
-      fetchIncoming();
+    if (fetchedUserUID && selectedMonth) {
+      fetchIncoming(selectedYear); // Pass selectedYear as a parameter
     }
-  }, [selectedMonth, fetchedUserUID]);
+  }, [selectedMonth, fetchedUserUID, selectedYear]);
 
-  const fetchIncoming = async () => {
+
+
+
+  const fetchIncoming = async (selectedYear) => {
     if (UserUID) {
       // console.log("LOG 5 - Fetching incoming for userUID:", UserUID);
       const { data, error } = await supabase
@@ -270,8 +270,9 @@ const Savings = ({ item, handleOverlayClick }) => {
 
   return (
     <Layout items={item} showHeader={false} >
-{isDivVisible && (
+{isDivVisible && ( 
       <HeaderSavings totalYearIncoming={totalIncoming} totalExpense={totalExpense}   isDivVisible={isDivVisible}
+  
       />
     )}
 
@@ -284,9 +285,7 @@ const Savings = ({ item, handleOverlayClick }) => {
           {" "}
           <Table
   className={`mt-10 bg-white text-green-100 w-full ${
-    isDivVisible
-      ? 'max-h-[calc(65vh-300px)] overflow-y-auto'
-      : 'max-h-[calc(120vh-600px)] overflow-y-auto'
+    isDivVisible ? 'visible' : 'hidden'
   }`}
 >
       <TableHead className="bg-white justify-between w-full sticky top-0 z-10 ">
@@ -335,3 +334,5 @@ const Savings = ({ item, handleOverlayClick }) => {
 
 
 export default Savings;
+
+

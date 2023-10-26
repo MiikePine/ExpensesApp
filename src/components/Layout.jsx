@@ -5,6 +5,7 @@ import MenuMobileR from "./MenuMobileR";
 import Header1 from "./Header1";
 import { useSelector } from "react-redux";
 import HeaderSavings from "./HeaderSavings";
+import DataFetcher from "./DataFetcher";
 
 const Layout = ({
   children,
@@ -17,10 +18,16 @@ const Layout = ({
   UserUID,
   showHeader,
   showHeaderSavings,
+  isDivVisible,
+  showRegister,
+  filteredIncomingData, 
+  fetchIncoming, 
+  sortedIncomingData
 }) => {
   // const userData = useSelector((state) => state.user.id);
   const totalIncome = useSelector((state) => state.suminc.totalIncome);
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
+
 
   return (
     <main className="relative block md:flex md:h-screen bg-zinc-100  max-h-screen overflow-auto md:overflow-hidden">
@@ -34,6 +41,8 @@ const Layout = ({
           <Header1 />
         </div>
 
+
+
         <div className="mx-4">
           {showHeader && (
             <Header
@@ -46,6 +55,9 @@ const Layout = ({
               UserUID={UserUID}
               totalIncome={totalIncome}
               totalExpense={totalExpense}
+              showRegister={showRegister}
+              isDivVisible={isDivVisible}
+              showHeader={showHeader}
             />
           )}
           {children}
@@ -63,6 +75,7 @@ const Layout = ({
       UserUID={UserUID}
       totalIncome={totalIncome}
       totalExpense={totalExpense}
+
     />
   )}
 </div>

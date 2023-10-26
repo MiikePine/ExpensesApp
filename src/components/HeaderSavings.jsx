@@ -30,7 +30,7 @@ const getMonthFromDate = (dateString) => {
 const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) => {
   const [incomingData, setIncomingData] = useState([]);
   const [expenseData, setExpenseData] = useState([]);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setSrtartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
   const [showYear, setShowYear] = useState(false);
   const [isMonthVisible, setIsMonthVisible] = useState(true);
@@ -60,7 +60,7 @@ const HeaderSavings = ({ pathName, onMonthChange, onYearChange , monthNames}) =>
  
   const handleSelectYear = (year) => {
     setSelectedYear(year);
-    setShowYear(false); // Oculta o componente Months quando um mês é selecionado
+    setShowYear(false); 
   };
 
   const toggleDivVisibility = () => {
@@ -405,7 +405,7 @@ useEffect(() => {
             </div>
           </div>
           <div className="bg-white !shadow-lg md:w-2/3 md:ml-4 h-58 mb-4 mt-2 !border-none">
-          <StackedBar monthlyIncomingData={monthlyIncomingData} monthlyExpenseData={monthlyExpenseData} monthNames={monthNames} />
+          <StackedBar monthlyIncomingData={monthlyIncomingData} monthlyExpenseData={monthlyExpenseData} monthNames={monthNames} selectedYear={selectedYear}/>
       
           </div>
         </div>

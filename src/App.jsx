@@ -21,6 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Incoming from "./Pages/Incoming";
 import Savings from "./Pages/Savings";
 import Register from "./Pages/Register";
+import Banking from "./Pages/Banking";
+
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState("July");
@@ -59,6 +61,8 @@ function App() {
         <Route path="/Incoming" element={<Incoming />} />
         <Route path="/Savings" element={<Savings />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="/Banking" element={<Banking />} />
+
       </Routes>
       <ToastContainer autoClose={2000} />
     </BrowserRouter>

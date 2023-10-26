@@ -16,6 +16,8 @@ import { updateTotalExpense } from "../store/slices/sumexpSlice";
 import Months from "./Months";
 import { BsChevronUp } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
+import { setSelectedYear } from "../store/slices/yearSlice";
+
 
 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
@@ -29,6 +31,7 @@ import {
   TableRow,
   TableCell,
 } from "@tremor/react";
+import Year from "./Year";
 
 const getMonthFromDate = (dateString) => {
   const [year, month, day] = dateString?.split("-") || [];
@@ -36,7 +39,7 @@ const getMonthFromDate = (dateString) => {
   return d.getMonth();
 };
 
-const Header = ({ pathName, onMonthChange }) => {
+const Header = ({ pathName, onYearChange }) => {
   const [incomingData, setIncomingData] = useState([]);
   const [expenseData, setExpenseData] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
@@ -49,12 +52,16 @@ const Header = ({ pathName, onMonthChange }) => {
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
   const combinedData = [...filteredExpenseData, ...filteredIncomingData];
   const [isDivVisible, setIsDivVisible] = useState(true);
+  const [showYear, setShowYear] = useState(false);
+
 
   const dispatch = useDispatch();
   const selectedMonth = useSelector((state) => state.month.value);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
   const userData = useSelector((state) => state.user);
+  const selectedYear = useSelector((state) => state.year.value);
+
 
   const sortedCombinedData = combinedData.slice().sort((a, b) => {
     const dateA = new Date(
@@ -65,6 +72,16 @@ const Header = ({ pathName, onMonthChange }) => {
     );
     return compareDesc(dateA, dateB);
   });
+
+
+  const handleYearChange = (newYear) => {
+    dispatch(setSelectedYear(newYear));
+  };
+
+  const handleSelectYear = (year) => {
+    setSelectedYear(year);
+    setShowYear(false); // Oculta o componente Months quando um mês é selecionado
+  };
 
   const handleMonthChange = (newMonth) => {
     dispatch(setSelectedMonth(newMonth));
@@ -89,6 +106,8 @@ const Header = ({ pathName, onMonthChange }) => {
     fetchUserDataIncoming();
     fetchUserDataExp();
   }, [selectedMonth, userData, fetchedUserUID]);
+
+
 
   useEffect(() => {
     if (filteredIncomingData.length > 0) {
@@ -271,15 +290,25 @@ const Header = ({ pathName, onMonthChange }) => {
     }
   };
 
+// end incoming
+
+
   return (
     <div className="mt-4">
       <div className="flex justify-between z-100">
+        <div className="flex gap-2">
         <Months
           className="cursor-pointer"
           onMonthChange={handleSelectMonth}
           selectedMonth={selectedMonth}
         />
+        <Year
+          className="cursor-pointer"
+          onYearChange={handleSelectYear}
+          selectedYear={selectedYear} // Pass selectedYear as a prop
+        />
 
+</div>
         {isDivVisible ? (
           <BsChevronUp
           className="text-white rounded-full bg-teal-700 p-2 flex-col mb-4 z-40 align-top cursor-pointer transform scale-130 hover:scale-110 transition-transform "

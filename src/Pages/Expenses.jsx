@@ -20,7 +20,8 @@ import { updateTotalExpense } from "../store/slices/sumexpSlice";
 import { updateTotalIncoming } from "../store/slices/sumincSlice";
 import { MdExpandMore } from "react-icons/md";
 import { RiFileAddLine } from "react-icons/ri";
-
+import clsx from "clsx";
+import { isRejected } from "@reduxjs/toolkit";
 
 
 const Expenses = ({ item, handleOverlayClick }) => {
@@ -31,6 +32,8 @@ const Expenses = ({ item, handleOverlayClick }) => {
   const [filteredExpenseData, setFilteredExpenseData] = useState([]);
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
   const [isSortingByItem, setIsSortingByItem] = useState(false);
+  const [isDivVisible, setIsDivVisible] = useState(false);
+
 
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
@@ -298,7 +301,13 @@ const Expenses = ({ item, handleOverlayClick }) => {
 
 
   return (
-    <Layout items={item} showHeader={true} showHeaderSavings={false}>
+    <Layout 
+      items={item} 
+      showHeader={true} 
+      showHeaderSavings={false} 
+      showRegister={showRegister}   
+      isDivVisible={isDivVisible}
+    >
       {showRegister && (
         <div
           className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 backdrop-blur-sm"
@@ -329,9 +338,14 @@ const Expenses = ({ item, handleOverlayClick }) => {
             </button>
           </Title>
          
-            <Table className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-10 ">
-            <div style={{ maxHeight: "calc(33vh - 40px)", overflowY: "auto" }} className="">
-            {" "}
+          <Table
+  className={clsx(
+    'mt-10 bg-white text-green-100 w-full',
+    isDivVisible
+      ? 'max-h-[calc(30vh-300px)] overflow-y-auto'
+      : 'max-h-[calc(135vh-600px)] overflow-y-auto'
+  )}
+>
             <TableHead className="bg-white text-xs md:text-sm justify-between w-full sticky top-0 z-10">
                 <TableRow className="bg-white justify-between sticky ">
                   <TableHeaderCell>Item</TableHeaderCell>
@@ -362,7 +376,6 @@ const Expenses = ({ item, handleOverlayClick }) => {
                   </TableRow>
                 ))}
               </TableBody>
-              </div>
             </Table>
          
         </Card>

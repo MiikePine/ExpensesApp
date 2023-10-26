@@ -17,7 +17,6 @@ import {
   import { format } from "date-fns";
   import HeaderSavings from "../components/HeaderSavings"; 
 
-
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -35,9 +34,12 @@ import {
     const [monthlyIncomingData, setMonthlyIncomingData] = useState([]);
     const [monthlyExpenseData, setMonthlyExpenseData] = useState([]);
     const [monthlyData, setMonthlyData] = useState([]);
+    const [yearlyData, setyearlyData] = useState([]);
+
   
-      const selectedMonth = useSelector((state) => state.month.value);
-  
+
+    const selectedMonth = useSelector((state) => state.month.value);
+    const selectedYear = useSelector((state) => state.year.value);
     const totalExpense = useSelector((state) => state.sumexp.totalExpense);
     const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
   
@@ -56,6 +58,9 @@ import {
       "December",
     ];
   
+ 
+    
+    
   
     // Incoming Start
     useEffect(() => {
@@ -81,7 +86,7 @@ import {
       if (fetchedUserUID) {
         fetchIncoming();
       }
-    }, [selectedMonth, fetchedUserUID]);
+    }, [selectedMonth, fetchedUserUID ]);
   
     const fetchIncoming = async () => {
       if (UserUID) {
@@ -261,9 +266,17 @@ import {
         // console.log("Monthly data:", monthlyData);
   
         dispatch(updateTotalExpense(totalExpense));
-    setMonthlyExpenseData(monthlyData);
+        setMonthlyExpenseData(monthlyData);
       }
     };
+
+
+// end Expense
+
+
+
+
+
     const labels = [
 'January', 
 'February', 
@@ -338,7 +351,7 @@ const options = {
           },
           {
             
-            label: 'Poupancas',
+            label: 'Saved',
       data: labels.map((_, index) => {
         const income = monthlyIncomingData[index] ? monthlyIncomingData[index].totalIncoming : 0;
         const expense = monthlyExpenseData[index] ? monthlyExpenseData[index].totalExpense : 0;
