@@ -19,7 +19,7 @@ const schema = Yup.object().shape({
   email: Yup.string().email("Enter your email").required("Email is mandatory"),
   password: Yup.string().required("Password needed"),
 });
-
+ 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(undefined);
@@ -29,43 +29,75 @@ const Login = () => {
   const dispatch = useDispatch();
   const updateTotalExpense = useSelector((state) => state.sumexp.totalExpense);
 
-  const onLoginSuccess = () => {
-    navigate('/Dashboard'); // Use a função navigate para redirecionar para "/Dashboard"
-  };
-
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm"
       style={{ backgroundImage: `url(${auroras})` }}
     >
-  
-
-    
+<div className="w-1/3 bg-zinc-200 py-4 px-8 pt-10">
 <Auth
     supabaseClient={supabase}
-    providers={['google', 'twitter']}
-    appearance={{ theme: ThemeSupa }}
-    onSuccess={onLoginSuccess} // Chame onLoginSuccess após o login bem-sucedido
+    theme="default"
+    providers={['google', 'twitter', 'facebook']}
+    appearance={{
+      theme: ThemeSupa,
+      variables: {
+        default: {
+          colors: {
+            brand: 'teal',
+            brandAccent: 'teal',
+            dividerBackground: 'teal',
+            inputBackground: 'white',
+          },
+        },
+      },
+    }} 
+/>
+</div>
 
-
-  />
-
-
-      <div className="fixed bottom-10 bg-zinc-50 py-5 px-4 rounded-md right-10 mb-4 ml-4">
-        <div className="text-center flex flex-col justify-center items-center">
-          <p className="font-bold items mb-4 text-teal-700">Test Version</p>
-          </div>
-          <div className="flex">
-            <p className="font-bold mr-2 text-teal-700">User: </p>
-            <p>indiabalcony@gmail.com</p>
-          </div>
-          <div className="flex">
-            <p className="font-bold mr-2 text-teal-700">Password: </p>
-            <p>123456</p>
-          </div>
-        </div>
     </div>
   );
 };
 
 export default Login;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <div className="fixed bottom-10 bg-zinc-50 py-5 px-4 rounded-md right-10 mb-4 ml-4">
+// <div className="text-center flex flex-col justify-center items-center">
+//   <p className="font-bold items mb-4 text-teal-700">Test Version</p>
+//   </div>
+//   <div className="flex">
+//     <p className="font-bold mr-2 text-teal-700">User: </p>
+//     <p>indiabalcony@gmail.com</p>
+//   </div>
+//   <div className="flex">
+//     <p className="font-bold mr-2 text-teal-700">Password: </p>
+//     <p>123456</p>
+//   </div>
+// </div>
