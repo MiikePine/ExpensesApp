@@ -10,9 +10,9 @@ import supabase from "../../supabase/supabase";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../store/slices/userSlice";
 import { updateTotalExpense } from "../store/slices/sumexpSlice";
-import { createClient } from '@supabase/supabase-js'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
+import { createClient } from '@supabase/supabase-js';
 
 
 const schema = Yup.object().shape({
@@ -29,12 +29,29 @@ const Login = () => {
   const dispatch = useDispatch();
   const updateTotalExpense = useSelector((state) => state.sumexp.totalExpense);
 
+
+
+    supabase.auth.onAuthStateChange(async (event) => {
+      if (event == "SIGNED_IN") {
+          navigate("/Dashboard");
+      }
+  });
+
+
+
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm"
       style={{ backgroundImage: `url(${auroras})` }}
     >
 <div className="w-1/3 bg-zinc-200 py-4 px-8 pt-10">
+
+<div className="">
+<img src={logo} alt="Logo" className="h-32 md:h-36 mt-[-30px] ml-[-10px]" />
+<div className="text-teal-700 text-2xl">Login</div>
+</div>
+
+<p className="text-gray-500 text-sm">Sign in for your expenses</p>
 <Auth
     supabaseClient={supabase}
     theme="default"
