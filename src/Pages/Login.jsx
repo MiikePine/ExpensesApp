@@ -72,6 +72,20 @@ const Login = () => {
 />
 </div>
 
+<div className="fixed bottom-10 bg-zinc-50 py-5 px-4 right-10 mb-4 ml-4">
+ <div className="text-center flex flex-col justify-center items-center">
+   <p className="font-bold items mb-4 text-teal-700">Test Version</p>  </div>
+  <div className="flex">
+    <p className="font-bold mr-2 text-teal-700">User: </p>
+    <p>indiabalcony@gmail.com</p>
+  </div>
+  <div className="flex">
+    <p className="font-bold mr-2 text-teal-700">Password: </p>
+    <p>123456</p>
+  </div>
+</div>
+
+
     </div>
   );
 };
