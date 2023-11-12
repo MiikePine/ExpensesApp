@@ -30,11 +30,12 @@ const Login = () => {
   const updateTotalExpense = useSelector((state) => state.sumexp.totalExpense);
 
 
-
-    supabase.auth.onAuthStateChange(async (event) => {
-      if (event == "SIGNED_IN") {
-          navigate("/Dashboard");
-      }
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    if (event === "SIGNED_IN") {
+      navigate("/Dashboard");
+    } else {
+      navigate("/");
+    }
   });
 
 
@@ -51,7 +52,7 @@ const Login = () => {
 <div className="text-teal-700 text-2xl">Login</div>
 </div>
 
-<p className="text-gray-500 text-sm">Sign in for your expenses</p>
+<p className="text-gray-500 text-xs md:text-sm">Sign in for your expenses</p>
 <Auth
     supabaseClient={supabase}
     theme="default"
@@ -69,6 +70,7 @@ const Login = () => {
         },
       },
     }} 
+    className="w-full md:w-1/2 text-xs md:text-xl"
 />
 </div>
 
@@ -119,16 +121,4 @@ export default Login;
 
 
 
-// <div className="fixed bottom-10 bg-zinc-50 py-5 px-4 rounded-md right-10 mb-4 ml-4">
-// <div className="text-center flex flex-col justify-center items-center">
-//   <p className="font-bold items mb-4 text-teal-700">Test Version</p>
-//   </div>
-//   <div className="flex">
-//     <p className="font-bold mr-2 text-teal-700">User: </p>
-//     <p>indiabalcony@gmail.com</p>
-//   </div>
-//   <div className="flex">
-//     <p className="font-bold mr-2 text-teal-700">Password: </p>
-//     <p>123456</p>
-//   </div>
-// </div>
+

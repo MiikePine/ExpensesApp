@@ -19,9 +19,10 @@ import { useDispatch } from "react-redux";
 import { updateTotalExpense } from "../store/slices/sumexpSlice";
 import { updateTotalIncoming } from "../store/slices/sumincSlice";
 import { setSelectedYear } from "../store/slices/yearSlice";
+import clsx from "clsx";
 
 
-const Incoming = ({ item, handleOverlayClick }) => {
+const Incoming = ({ item, handleOverlayClick  }) => {
   const [showRegister, setShowRegister] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
   const [UserUID, setUserUID] = useState(null);
@@ -29,12 +30,16 @@ const Incoming = ({ item, handleOverlayClick }) => {
   const [filteredExpenseData, setFilteredExpenseData] = useState([]);
   const [filteredIncomingData, setFilteredIncomingData] = useState([]);
 
+
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
   const totalIncoming = useSelector((state) => state.suminc.totalIncoming);
 
   const selectedYear = useSelector((state) => state.year.value);
   const selectedMonth = useSelector((state) => state.month.value);
   const userData = useSelector((state) => state.user);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [showHeader, setShowHeader] = useState(true);
+
 
   const dispatch = useDispatch();
 
@@ -280,8 +285,11 @@ const Incoming = ({ item, handleOverlayClick }) => {
     fetchIncoming();
   }, [selectedYear]);
 
+  console.log('showHeader:', showHeader);
+console.log('showHeader in Incoming:', showHeader);
+
   return (
-    <Layout items={item} showHeader={true}>
+    <Layout items={item}  showHeader={showHeader}>
       {showRegister && (
         <div
           className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 overlay backdrop-blur-sm"
@@ -297,7 +305,7 @@ const Incoming = ({ item, handleOverlayClick }) => {
         </div>
       )}
 
-      <div className="bg-white !shadow-lg mt-4 md:mt-4 ">
+      <div className="bg-white !shadow-lg mt-2 md:mt-2 ">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
           <Title className="bg-white !text-gray-600 flex items-center">
             <span className="text-center flex-grow">Incoming List</span>
@@ -308,11 +316,12 @@ const Incoming = ({ item, handleOverlayClick }) => {
               Add +
             </button>
           </Title>
-          <div style={{ maxHeight:  "calc(70vh - 300px)",
-            overflowY: "auto", }}>
+          <div >
 
-          <Table className="mt-10 bg-white text-green-100 flex justify-around mx-0 md:mx-10 mb-1" >
-          <TableHead className="bg-white justify-between w-full sticky top-0 z-10">
+          <Table className="max-h-[calc(130vh-850px)] overflow-y-auto">
+
+
+  <TableHead className="bg-white justify-between w-full sticky top-0 z-10">
               <TableRow className="bg-white justify-between">
                 {/* <TableHeaderCell>ID</TableHeaderCell> */}
                 <TableHeaderCell>Item</TableHeaderCell>

@@ -396,15 +396,15 @@ const Header = ({ pathName, onYearChange }) => {
           </div>
         </div>
 
-        <div className="bg-white !shadow-lg md:w-2/3 md:ml-4 h-58 mb-4 mt-2 !border-none">
-          <Card className="!bg-white shadow-lg !border-none ring-0 pb-4  !rounded-none ">
+        <div className="bg-white !shadow-lg md:w-2/3 md:ml-4 mb-4 mt-2 !border-none ">
+  <Card className="!bg-white shadow-lg !border-none ring-0 pb-4  !rounded-none">
             <Title className="bg-white !text-gray-600 flex !rounded-none items-center">
               <span className="text-center flex-grow md:text-md mb-6">
                 Last Transactions
               </span>
             </Title>
-            <Table className=" bg-white text-green-100 flex justify-around ">
-              <TableHead className="bg-white  justify-between">
+            <Table className="bg-white text-green-100 flex w-full justify-around h-44 max-h-[calc(135vh-600px)] overflow-y-auto">
+              <TableHead className="bg-white  justify-between w-full sticky top-0 z-10">
                 <TableRow className="bg-white justify-between">
                   <TableHeaderCell className="text-sm">Item</TableHeaderCell>
                   <TableHeaderCell className="text-sm">
@@ -413,10 +413,11 @@ const Header = ({ pathName, onYearChange }) => {
                   <TableHeaderCell>Price (CHF)</TableHeaderCell>
                   <TableHeaderCell>Date</TableHeaderCell>
                   <TableHeaderCell>Pay By</TableHeaderCell>
+                  <TableHeaderCell></TableHeaderCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {sortedCombinedData.slice(0, 4).map((item, index) => (
+              <TableBody> 
+                {sortedCombinedData.slice(0, 20).map((item, index) => (
                   <TableRow key={index}>
                     <TableCell className="py-1 my-0.5 text-xs border-b border-zinc-300 text-zinc-500">
                       {item.item}

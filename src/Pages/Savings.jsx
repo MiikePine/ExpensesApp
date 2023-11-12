@@ -17,6 +17,7 @@ import supabase from "../../supabase/supabase";
 import { format } from "date-fns";
 import HeaderSavings from "../components/HeaderSavings"; 
 import StackedBar from "../components/StackedBar";
+import clsx from "clsx";
 
 
 const Savings = ({ item, handleOverlayClick }) => {
@@ -269,9 +270,15 @@ const Savings = ({ item, handleOverlayClick }) => {
 // Expense End
 
   return (
-    <Layout items={item} showHeader={false} >
+    <Layout 
+      items={item} 
+      showHeader={false} 
+            showHeaderSavings={false} 
+
+      >
+
 {isDivVisible && ( 
-      <HeaderSavings totalYearIncoming={totalIncoming} totalExpense={totalExpense}   isDivVisible={isDivVisible}
+      <HeaderSavings totalYearIncoming={totalIncoming} totalExpense={totalExpense}  
   
       />
     )}
@@ -279,17 +286,16 @@ const Savings = ({ item, handleOverlayClick }) => {
 <div className="bg-white !shadow-lg mt-4 md:mt-4 z-10 ">
 <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
   <Title className="bg-white !text-gray-600 flex items-center text-center">
-    <span className="flex-grow">Savings</span>
+    <span className="flex-grow mb-6">Savings</span>
   </Title>
  
-          {" "}
-          <Table
-  className={`mt-10 bg-white text-green-100 w-full ${
-    isDivVisible ? 'visible' : 'hidden'
-  }`}
+        
+          <Table className="max-h-[calc(140vh-970px)] overflow-y-auto"
+
+
 >
-      <TableHead className="bg-white justify-between w-full sticky top-0 z-10 ">
-        <TableRow className="bg-white justify-between sticky">
+<TableHead className="bg-white text-xs md:text-sm justify-between w-full mr-10 sticky mb-2 top-0 z-10">
+        <TableRow className="bg-white justify-around sticky mb-2 ml-10">
           <TableHeaderCell>Month</TableHeaderCell>
           <TableHeaderCell>Incoming</TableHeaderCell>
           <TableHeaderCell>Expense</TableHeaderCell>

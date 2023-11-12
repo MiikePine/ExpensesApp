@@ -328,7 +328,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
 
       <div className="bg-white !shadow-lg mt-4 md:mt-4 z-10">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0" >
-          <Title className="bg-white !text-gray-600 flex items-center">
+          <Title className="bg-white !text-gray-600 flex items-center mb-6">
             <span className="text-center flex-grow">Expenses List</span>
             <button
               className="py-2 px-4 flex items-center text-sm text-bg-white border text-teal-700 font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
@@ -338,16 +338,12 @@ const Expenses = ({ item, handleOverlayClick }) => {
             </button>
           </Title>
          
-          <Table
-  className={clsx(
-    'mt-10 bg-white text-green-100 w-full',
-    isDivVisible
-      ? 'max-h-[calc(30vh-300px)] overflow-y-auto'
-      : 'max-h-[calc(135vh-600px)] overflow-y-auto'
-  )}
->
+         
+        <Table className="max-h-[calc(130vh-880px)] overflow-y-auto">
+
+
             <TableHead className="bg-white text-xs md:text-sm justify-between w-full sticky top-0 z-10">
-                <TableRow className="bg-white justify-between sticky ">
+                <TableRow className="bg-white justify-between sticky">
                   <TableHeaderCell>Item</TableHeaderCell>
                   <TableHeaderCell>Category</TableHeaderCell>
                   <TableHeaderCell>Price (CHF)</TableHeaderCell>

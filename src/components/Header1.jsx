@@ -45,7 +45,7 @@ function Header1({}) {
               <img src={logo} alt="Logo" className="h-36" />
             </div>
             <div className="flex mt-10 justify-end">
-              <span className="text-xs mr-2">{userEmail}</span>
+              <span className="text-xs mr-2">{userEmail}kk</span>
               <BiSolidUser size={16} />
             </div>
          </div>
