@@ -50,30 +50,13 @@ const Banking = ({ item, handleOverlayClick }) => {
       showHeaderSavings={false} 
       showRegister={showRegister}   
     >
-      {showRegister && (
-        <div
-          className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 backdrop-blur-sm"
-          onClick={handleOverlayClick}
-        >
-          <AddExp
-            item={item}
-            handleOverlayClick={handleOverlayClick}
-            onClose={handleCloseRegister}
-            handleAddExpense={handleAddExpense}
-            onRegisterSuccess={handleRegisterSuccess}
-          />
-        </div>
-      )}
 
-<div className="bg-teal-700 !shadow-lg w-32 mt-4 md:mt-4 z-10 text-white">
-        <button onClick={handleConnectBank}>Connect your bank </button>
-      </div>
 
-      <div className="flex">
-      <h1>Saldo Atual:</h1>
-      <p>{balance} EUR</p>
-    </div>
-  
+
+
+
+
+      
     </Layout>
   );
 };

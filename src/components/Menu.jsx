@@ -102,6 +102,22 @@ const Menu = (props) => {
               Banking
               </span>            </NavLink>
           </div>
+          <div className="w-full">
+            <NavLink
+              to="/Crypto"
+              className={({ isActive }) => clsx(
+                'py-3 px-4 flex text-sm border-e-3 group',
+                {
+                  'py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center ': isActive,
+                  'py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center': !isActive
+                }
+              )}>
+              <AiOutlineFileAdd size={20} className="mr-4 group-hover:scale-105 " />
+              <span className="transition-transform group-hover:scale-105">
+              Crpyto
+              </span>
+            </NavLink>
+          </div>
 
 
 

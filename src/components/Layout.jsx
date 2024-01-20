@@ -28,7 +28,7 @@ const Layout = ({
   const totalIncome = useSelector((state) => state.suminc.totalIncome);
   const totalExpense = useSelector((state) => state.sumexp.totalExpense);
 
-  console.log('showHeader in Layout:', showHeader);
+  // console.log('showHeader in Layout:', showHeader);
 
 
   return (

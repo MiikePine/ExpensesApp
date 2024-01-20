@@ -22,6 +22,7 @@ import Incoming from "./Pages/Incoming";
 import Savings from "./Pages/Savings";
 import Register from "./Pages/Register";
 import Banking from "./Pages/Banking";
+import Crypto from "./Pages/Crypto"
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
         <Route path="/Savings" element={<Savings />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Banking" element={<Banking />} />
+        <Route path="/Crypto" element={<Crypto />} />
 
       </Routes>
       <ToastContainer autoClose={2000} />

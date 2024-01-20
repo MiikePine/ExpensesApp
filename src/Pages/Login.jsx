@@ -38,7 +38,21 @@ const Login = () => {
     }
   });
 
+  const handleFacebookLogin = async () => {
+    try {
+      const { user, error } = await supabase.auth.signInWithOAuth({
+        provider: 'facebook',
+      });
 
+      if (error) {
+        console.error('Erro ao fazer login com o Facebook:', error);
+      } else {
+        console.log('Login com Facebook bem-sucedido:', user);
+      }
+    } catch (error) {
+      console.error('Erro inesperado durante o login com o Facebook:', error);
+    }
+  };
 
   return (
     <div
@@ -52,11 +66,13 @@ const Login = () => {
 <div className="text-teal-700 text-2xl">Login</div>
 </div>
 
+
+
 <p className="text-gray-500 text-xs md:text-sm">Sign in for your expenses</p>
 <Auth
     supabaseClient={supabase}
     theme="default"
-    providers={['google', 'twitter', 'facebook']}
+    providers={['google', 'linkedin', 'discord', 'github']}
     appearance={{
       theme: ThemeSupa,
       variables: {
@@ -71,22 +87,10 @@ const Login = () => {
       },
     }} 
     className="w-full md:w-1/2 text-xs md:text-xl"
+    socialLayout="horizontal"
+    onFacebookClick={handleFacebookLogin}
 />
 </div>
-
-<div className="fixed bottom-10 bg-zinc-50 py-5 px-4 right-10 mb-4 ml-4">
- <div className="text-center flex flex-col justify-center items-center">
-   <p className="font-bold items mb-4 text-teal-700">Test Version</p>  </div>
-  <div className="flex">
-    <p className="font-bold mr-2 text-teal-700">User: </p>
-    <p>indiabalcony@gmail.com</p>
-  </div>
-  <div className="flex">
-    <p className="font-bold mr-2 text-teal-700">Password: </p>
-    <p>123456</p>
-  </div>
-</div>
-
 
     </div>
   );

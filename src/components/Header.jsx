@@ -123,7 +123,7 @@ const Header = ({ pathName, onYearChange }) => {
 
   const fetchUserDataExp = async () => {
     const { data, error } = await supabase.auth.getSession();
-    console.log("Data from fetchUserDataExp:", data);
+    // console.log("Data from fetchUserDataExp:", data);
     if (data.session !== null) {
       const user = data.session.user;
       setUserUID(user.id);
@@ -212,7 +212,7 @@ const Header = ({ pathName, onYearChange }) => {
 
   const fetchUserDataIncoming = async () => {
     const { data, error } = await supabase.auth.getSession();
-    console.log("Data from fetchUserDataInc:", data);
+    // console.log("Data from fetchUserDataInc:", data);
     if (data.session !== null) {
       const user = data.session.user;
       setUserUID(user.id);
