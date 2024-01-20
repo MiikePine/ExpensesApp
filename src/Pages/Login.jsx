@@ -28,7 +28,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const updateTotalExpense = useSelector((state) => state.sumexp.totalExpense);
-
+  const auth = supabase.auth;
 
   supabase.auth.onAuthStateChange(async (event, session) => {
     if (event === "SIGNED_IN") {
@@ -38,21 +38,21 @@ const Login = () => {
     }
   });
 
-  const handleFacebookLogin = async () => {
-    try {
-      const { user, error } = await supabase.auth.signInWithOAuth({
-        provider: 'facebook',
-      });
+  // const handleFacebookLogin = async () => {
+  //   try {
+  //     const { user, error } = await supabase.auth.signInWithOAuth({
+  //       provider: 'facebook',
+  //     });
 
-      if (error) {
-        console.error('Erro ao fazer login com o Facebook:', error);
-      } else {
-        console.log('Login com Facebook bem-sucedido:', user);
-      }
-    } catch (error) {
-      console.error('Erro inesperado durante o login com o Facebook:', error);
-    }
-  };
+  //     if (error) {
+  //       console.error('Erro ao fazer login com o Facebook:', error);
+  //     } else {
+  //       console.log('Login com Facebook bem-sucedido:', user);
+  //     }
+  //   } catch (error) {
+  //     console.error('Erro inesperado durante o login com o Facebook:', error);
+  //   }
+  // };
 
   return (
     <div
@@ -88,7 +88,7 @@ const Login = () => {
     }} 
     className="w-full md:w-1/2 text-xs md:text-xl"
     socialLayout="horizontal"
-    onFacebookClick={handleFacebookLogin}
+    // onFacebookClick={handleFacebookLogin}
 />
 </div>
 
