@@ -44,10 +44,10 @@ function Header1({}) {
             <div className="absolute top-0 left-0 mt-[-30px] ml-[-10px]" >
               <img src={logo} alt="Logo" className="h-36" />
             </div>
-            <div className="flex mt-10 justify-end">
-              <span className="text-xs mr-2">{userEmail}kk</span>
-              <BiSolidUser size={16} />
-            </div>
+            {/* <div className="flex mt-10 justify-end">
+              <span className="text-xs mr-2">{userEmail}</span>
+              <BiSolidUser size={26} />
+            </div> */}
          </div>
 
           <div className="hidden md:flex gap-2">
@@ -66,7 +66,7 @@ function Header1({}) {
           </div>
 
           <div className="hidden md:flex gap-2 items-end">
-            <span className=" text-sm items-center ">{userEmail}</span>
+            <span className=" text-sm items-center ">sss{userEmail}</span>
             <BiSolidUser size={20} />
           </div>
          
