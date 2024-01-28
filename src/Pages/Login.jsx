@@ -53,7 +53,7 @@ const Login = () => {
 
 <div className="">
 <img src={logo} alt="Logo" className="h-32 md:h-36 mt-[-30px] ml-[-10px]" />
-<div className="text-teal-700 text-2xl">Login</div>
+<div className="text-teal-700 text-2xl">Loeeeeeeeegin</div>
 </div>
 
 
