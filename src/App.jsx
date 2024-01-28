@@ -62,8 +62,8 @@ function App() {
         <Route path="/Incoming" element={<Incoming />} />
         <Route path="/Savings" element={<Savings />} />
         <Route path="/Register" element={<Register />} />
-        <Route path="/Banking" element={<Banking />} />
-        <Route path="/Crypto" element={<Crypto />} />
+        {/* <Route path="/Banking" element={<Banking />} />
+        <Route path="/Crypto" element={<Crypto />} /> */}
 
       </Routes>
       <ToastContainer autoClose={2000} />
