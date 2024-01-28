@@ -7,12 +7,14 @@ import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
+import logo from "../../Images/logo2.png";
+
 
 const Menu = (props) => {
   return (
     <section className="sticky top-0 left-0 hidden bg-white px-0 md:flex md:flex-col h-screen w-72 mx-2 md:mt-4 md:ml-4 shadow-xl">
       <div className=" md:block w-44 h-20 mt-0 ml-6">
-        <img src="images/logo.png"></img>
+      <img src={logo} alt="Logo" className="h-30 md:h-56 mt-[-30px] ml-[-10px]" />
       </div>
 
       <Link to="/Menu">

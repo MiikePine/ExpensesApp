@@ -307,8 +307,8 @@ console.log('showHeader in Incoming:', showHeader);
 
       <div className="bg-white !shadow-lg mt-2 md:mt-2 ">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
-          <Title className="bg-white !text-gray-600 flex items-center">
-            <span className="text-center flex-grow">Incoming List</span>
+          <Title className="bg-white !text-gray-600 mb-10 flex items-center">
+            <span className="text-center flex-grow">Incomings</span>
             <button
               className="py-2 px-8 flex items-center text-sm bg-teal-700 text-bg-white text-white font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
               onClick={handleAddIncome}

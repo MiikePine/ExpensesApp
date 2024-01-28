@@ -331,7 +331,7 @@ const Header = ({ pathName, onYearChange }) => {
           <div className="w-full ">
             <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4">
               <div className="flex justify-between">
-                <p className="text-xs p-4 text-zinc-400">Incomssssssing</p>
+                <p className="text-xs p-4 text-zinc-400">Incoming</p>
                 <BiSolidUpArrow
                   className="text-green-400  mr-8 mt-4"
                   size={18}
