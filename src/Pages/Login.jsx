@@ -19,7 +19,6 @@ const schema = Yup.object().shape({
   password: Yup.string().required("Password needed"),
 });
 
-
  
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -34,24 +33,24 @@ const Login = () => {
   useEffect(() => {
     const auth = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_IN") {
-        if (session?.provider_token?.includes('google')) {
-
         navigate("/Dashboard");
       } else {
         navigate("/");
       }
-    }});
+    });
 
     
-  }, []); // Adicione um array vazio como segundo argumento para garantir que o efeito seja executado apenas uma vez
+  }, []);
+    
 
+  
 
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm"
       style={{ backgroundImage: `url(${auroras})` }}
     >
-<div className="w-1/3 bg-zinc-200 py-4 px-8 pt-10">
+<div className="w-full md:w-1/3 bg-zinc-200 py-4 px-8 pt-10">
 
 <div className="">
 <img src={logo} alt="Logo" className="h-32 md:h-36 mt-[-30px] ml-[-10px]" />
