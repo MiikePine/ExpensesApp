@@ -14,11 +14,6 @@ import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 
 
-const schema = Yup.object().shape({
-  email: Yup.string().email("Enter your email").required("Email is mandatory"),
-  password: Yup.string().required("Password needed"),
-});
-
  
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -43,7 +38,18 @@ const Login = () => {
   }, []);
     
 
-  
+  useEffect(() => {
+    // Adicione um novo ouvinte de autenticação para lidar com o login com o Google
+    const authWithGoogle = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === "SIGNED_IN") {
+        navigate("/Expenses");
+      }
+    });
+
+    // Não é necessário chamar unsubscribe(), pois authWithGoogle já é a função de cancelamento de inscrição
+    
+}, []);
+
 
   return (
     <div
@@ -59,7 +65,7 @@ const Login = () => {
 
 
 
-<p className="text-gray-500 text-xs md:text-sm">Sign in for your expenses</p>
+<p className="text-gray-500 text-xs md:text-sm">Sign in eefor your expenses</p>
 <Auth
     supabaseClient={supabase}
     theme="default"
