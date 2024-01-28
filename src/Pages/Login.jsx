@@ -34,11 +34,13 @@ const Login = () => {
   useEffect(() => {
     const auth = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_IN") {
+        if (session?.provider_token?.includes('google')) {
+
         navigate("/Dashboard");
       } else {
         navigate("/");
       }
-    });
+    }});
 
     
   }, []); // Adicione um array vazio como segundo argumento para garantir que o efeito seja executado apenas uma vez
@@ -53,8 +55,7 @@ const Login = () => {
 
 <div className="">
 <img src={logo} alt="Logo" className="h-32 md:h-36 mt-[-30px] ml-[-10px]" />
-<div className="text-teal-700 text-2xl">Loeeeeeeee
-eeeegin</div>
+<div className="text-teal-700 text-2xl">Login</div>
 </div>
 
 
