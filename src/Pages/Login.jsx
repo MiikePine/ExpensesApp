@@ -39,14 +39,12 @@ const Login = () => {
     
 
   useEffect(() => {
-    // Adicione um novo ouvinte de autenticação para lidar com o login com o Google
     const authWithGoogle = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_IN") {
         navigate("/Expenses");
       }
     });
 
-    // Não é necessário chamar unsubscribe(), pois authWithGoogle já é a função de cancelamento de inscrição
     
 }, []);
 
@@ -65,7 +63,7 @@ const Login = () => {
 
 
 
-<p className="text-gray-500 text-xs md:text-sm">Sign in eefor your expenses</p>
+<p className="text-gray-500 text-xs md:text-sm">Sign inwwwwwwww eefor your expenses</p>
 <Auth
     supabaseClient={supabase}
     theme="default"
