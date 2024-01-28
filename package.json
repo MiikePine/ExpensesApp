@@ -49,7 +49,7 @@
     "redux": "^4.2.1",
     "request": "^2.88.2",
     "sort-by": "^0.0.2",
-    "vite-plugin-react": "^4.2.1",
+    "vite-plugin-react": "^4.0.1",
     "websocket": "^1.0.34",
     "yup": "^1.2.0"
   },
