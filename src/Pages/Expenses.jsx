@@ -77,6 +77,8 @@ const Expenses = ({ item, handleOverlayClick }) => {
       setUserUID(user.id);
       setFetchedUserUID(true);
       console.log("LOG 4 - User UID set: expense", user.id);
+      console.log("LOG 4 - User UID set: expense", user.email);
+
       fetchExpense();
     } else {
       console.log(" error 3 - No user session available. expense");
