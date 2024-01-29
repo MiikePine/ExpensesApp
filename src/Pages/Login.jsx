@@ -35,18 +35,20 @@ const Login = () => {
     });
 
     
-  }, []);
+  }, [providers]);
     
 
   useEffect(() => {
-    const authWithGoogle = supabase.auth.onAuthStateChange(async (event, session) => {
+    const googleAuthListener = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_IN") {
         navigate("/Expenses");
       }
     });
+  
+   
+  }, []);
 
-    
-}, []);
+
 
 
   return (
