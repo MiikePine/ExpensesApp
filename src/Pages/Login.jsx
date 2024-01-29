@@ -32,12 +32,10 @@ const Login = () => {
       } else {
         navigate("/");
       }
-    });
-    
+    });    
   }, []);
     
 
-  
 
   return (
     <div

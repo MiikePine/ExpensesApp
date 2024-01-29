@@ -8,9 +8,28 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import logo from "../../Images/logo2.png";
-
+import supabase from "../../supabase/supabase"; 
 
 const Menu = (props) => {
+const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut(); // Chame o método signOut do supabase
+      if (error) {
+        throw error;
+      } else {
+        navigate("/"); // Redirecione para a página inicial após o logout
+      }
+    } catch (error) {
+      console.error("Error signing out:", error.message);
+    }
+  };
+
+
+
+
+
   return (
     <section className="sticky top-0 left-0 hidden bg-white px-0 md:flex md:flex-col h-screen w-72 mx-2 md:mt-4 md:ml-4 shadow-xl">
       <div className=" md:block w-44 h-20 mt-0 ml-6">
@@ -97,18 +116,19 @@ const Menu = (props) => {
 
         {/* Menu inferieur */}
         <div className=" hidden md:block mb-16 max-w">
-          <NavLink
-            to="/"
-            className={({ isActive, isPending }) =>
-              isPending
-                ? ""
-                : isActive
-                ? "py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center transform scale-100 hover:scale-100 transition-transform "
-                : "py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center scale-100 hover:scale-105 transition-transform"
-            }
-          >
-            <MdLogout size={20} className="mr-4" /> Logout
-          </NavLink>
+        <NavLink
+              to="/"
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? ""
+                  : isActive
+                  ? "py-3 px-4 my-1 px-full flex text-sm bg-teal-700 border-teal-300 border-r-8 text-white md:max-w-sm items-center transform scale-100 hover:scale-100 transition-transform "
+                  : "py-3 px-4 my-1 flex text-sm bg-white hover:bg-zinc-100 hover:border-teal-500 hover:border-r-8 text-teal-700 md:max-w-sm items-center scale-100 hover:scale-105 transition-transform"
+              }
+              onClick={handleLogout} // Adicione a função de logout ao evento onClick
+            >
+              <MdLogout size={20} className="mr-4" /> Logout
+            </NavLink>
         </div>
       </div>
     </section>
