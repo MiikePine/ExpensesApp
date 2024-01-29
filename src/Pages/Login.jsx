@@ -65,7 +65,7 @@ const Login = () => {
 
 
 
-<p className="text-gray-500 text-xs md:text-sm">Sign inwwwwwwww eefor your expenses</p>
+<p className="text-gray-500 text-xs md:text-sm">Sign in 1111111111111or your expenses</p>
 <Auth
     supabaseClient={supabase}
     theme="default"
