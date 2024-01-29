@@ -28,28 +28,16 @@ const Login = () => {
   useEffect(() => {
     const auth = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_IN") {
-        navigate("/Expenses");
+        navigate("/Dashboard");
       } else {
         navigate("/");
       }
     });
-
     
-  }, [providers]);
-    
-
-  useEffect(() => {
-    const googleAuthListener = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_IN") {
-        navigate("/Expenses");
-      }
-    });
-  
-   
   }, []);
+    
 
-
-
+  
 
   return (
     <div
@@ -65,7 +53,7 @@ const Login = () => {
 
 
 
-<p className="text-gray-500 text-xs md:text-sm">Sign in 1111111111111or your expenses</p>
+<p className="text-gray-500 text-xs md:text-sm">Sign in for your expenses</p>
 <Auth
     supabaseClient={supabase}
     theme="default"

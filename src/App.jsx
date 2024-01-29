@@ -21,8 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Incoming from "./Pages/Incoming";
 import Savings from "./Pages/Savings";
 import Register from "./Pages/Register";
-import Banking from "./Pages/Banking";
-import Crypto from "./Pages/Crypto"
+// import Banking from "./Pages/Banking";
+// import Crypto from "./Pages/Crypto"
 
 
 function App() {
