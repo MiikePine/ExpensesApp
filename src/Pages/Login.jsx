@@ -108,17 +108,14 @@ const Login = () => {
     // Retorna uma função de limpeza para desinscrever o ouvinte ao desmontar o componente
     return () => {
       if (authListener) {
-        authListener.data.unsubscribe(); // Desinscreve o ouvinte de autenticação
+        authListener.unsubscribe(); // Desinscreve o ouvinte de autenticação
       }
     };
   }, []);
 
-  const handleLoginClick = async () => {
-    // Passando o redirectTo como uma opção para a função signIn
-    const { user, session, error } = await supabase.auth.signIn(
-      { provider: 'google' },
-      { redirectTo: '/Dashboard' } // Aqui você define o redirectTo como '/Dashboard'
-    );
+  const handleLoginClick = () => {
+    localStorage.setItem('returnUrl', '/Dashboard');
+    navigate("/Dashboard");
   };
 
   return (
@@ -151,6 +148,7 @@ const Login = () => {
           }} 
           className="w-full md:w-1/2 text-xs md:text-xl"
           socialLayout="horizontal"
+          redirectTo="/Dashboard" // Definindo o redirectTo diretamente aqui
           onLogin={() => handleLoginClick()}
         />
       </div>
