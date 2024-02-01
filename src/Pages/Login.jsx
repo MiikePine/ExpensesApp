@@ -113,9 +113,12 @@ const Login = () => {
     };
   }, []);
 
-  const handleLoginClick = () => {
-    localStorage.setItem('returnUrl', '/Dashboard');
-    navigate("/Dashboard");
+  const handleLoginClick = async () => {
+    // Passando o redirectTo como uma opção para a função signIn
+    const { user, session, error } = await supabase.auth.signIn(
+      { provider: 'google' },
+      { redirectTo: '/Dashboard' } // Aqui você define o redirectTo como '/Dashboard'
+    );
   };
 
   return (
