@@ -114,7 +114,7 @@ const Login = () => {
   }, []);
 
   const handleLoginClick = () => {
-    localStorage.setItem('returnUrl', window.location.pathname);
+    localStorage.setItem('returnUrl', '/Dashboard');
     navigate("/");
   };
 
