@@ -305,7 +305,7 @@ console.log('showHeader in Incoming:', showHeader);
         </div>
       )}
 
-      <div className="bg-white !shadow-lg mt-2 md:mt-2 ">
+      <div className="bg-white !shadow-lg mt-20 md:mt-2 ">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
           <Title className="bg-white !text-gray-600 mb-10 flex items-center">
             <span className="text-center flex-grow">Incomings</span>

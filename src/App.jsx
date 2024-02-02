@@ -42,7 +42,7 @@ function App() {
         <Route path="/Settings" element={<Settings />} />
         {/* <Route path="/Logout" element={<Logout/>} /> */}
         <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Expenses" element={<Expenses />} />
+        {/* <Route path="/Expenses" element={<Expenses />} /> */}
         <Route
           path="/Expenses"
           element={

@@ -333,10 +333,10 @@ const Expenses = ({ item, handleOverlayClick }) => {
           <Title className="bg-white !text-gray-600 flex items-center mb-6">
             <span className="text-center flex-grow">Expenses List</span>
             <button
-              className="py-2 px-4 flex items-center text-sm text-bg-white border text-teal-700 font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
+              className="py-2 px-8 flex items-center text-sm bg-teal-700 text-bg-white text-white font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
               onClick={handleAddExpense}
             >
-               <RiFileAddLine size={22}></RiFileAddLine>
+               Add +
             </button>
           </Title>
          
@@ -353,7 +353,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
                   <TableHeaderCell>Pay By</TableHeaderCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
+              <TableBody className="mx-10">
                 {sortedExpenseData.map((item, index) => (
                   <TableRow  key={index}>
                     <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4 text-xs sm:text-sm">
