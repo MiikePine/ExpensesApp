@@ -20,7 +20,7 @@ const Login = () => {
           localStorage.removeItem('returnUrl');
         } else {
           console.log("Redirecionando para: /Dashboard");
-          navigate("https://pinetree.pedrosantos.ch/Dashboard");
+          navigate("/Dashboard");
         }
       } else {
         console.log("Redirecionando para: /");
