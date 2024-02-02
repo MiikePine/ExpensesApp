@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import auroras from "../../Images/pineWebp.webp";
@@ -24,7 +22,7 @@ const Login = () => {
           localStorage.removeItem('returnUrl');
         } else {
           console.log("Redirecionando para: /Dashboard");
-          navigate("/Dashboard");
+          navigate("/Expenses");
         }
       } else {
         console.log("Redirecionando para: /");
@@ -48,7 +46,7 @@ const Login = () => {
   console.log("Clicou no botão de login do Google");
   const { user, session, error } = await supabase.auth.signIn(
     { provider: 'google' },
-    { redirectTo: '/Dashboard' }
+    { redirectTo: '/Expenses' }
   );
   console.log("Resultado da tentativa de login:", { user, session, error });
 };
