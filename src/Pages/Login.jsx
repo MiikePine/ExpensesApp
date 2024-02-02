@@ -46,7 +46,7 @@ const Login = () => {
   console.log("Clicou no botão de login do Google");
   const { user, session, error } = await supabase.auth.signIn(
     { provider: 'google' },
-    { redirectTo: '/Expenses' }
+    { redirectTo: 'https://pinetree.pedrosantos.ch/Dashboard' }
   );
   console.log("Resultado da tentativa de login:", { user, session, error });
 };
