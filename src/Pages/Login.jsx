@@ -52,7 +52,7 @@ const Login = () => {
       <div className="w-full md:w-1/3 bg-zinc-200 py-4 px-8 pt-10">
         <div className="">
           <img src={logo} alt="Logo" className="h-32 md:h-36 mt-[-30px] ml-[-10px]" />
-          <div className="text-teal-700 text-md md:text-2xl">Logssssin</div>
+          <div className="text-teal-700 text-md md:text-2xl">Login</div>
         </div>
         <p className="text-gray-500 text-xs md:text-sm">Sign in for your expenses</p>
         <Auth
