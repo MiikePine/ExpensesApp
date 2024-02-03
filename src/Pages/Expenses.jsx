@@ -325,11 +325,8 @@ const Expenses = ({ item, handleOverlayClick }) => {
         </div>
       )}
 
-
-
-
-      <div className="bg-white !shadow-lg mt-4 md:mt-4 z-10">
-        <Card className="!bg-white shadow-lg rounded-none border-none ring-0" >
+      <div className="bg-white !shadow-lg mt-4 md:mt-4 z-10 mb-10 md:mb-10">
+        <Card className="!bg-white shadow-lg rounded-none border-none ring-0 md:mb-10" >
           <Title className="bg-white !text-gray-600 flex items-center mb-6">
             <span className="text-center flex-grow">Expenses List</span>
             <button
@@ -341,10 +338,8 @@ const Expenses = ({ item, handleOverlayClick }) => {
           </Title>
          
          
-        <Table className="max-h-[calc(130vh-880px)] overflow-y-auto">
-
-
-            <TableHead className="bg-white text-xs md:text-sm justify-between w-full sticky top-0 z-10">
+          <Table className="h-screen  overflow-y-auto mb-22 ">
+            <TableHead className="bg-white text-xs !pd-6 md:text-sm justify-between w-full sticky top-0 z-10">
                 <TableRow className="bg-white justify-between sticky">
                   <TableHeaderCell>Item</TableHeaderCell>
                   <TableHeaderCell>Category</TableHeaderCell>
@@ -353,7 +348,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
                   <TableHeaderCell>Pay By</TableHeaderCell>
                 </TableRow>
               </TableHead>
-              <TableBody className="mx-10">
+              <TableBody >
                 {sortedExpenseData.map((item, index) => (
                   <TableRow  key={index}>
                     <TableCell className="border-b border-zinc-300 text-zinc-500 sm:w-1/4 md:w-1/2 lg:w-1/3 xl:w-1/4 text-xs sm:text-sm">

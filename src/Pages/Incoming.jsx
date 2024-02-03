@@ -318,7 +318,7 @@ console.log('showHeader in Incoming:', showHeader);
           </Title>
           <div >
 
-          <Table className="max-h-[calc(130vh-850px)] overflow-y-auto">
+          <Table className="max-h-[calc(140vh-200px)] overflow-y-auto">
 
 
   <TableHead className="bg-white justify-between w-full sticky top-0 z-10">
