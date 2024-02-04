@@ -325,7 +325,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
         </div>
       )}
 
-      <div className="bg-white !shadow-lg mt-4 md:mt-4 z-10 mb-10 md:mb-10">
+<div className="bg-white !shadow-lg mt-4 md:mt-4 z-10 md:mb-10 ">
         <Card className="!bg-white shadow-lg rounded-none border-none ring-0 md:mb-10" >
           <Title className="bg-white !text-gray-600 flex items-center mb-6">
             <span className="text-center flex-grow">Expenses List</span>
@@ -338,7 +338,7 @@ const Expenses = ({ item, handleOverlayClick }) => {
           </Title>
          
          
-          <Table className="h-screen  overflow-y-auto mb-22 ">
+          <Table className="  overflow-y-auto mb-24 ">
             <TableHead className="bg-white text-xs !pd-6 md:text-sm justify-between w-full sticky top-0 z-10">
                 <TableRow className="bg-white justify-between sticky">
                   <TableHeaderCell>Item</TableHeaderCell>
