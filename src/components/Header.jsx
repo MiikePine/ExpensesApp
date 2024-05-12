@@ -295,7 +295,7 @@ const Header = ({ pathName, onYearChange }) => {
 
   return (
     <div className="mt-4">
-      <div className="flex justify-between z-100">
+      <div className="flex justify-between z-100 ">
         <div className="flex gap-2">
         <Months
           className="cursor-pointer"
@@ -329,7 +329,7 @@ const Header = ({ pathName, onYearChange }) => {
       >
         <div className="flex md:w-1/3 py-2 gap-6 border-neutral-300">
           <div className="w-full ">
-            <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4">
+            <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4 rounded-xl">
               <div className="flex justify-between">
                 <p className="text-xs p-4 text-zinc-400">Incoming</p>
                 <BiSolidUpArrow
@@ -345,7 +345,7 @@ const Header = ({ pathName, onYearChange }) => {
               </div>
             </div>
 
-            <div className="grid bg-white text-zinc-700 w-full h-32 mb-2 shadow-lg">
+            <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-2 rounded-xl">
               <div className="flex justify-between ">
                 <p className="text-xs p-4 text-zinc-400">Balance</p>
                 <FaWallet className="text-zinc-500  mr-8 mt-4" size={18} />
@@ -362,8 +362,8 @@ const Header = ({ pathName, onYearChange }) => {
             </div>
           </div>
 
-          <div className="w-full">
-            <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4">
+          <div className="w-full rounded-xl">
+          <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-2 rounded-xl">
               <div className="flex justify-between">
                 <p className="text-xs p-4 text-zinc-400">Expense</p>
                 <BiSolidDownArrow
@@ -379,7 +379,7 @@ const Header = ({ pathName, onYearChange }) => {
               </div>
             </div>
 
-            <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-2 ">
+            <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-2 rounded-xl">
               <div className="flex justify-between">
                 <p className="text-xs p-4 text-zinc-400">Average Expense</p>
                 <FaWallet className="text-zinc-500  mr-8 mt-4" size={18} />
@@ -396,8 +396,8 @@ const Header = ({ pathName, onYearChange }) => {
           </div>
         </div>
 
-        <div className="bg-white !shadow-lg md:w-2/3 md:ml-4 mb-4 mt-2 !border-none ">
-  <Card className="!bg-white shadow-lg !border-none ring-0 pb-4  !rounded-none">
+        <div className="bg-white !shadow-lg md:w-2/3 md:ml-4 mb-4 mt-2 !border-none rounded-xl">
+  <Card className="!bg-white shadow-lg !border-none ring-0 pb-4  rounded-xl ">
             <Title className="bg-white !text-gray-600 flex !rounded-none items-center">
               <span className="text-center flex-grow md:text-md mb-6">
                 Last Transactions

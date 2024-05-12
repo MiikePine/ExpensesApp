@@ -138,7 +138,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
   return (
     isOpen && (
-      <div className="w-full md:w-2/6 h-90 md:h-110 top-24 px-4 md:px-4 mx-10 md:mx-10 fixed z-50 flex items-center mb-10 shadow-xxl">
+      <div className="w-full md:w-2/6 h-90 md:h-110 top-24 px-4 md:px-4 mx-10 md:mx-10 fixed z-50 flex items-center mb-10 shadow-xxl rounded-xl">
         <div className="flex-1 h-full border-2 border-neutral-200  bg-zinc-100 p-2 md:p-4 relative">
           <div className="flex px-0">
             <div className="ml-auto mr-3 mt-4 pb-0 mb-0">

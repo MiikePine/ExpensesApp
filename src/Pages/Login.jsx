@@ -1,52 +1,49 @@
-import React, { useState } from "react";
+
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import auroras from "../../Images/pineWebp.webp";
 import logo from "../../Images/logo2.png";
 import supabase from "../../supabase/supabase";
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
-
-  const handleLogin = async ({ email, password }) => {
-    try {
-      const { user, session, error } = await supabase.auth.signIn({
-        email,
-        password,
-      });
-
-      if (error) {
-        setError(error.message);
+  
+  useEffect(() => {
+    const handleAuthStateChange = async (event, session) => {
+      console.log("Evento de mudança de autenticação:", event);
+      if (event === "SIGNED_IN") {
+        const returnUrl = localStorage.getItem('returnUrl');
+        if (returnUrl) {
+          console.log("Redirecionando para:", returnUrl);
+          navigate(returnUrl);
+          localStorage.removeItem('returnUrl');
+        } else {
+          console.log("Redirecionando para: /Dashboard");
+          navigate("/Dashboard");
+        }
       } else {
-        console.log("Usuário logado:", user.email);
-        // Redireciona para "/Dashboard" após o login bem-sucedido
-        navigate('/Dashboard');
+        console.log("Redirecionando para: /");
+        navigate("/");
       }
-    } catch (error) {
-      console.error('Login error:', error.message);
-      setError(error.message);
-    }
+    };
+
+    supabase.auth.onAuthStateChange(handleAuthStateChange);
+  
+    // Não há necessidade de unsubscribe, pois não estamos lidando com uma função de retorno assinável
+
+  }, [navigate]);
+
+  const handleLoginClick = async () => {
+    console.log("Clicou no botão de login do Google");
+    const { user, session, error } = await supabase.auth.signIn(
+      { provider: 'google' },
+      { redirectTo: 'https://pinetree.pedrosantos.ch/Dashboard' }
+    );
+    console.log("Resultado da tentativa de login:", { user, session, error });
   };
 
-  const handleAuthStateChange = async (event, session) => {
-    console.log("Evento de mudança de autenticação:", event);
-    if (event === "SIGNED_IN") {
-      const returnUrl = localStorage.getItem('returnUrl');
-      if (returnUrl) {
-        console.log("Redirecionando para:", returnUrl);
-        navigate(returnUrl);
-        localStorage.removeItem('returnUrl');
-      } else {
-        console.log("Redirecionando para: /Dashboard");
-        navigate("/Dashboard");
-      }
-    } else {
-      console.log("Redirecionando para: /");
-      navigate("/");
-    }
-  }; 
 
   return (
     <div
@@ -61,7 +58,8 @@ const Login = () => {
         <p className="text-gray-500 text-xs md:text-sm">Sign in for your expenses</p>
         <Auth
           supabaseClient={supabase}
-          providers={['google']}
+          theme="default"
+          providers={['google', 'linkedin', 'discord', 'github']}
           appearance={{
             theme: ThemeSupa,
             variables: {
@@ -77,13 +75,11 @@ const Login = () => {
           }} 
           className="w-full md:w-1/2 text-xs md:text-xl"
           socialLayout="horizontal"
-          onLogin={(credentials) => handleLogin(credentials)}
-          onAuthStateChange={handleAuthStateChange} // Adiciona o tratamento do estado de autenticação
+          onLogin={() => handleLoginClick()}
         />
-        {error && <div className="text-red-500">{error}</div>}
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Login

@@ -283,7 +283,7 @@ const Savings = ({ item, handleOverlayClick }) => {
       />
     )}
 
-<div className="bg-white !shadow-lg mt-4 md:mt-4 z-10 ">
+<div className="bg-white !shadow-lg mt-4 md:mt-4 z-10 rounded-xl">
 <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
   <Title className="bg-white !text-gray-600 flex items-center text-center">
     <span className="flex-grow mb-6">Savings</span>

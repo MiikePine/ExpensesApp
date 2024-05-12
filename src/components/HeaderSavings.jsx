@@ -339,8 +339,8 @@ useEffect(() => {
           }`}
         >
         <div className="flex md:w-1/3 py-2 gap-6 border-neutral-300">
-            <div className="w-full ">
-              <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4">
+            <div className="w-full">
+              <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4 rounded-xl">
                 <div className="flex justify-between">
                   <p className="text-xs p-4 text-zinc-400">Year Total Income</p>
                   <BiSolidUpArrow
@@ -358,7 +358,7 @@ useEffect(() => {
                 </div>
               </div>
 
-              <div className="grid bg-white text-zinc-700 w-full h-32 mb-2 shadow-lg">
+              <div className="grid bg-white text-zinc-700 w-full h-32 mb-2 shadow-lg rounded-xl">
                 <div className="flex justify-between ">
                   <p className="text-xs p-4 text-zinc-400">Yearly Balance</p>
                   <FaWallet className="text-zinc-500  mr-8 mt-4" size={18} />
@@ -374,7 +374,7 @@ useEffect(() => {
             </div>
 
             <div className="w-full">
-              <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4">
+              <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-4 rounded-xl">
                 <div className="flex justify-between">
                   <p className="text-xs p-4 text-zinc-400">Year Total Expense</p>
                   <BiSolidDownArrow
@@ -390,7 +390,7 @@ useEffect(() => {
                 </div>
               </div>
 
-              <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-2 ">
+              <div className="grid bg-white text-zinc-700 w-full h-32 shadow-lg mb-2 rounded-xl">
                 <div className="flex justify-between">
                   <p className="text-xs p-4 text-zinc-400">Average</p>
                   <FaWallet className="text-zinc-500  mr-8 mt-4" size={18} />
@@ -404,7 +404,7 @@ useEffect(() => {
               </div>
             </div>
           </div>
-          <div className="bg-white !shadow-lg md:w-2/3 md:ml-4 h-58 mb-4 mt-2 !border-none">
+          <div className="bg-white !shadow-lg md:w-2/3 md:ml-4 h-58 mb-4 mt-2 !border-none rounded-xl">
           <StackedBar monthlyIncomingData={monthlyIncomingData} monthlyExpenseData={monthlyExpenseData} monthNames={monthNames} selectedYear={selectedYear}/>
       
           </div>

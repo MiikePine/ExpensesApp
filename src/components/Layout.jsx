@@ -32,7 +32,7 @@ const Layout = ({
 
 
   return (
-    <main className="relative block md:flex md:h-screen bg-zinc-100  max-h-screen overflow-auto md:overflow-hidden">
+    <main className="relative block md:flex md:h-screen bg-gray-100  max-h-screen overflow-auto md:overflow-hidden">
       <Menu className="shadow-lg" />
       <div>
         <MenuMobileR />

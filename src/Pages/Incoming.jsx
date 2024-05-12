@@ -305,8 +305,8 @@ console.log('showHeader in Incoming:', showHeader);
         </div>
       )}
 
-      <div className="bg-white !shadow-lg mt-20 md:mt-2 ">
-        <Card className="!bg-white shadow-lg rounded-none border-none ring-0">
+      <div className="bg-white !shadow-lg mt-20 md:mt-2 rounded-xl">
+        <Card className="!bg-white shadow-lg border-none ring-0 rounded-xl">
           <Title className="bg-white !text-gray-600 mb-10 flex items-center">
             <span className="text-center flex-grow">Incomings</span>
             <button
@@ -321,7 +321,7 @@ console.log('showHeader in Incoming:', showHeader);
           <Table className="min-h-[calc(160vh-1200px)] overflow-y-auto mb-4">
 
 
-  <TableHead className="bg-white justify-between w-full sticky top-0 z-10">
+  <TableHead className="bg-white justify-between w-full sticky top-0 z-10 rounded-2xl">
               <TableRow className="bg-white justify-between">
                 {/* <TableHeaderCell>ID</TableHeaderCell> */}
                 <TableHeaderCell>Item</TableHeaderCell>
