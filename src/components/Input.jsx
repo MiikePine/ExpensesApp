@@ -7,7 +7,7 @@ const Input = ({ id, register, error, type, placeholder }) => {
         id={id}
         type={type}
         placeholder={placeholder}
-        className={`border px-3 py-2 bg-white focus:outline-none shadow-md w-full focus:ring-2 focus:ring-opacity-40 focus:ring-teal-700 ${
+        className={`border px-3 py-2 bg-white focus:outline-none shadow-md w-full rounded-xl focus:ring-2 focus:ring-opacity-40 focus:ring-teal-700 ${
           error ? "border-red" : "border-gray"
         }`}
         {...register}

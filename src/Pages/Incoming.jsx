@@ -310,7 +310,7 @@ console.log('showHeader in Incoming:', showHeader);
           <Title className="bg-white !text-gray-600 mb-10 flex items-center">
             <span className="text-center flex-grow">Incomings</span>
             <button
-              className="py-2 px-8 flex items-center text-sm bg-teal-700 text-bg-white text-white font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto"
+              className="py-2 px-8 flex items-center text-sm bg-teal-700 text-bg-white text-white font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 ml-auto rounded-xl"
               onClick={handleAddIncome}
             >
               Add +

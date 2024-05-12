@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import auroras from "../../Images/pineWebp.webp";
@@ -31,8 +30,6 @@ const Login = () => {
 
     supabase.auth.onAuthStateChange(handleAuthStateChange);
   
-    // Não há necessidade de unsubscribe, pois não estamos lidando com uma função de retorno assinável
-
   }, [navigate]);
 
   const handleLoginClick = async () => {
@@ -47,10 +44,10 @@ const Login = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm"
+      className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat backdrop-blur-sm relative"
       style={{ backgroundImage: `url(${auroras})` }}
     >
-      <div className="w-full md:w-1/3 bg-zinc-200 py-4 px-8 pt-10">
+      <div className="w-full md:w-1/3 bg-zinc-100 py-4 px-8 pt-10 rounded-xl">
         <div className="">
           <img src={logo} alt="Logo" className="h-32 md:h-36 mt-[-30px] ml-[-10px]" />
           <div className="text-teal-700 text-md md:text-2xl">Login</div>
@@ -77,6 +74,13 @@ const Login = () => {
           socialLayout="horizontal"
           onLogin={() => handleLoginClick()}
         />
+      </div>
+      <div className="absolute bottom-16 right-10 bg-zinc-100 shadow-lg mb-4 rounded-xl p-4">
+        <p className="text-md text-teal-700 font-bold mb-2">Login for test:</p>
+        <div className="">
+          <p className="text-sm text-gray-500">Email: test@test.com</p>
+          <p className="text-sm text-gray-500">Password: 123456789</p>
+        </div>
       </div>
     </div>
   );

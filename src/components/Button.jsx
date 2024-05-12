@@ -25,7 +25,7 @@ const Button = ({ trimestre, active, ...props }) => {
       {props.AddNew && (
         <button
           onClick={props.onClick}
-          className="py-2 px-8 mb-4 flex items-center text-sm bg-teal-700 text-bg-white text-zinc-200 font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700"
+          className="py-2 px-8 mb-4 flex items-center text-sm bg-teal-700 text-bg-white text-zinc-200 font-bold hover:text-teal-700 hover:bg-white hover:border border-teal-700 rounded-xl"
         >
           {" "}
           {props.AddNew}

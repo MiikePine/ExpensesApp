@@ -15,7 +15,7 @@ import supabase from "../../supabase/supabase";
 import { useDispatch, useSelector } from "react-redux";
 
 const schema = Yup.object().shape({
-  item: Yup.string().required("Item is mandatoryo"),
+  item: Yup.string().required("Item is mandatory"),
   price: Yup.number().required("Price is mandatory"),
   payBy: Yup.string().required("Payment Method is mandatory"),
   category: Yup.string().required("Categoriy is mandatory"),
@@ -139,7 +139,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
   return (
     isOpen && (
       <div className="w-full md:w-2/6 h-90 md:h-110 top-24 px-4 md:px-4 mx-10 md:mx-10 fixed z-50 flex items-center mb-10 shadow-xxl rounded-xl">
-        <div className="flex-1 h-full border-2 border-neutral-200  bg-zinc-100 p-2 md:p-4 relative">
+        <div className="flex-1 h-full border-2 border-neutral-200  bg-zinc-100 p-2 md:p-4 relative rounded-xl">
           <div className="flex px-0">
             <div className="ml-auto mr-3 mt-4 pb-0 mb-0">
               <button onClick={handleClose}>
@@ -158,13 +158,14 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-2 mx-4 md:mx-10 my-1 md:my-2">
-              <div className="mb-2 md:mb-4 text-sm md:text-sm">
+              <div className="mb-2 md:mb-4 text-sm md:text-sm rounded-xl" >
                 <Input
                   id="item"
                   register={register("item")}
                   type="text"
                   placeholder="item"
                   error={errors.item}
+                  className="rounded-xl"
                 />
                 {errors.item && (
                   <span className="text-xs text-red mt-2">
@@ -180,7 +181,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                   <Listbox
                     className={`${
                       open
-                        ? "absolute z-100 mt-1 w-full bg-white py-1 text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none "
+                        ? "absolute z-100 mt-1 w-full bg-white py-1 text-xs md:text-sm rounded-xl shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none "
                         : "hidden"
                     }`}
                     style={{ zIndex: 9999 }}
@@ -195,7 +196,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                     {({ open }) => (
                       <>
                         <div className="relative mt-1">
-                          <Listbox.Button className="relative w-full text-xs md:text-sm cursor-default  bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                          <Listbox.Button className="relative w-full rounded-xl text-xs md:text-sm cursor-default  bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                             <span className="block truncate">
                               {selectedCategory
                                 ? selectedCategory.name
@@ -214,12 +215,12 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Listbox.Options className="absolute mt-1 max-h-100 w-full  bg-white py-1 text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-xs">
+                            <Listbox.Options className="absolute mt-1 max-h-100 w-full rounded-xl bg-white py-1 text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-xs">
                               {Category.map((person, personIdx) => (
                                 <Listbox.Option
                                   key={personIdx}
                                   className={({ active }) =>
-                                    `relative cursor-default select-none py-2 md:pl-10 pl-3  pr-4 text-xs md:text-sm ${
+                                    `relative cursor-default rounded-xl select-none py-2 md:pl-10 pl-3  pr-4 text-xs md:text-sm ${
                                       active
                                         ? "bg-teal-50 text-teal-700"
                                         : "text-gray-900"
@@ -276,11 +277,12 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                     }}
                     id="payBy"
                     name="payBy"
+                    className="rounded-xl"
                   >
                     {({ open }) => (
                       <>
-                        <div className="relative mt-1">
-                          <Listbox.Button className="relative w-full text-xs md:text-sm cursor-default bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                        <div className="relative mt-1 ">
+                          <Listbox.Button className="relative rounded-xl w-full text-xs md:text-sm cursor-default bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                             <span className="block truncate">
                               {selectedMethodPayment
                                 ? selectedMethodPayment.name
@@ -302,13 +304,13 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
                           >
                             <Listbox.Options
                               static
-                              className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-                            >
+                               className="absolute mt-1 max-h-100 w-full rounded-xl bg-white py-1 text-xs md:text-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-xs">
+                              
                               {methodPayment.map((method, methodIdx) => (
                                 <Listbox.Option
                                   key={methodIdx}
                                   className={({ active }) =>
-                                    `relative cursor-default select-none py-2 md:pl-10 pl-3 pr-4 text-xs md:text- ${
+                                    `relative cursor-default select-none rounded-xl py-2 md:pl-10 pl-3 pr-4 text-xs md:text-md ${
                                       active
                                         ? "bg-teal-50 text-teal-700"
                                         : "text-gray-900"
@@ -355,14 +357,15 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
 
               {/* PAID BY end */}
 
-              <div className="flex gap-2">
-                <div className="mb-4 w-full text-xs md:text-sm">
+              <div className="flex gap-2 rounded-xl">
+                <div className="mb-4 w-full text-xs md:text-sm ">
                   <Input
                     id="price"
                     register={register("price")}
                     type="number"
                     placeholder="Price"
                     error={errors.price}
+                    className="rounded-xl"
                   />
                 </div>
 
@@ -378,7 +381,7 @@ const AddExp = ({ handleRegisterSuccess, onClose, insertData }) => {
               </div>
             </div>
 
-            <div className="flex justify-end mt-4 mr-4 md:mr-10">
+            <div className="flex justify-end mt-4 mr-4 md:mr-10 rounded-xl">
               <Button AddNew="Add" type="submit" onChange={insertData} />
             </div>
           </form>
